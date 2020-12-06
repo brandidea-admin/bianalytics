@@ -59,7 +59,7 @@
                                 </div>
                                
                                 <a href="{{ url('/auth/register') }}" class="d-block mt-3 text-muted">Not a user? Sign up</a> 
-                                <a href="{{ url('/auth/setpasswd') }}" class="d-block mt-3 text-muted">Set Password</a>
+                            
                             </form>
 
                         </div>

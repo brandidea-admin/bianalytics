@@ -113,13 +113,13 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/investorconnect/public/user/{{ Auth::user()->id }}/changepwd" class="nav-link">
+                        <a href="{{App::environment()}}/user/{{ Auth::user()->id }}/changepwd" class="nav-link">
                           <i data-feather="repeat"></i>
                           <span>Change Password</span>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/investorconnect/public/logout" class="nav-link">
+                        <a href="{{env('APP_URL')}} /logout" class="nav-link">
                           <i data-feather="log-out"></i>
                           <span>Log Out</span>
                         </a>

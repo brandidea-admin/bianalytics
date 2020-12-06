@@ -15,7 +15,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.dashboard');
+        $stat = auth()->user()->status;
+        if($stat == 'Active') {
+        	return view('pages.dashboard');
+        } else {
+        	return Redirect::to('/auth/login')->with('message',"Get approval from Admin Team from Simreka !!! Thank You");
+        }
+        
     }
 
 }

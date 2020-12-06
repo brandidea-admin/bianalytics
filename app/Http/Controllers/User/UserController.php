@@ -44,11 +44,66 @@ class UserController extends Controller
 
     public function setpasswd(Request $request)
     {
-        echo "Yesssssssssss";
-        print_r($request->all());
-        exit;
-        $data['setpass'] = User::where('email', $request->userid)->first();
-        return Redirect::to('/auth/setpasswd')->with('message',"Password Created Successfully !!!");
+
+        $id6 = $request->userid;
+        $tok = $request->mytoken;
+        $data = DB::table('users')
+                ->where('id','=',$id6)->where('token','=',$tok)
+                ->update(['password' => Hash::make($request->password1), 'updated_at'=>date("Y-m-d H:i:s")]);
+
+
+        ///// Sending Email to Admin
+
+             $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Email ID : <b>' . $request->emailid . "</b>  -  Approve or Deny using the link : <a target='_blank' href='http://localhost/investor-connect/public/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
+
+             $mail2 = new PHPMailer(true);
+
+            try {
+
+                //Server settings
+                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                // $mail->isSMTP();                                            // Send using SMTP
+                // $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';      // Set the SMTP server to send through
+                // $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                // $mail->Username   = 'simreka-app';                          // SMTP username
+                // $mail->Password   = 'Chamundi@299';                         // SMTP password
+                // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                // $mail->Port       = 465;                                    
+
+                $mail2->isMail();
+                $mail2->setFrom('shobamohandurai@gmail.com', 'Admin-Simreka');
+                $mail2->addAddress('mohan.durai@simreka.com', 'Investors Connect');
+                //$mail2->addCC('', 'New Registration from Inverstors Connect Signup');
+                $mail2->Subject = 'New Registration from Inverstors Connect';
+                $mail2->msgHTML($AdminMsg);
+                // optional - msgHTML will create an alternate automatically
+                // $mail->AltBody = 'Welcome Admin ! - New Signup from Investors Connect Info <br/> Name : ' . $request->firstname . " " . $request->lastname . "<br/><br/>" . " Approve or Deny using the link : <a target='_blank' href='http://localhost/investor-connect/approvedeny.php'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards Simrema Team";
+                //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
+                $mail2->action_function = 'callbackAction';
+                //$mail->send();
+            } catch (Exception $e) {
+                echo $e->errorMessage();
+            }
+
+            //Alternative approach using a closure
+            try {
+                $mail2->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
+                    if ($result) {
+                        echo "Message sent successfully\n";
+                    } else {
+                        echo "Message send failed\n";
+                    }
+                };
+                $mail2->send();
+            } catch (Exception $e) {
+                echo $e->errorMessage();
+            }
+
+
+       ///    Ends Email sending procoess
+
+
+        return Redirect::to('/auth/login')->with('message',"Password Updated Successfully !!! Please login after approval from Admin Team from Simreka., You will be notified in your registered email id for login confirmattion !!! Thank You");
     }
 
     public function register(Request $request)
@@ -65,20 +120,21 @@ class UserController extends Controller
         } else {
             $user = new User();
 
-            $str6 = "Simrek1a@123" . date("Y-m-d");
-            $token = md5($str6);
-            $user->token = $token;
-            $user->firstname = "";
-            $user->lastname = "";
-            $user->designation = "";
+            $str6 = "Simreka@123" . date("Y-m-d H:i:s");
+            $mytoken = md5($str6);
+            $user->token = $mytoken;
+            $user->name = "";
+            //$user->lastname = "";
+            //$user->designation = "";
             $user->phone = $request->phone;
-            $user->country = "";
-            $user->Organization = "";
-            $user->about_orgn = "";
+            //$user->country = "";
+            //$user->Organization = "";
+            //$user->about_orgn = "";
             $user->email = $request->username;
-            $user->access_type = "Investor";
+            //$user->access_type = "Investor";
             $user->status = "InActive";
-            $user->password = Hash::make($request->password1);
+            $user->password = "";
+            //$user->password = Hash::make($request->password1);
 
             $user->created_by = 1;
             $user->updated_by = 1;
@@ -109,7 +165,7 @@ class UserController extends Controller
                 }
             }
 
-            $InvMsg = "aaaaaa Please click the following url to verify your email id <a href='http://localhost/investorconnect/public/auth/setpasswd?token=" . $token . "&userid=" . $request->username . ">Verify Email</a> <br/><br/> Regards - Simrema Team";
+            $InvMsg = "Please click the following link to verify your email id <a href='http://localhost/investor-connect/public/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - Simrema Team";
 
             require_once 'vendor/autoload.php';
 
@@ -156,57 +212,6 @@ class UserController extends Controller
             } catch (Exception $e) {
                 echo $e->errorMessage();
             }
-
-
-            ///// Sending Email to Admins
-
-            //  $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Name : <b>' . $request->firstname . "  " . $request->lastname . " </b><br/><br/>" . "  -  Approve or Deny using the link : <a target='_blank' href='http://localhost/investorconnect/public/approvedeny.php?uid=".$request->username."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Team";
-
-            //  $mail2 = new PHPMailer(true);
-
-            // try {
-
-            //     //Server settings
-            //     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-            //     // $mail->isSMTP();                                            // Send using SMTP
-            //     // $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';      // Set the SMTP server to send through
-            //     // $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            //     // $mail->Username   = 'simreka-app';                          // SMTP username
-            //     // $mail->Password   = 'Chamundi@299';                         // SMTP password
-            //     // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            //     // $mail->Port       = 465;                                    
-
-            //     $mail2->isMail();
-            //     $mail2->setFrom('shobamohandurai@gmail.com', 'Admin-Simreka');
-            //     $mail2->addAddress('mohandurai@gmail.com', 'Welcome Message from Investors Connect');
-            //     $mail2->addCC('mohan.durai@simreka.com', 'New Registration from Inverstors Connect Signup');
-            //     $mail2->Subject = 'Welcome Message for New Registration from Inverstors Connect';
-            //     $mail2->msgHTML($AdminMsg);
-            //     // optional - msgHTML will create an alternate automatically
-            //     // $mail->AltBody = 'Welcome Admin ! - New Signup from Investors Connect Info <br/> Name : ' . $request->firstname . " " . $request->lastname . "<br/><br/>" . " Approve or Deny using the link : <a target='_blank' href='http://localhost/investorconnect/approvedeny.php'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards Simrema Team";
-            //     //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
-            //     $mail2->action_function = 'callbackAction';
-            //     //$mail->send();
-            // } catch (Exception $e) {
-            //     echo $e->errorMessage();
-            // }
-
-            // //Alternative approach using a closure
-            // try {
-            //     $mail2->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
-            //         if ($result) {
-            //             echo "Message sent successfully\n";
-            //         } else {
-            //             echo "Message send failed\n";
-            //         }
-            //     };
-            //     $mail2->send();
-            // } catch (Exception $e) {
-            //     echo $e->errorMessage();
-            // }
-
-
-           // Ends Email sending procoess
 
         }
 

@@ -39,8 +39,9 @@
                         <button class="btn btn-primary submit" type="submit">Set Password</button>
                   </div>
 
-                  <input type="hidden" name="validtoken" value="{{$_GET['token']}}">
+                  <input type="hidden" name="mytoken" value="{{$_GET['mytoken']}}">
                   <input type="hidden" name="userid" value="{{$_GET['userid']}}">
+                  <input type="hidden" name="emailid" value="{{$_GET['emailid']}}">
                 
               </form>
 

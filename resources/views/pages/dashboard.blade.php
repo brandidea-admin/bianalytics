@@ -4,6 +4,35 @@
 <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
 @endpush
 
+@if(Auth::user()->status != 'Active')
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Attention</h5>
+        <button type="button" id="bbb1" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Dear {{Auth::user()->email}} welcome to Investor's Connect <br/> Get approval from Admin to enable successful login with application !!!
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="bbb2" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+    <button type="button" id="aaa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"></button>
+</div>
+
+
+@else
+
 @section('content')
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
     <div>
@@ -426,35 +455,12 @@
     </div>
 </div> --> <!-- row -->
 
-@if(Auth::user()->status != 'Active')
-
-<div style="display:none;">
-    <button type="button" id="aaa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"></button>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Attention</h5>
-        <button type="button" id="bbb1" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Dear {{Auth::user()->firstname}} {{Auth::user()->lastname}} welcome to Investor's Connect <br/> Get approval from Admin to enable successful login with application !!!
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="bbb2" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+@endsection
 
 @endif
 
-@endsection
+
+
 
 @push('plugin-scripts')
 <script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>

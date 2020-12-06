@@ -20,7 +20,7 @@
             </li>
             <li class="nav-item nav-category">Investors</li>
 
-            @if(Auth::user()->access_type == 'Admin')
+            @if(Auth::user()->user_type == 'ADMIN')
                     <li class="nav-item {{ active_class(['user']) }}">
                         <a href="{{ url('/user') }}" class="nav-link">
                             <i class="link-icon" data-feather="search"></i>
