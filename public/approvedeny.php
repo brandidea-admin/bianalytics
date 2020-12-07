@@ -232,7 +232,7 @@ if(isset($_GET['uid'])) {
 
         //// Email sending to Successful Inverstor Signup
 
-        $InvMsg = "Hello <b>". $_POST['emailid'] ."</b> <br/> Welcome to Investors Connect App !!!. <br/><br/> Click the below link to login page !!! <br/><br/> <a href='".$APP_URL."' target='_blank'>Investors Connect </a>. </br/></br/>  Thanks and Regards Simrema Team";
+        $InvMsg = "Hello <b>". $_POST['emailid'] ."</b> <br/> Welcome to Investors Connect App !!!. <br/><br/> Click the below link to login page !!! <br/><br/> <a href='".$APP_URL."' target='_blank'>Investors Connect </a>. <br/><br/>  Thanks and Regards Simrema Team";
 
         try {
             $mail->isMail();

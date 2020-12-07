@@ -55,25 +55,25 @@ Route::get ('logout',function(){
 
     Route::resource('dashboard', 'DashboardController')->middleware('auth3');
 
-    Route::resource('search_list', 'Search_list\SearchListController')->middleware('auth3');
-    Route::get('/search_list/{id}/genlinks', 'Search_list\SearchListController@genlinks');
-    Route::get('/search_list/{id}/genlinks', 'Search_list\SearchListController@genlinks');
-    Route::post('/search_list/{id}/addleadinfo', 'Search_list\SearchListController@addleadinfo');
-    Route::get('/search_list/{id}/exportcsv', 'Search_list\SearchListController@exportcsv');
+    // Route::resource('search_list', 'Search_list\SearchListController')->middleware('auth3');
+    // Route::get('/search_list/{id}/genlinks', 'Search_list\SearchListController@genlinks');
+    // Route::get('/search_list/{id}/genlinks', 'Search_list\SearchListController@genlinks');
+    // Route::post('/search_list/{id}/addleadinfo', 'Search_list\SearchListController@addleadinfo');
+    // Route::get('/search_list/{id}/exportcsv', 'Search_list\SearchListController@exportcsv');
 
-    Route::resource('master_keyword', 'MasterKeywordController')->middleware('auth3');
-    Route::resource('country', 'Country\CountryController')->middleware('auth3');
+    // Route::resource('master_keyword', 'MasterKeywordController')->middleware('auth3');
+    // Route::resource('country', 'Country\CountryController')->middleware('auth3');
 
-    Route::resource('lead', 'Lead\LeadController')->middleware('auth3');
-    Route::get('/lead/{id}/validemail', 'Lead\LeadController@validemail');
-    Route::get('/lead/{id}/validemail2', 'Lead\LeadController@validemail2');
-    Route::post('/lead/{id}/getnews', 'Lead\LeadController@getnews');
-    Route::post('/lead/{id}/viewnews', 'Lead\LeadController@viewnews');
+    // Route::resource('lead', 'Lead\LeadController')->middleware('auth3');
+    // Route::get('/lead/{id}/validemail', 'Lead\LeadController@validemail');
+    // Route::get('/lead/{id}/validemail2', 'Lead\LeadController@validemail2');
+    // Route::post('/lead/{id}/getnews', 'Lead\LeadController@getnews');
+    // Route::post('/lead/{id}/viewnews', 'Lead\LeadController@viewnews');
 
-    Route::resource('companies', 'Company\CompanyController')->middleware('auth3');
+    // Route::resource('companies', 'Company\CompanyController')->middleware('auth3');
 
-    Route::resource('events', 'Event\EventController')->middleware('auth3');
-    Route::post('/events/{id}/viewnews', 'Event\EventController@viewnews');
+    // Route::resource('events', 'Event\EventController')->middleware('auth3');
+    // Route::post('/events/{id}/viewnews', 'Event\EventController@viewnews');
 
 
     Route::resource('user', 'User\UserController');
