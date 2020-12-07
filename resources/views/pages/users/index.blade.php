@@ -58,7 +58,7 @@
                                 <td>{{$slist->phone}}</td>
                                 <td>{{$slist->Organization}}</td>
                                 <td>{{$slist->country}}</td>
-                                <td>{{$slist->access_type}}</td>
+                                <td>{{$slist->user_type}}</td>
                                 <td>{{$slist->status}}</td>
                                 <td>
                                     <a href="{{url('/user/'.$slist->id.'/edit')}}" class="btn btn-sm btn-success btn-icon-text" data-toggle="tooltip" data-placement="bottom" title="Edit User Record">

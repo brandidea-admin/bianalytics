@@ -24,7 +24,7 @@
                     <li class="nav-item {{ active_class(['user']) }}">
                         <a href="{{ url('/user') }}" class="nav-link">
                             <i class="link-icon" data-feather="search"></i>
-                            <span class="link-title">List</span>
+                            <span class="link-title">Users</span>
                         </a>
                     </li>
             @endif

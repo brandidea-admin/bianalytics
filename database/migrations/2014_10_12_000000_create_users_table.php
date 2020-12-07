@@ -10,7 +10,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('country')->nullable();
+            $table->string('Organization')->nullable();
+            $table->string('about_orgn')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('token')->unique();

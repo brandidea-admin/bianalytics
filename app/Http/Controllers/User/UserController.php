@@ -54,7 +54,7 @@ class UserController extends Controller
 
         ///// Sending Email to Admin
 
-             $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Email ID : <b>' . $request->emailid . "</b>  -  Approve or Deny using the link : <a target='_blank' href='http://localhost/investor-connect/public/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
+             $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Email ID : <b>' . $request->emailid . "</b>  -  Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
 
              $mail2 = new PHPMailer(true);
 
@@ -108,7 +108,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        // print_r($request->all());
+        // print_r($request->all());    
         // exit;
         $validations = [
             'username' => ['required'],
@@ -123,15 +123,15 @@ class UserController extends Controller
             $str6 = "Simreka@123" . date("Y-m-d H:i:s");
             $mytoken = md5($str6);
             $user->token = $mytoken;
-            $user->name = "";
-            //$user->lastname = "";
-            //$user->designation = "";
+            $user->firstname = "";
+            $user->lastname = "";
+            $user->designation = "";
             $user->phone = $request->phone;
-            //$user->country = "";
-            //$user->Organization = "";
-            //$user->about_orgn = "";
+            $user->country = "";
+            $user->Organization = "";
+            $user->about_orgn = "";
             $user->email = $request->username;
-            //$user->access_type = "Investor";
+            $user->user_type = "INVESTOR";
             $user->status = "InActive";
             $user->password = "";
             //$user->password = Hash::make($request->password1);
@@ -165,7 +165,7 @@ class UserController extends Controller
                 }
             }
 
-            $InvMsg = "Please click the following link to verify your email id <a href='http://localhost/investor-connect/public/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - Simrema Team";
+            $InvMsg = "Please click the following link to verify your email id <br/><br/> <a href='". env('APP_URL') ."/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - Simrema Team";
 
             require_once 'vendor/autoload.php';
 
@@ -231,7 +231,7 @@ class UserController extends Controller
         $user->Organization = $request->Organization;
         $user->about_orgn = $request->about_orgn;
         $user->email = $request->username;
-        $user->access_type = $request->access_type;
+        $user->user_type = $request->user_type;
         $user->status = $request->status;
         $this->status   = true;
         $this->modal = true;

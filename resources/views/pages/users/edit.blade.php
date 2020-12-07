@@ -90,11 +90,12 @@
                             <label for="country_id">Select Access Type
                                 <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Select Access Type"></i></span>
                             </label>
-                            <select id="access_type" name="access_type" class="js-example-basic-single">
+                            <select id="user_type" name="user_type" class="js-example-basic-single">
                                 <option value="">Access Type</option>
-                                <option value="Admin" @if ($posts['access_type'] == "Admin") {{'selected="selected"'}} @endif>Admin</option>
-                                <option value="Summary" @if ($posts['access_type'] == "Summary") {{'selected="selected"'}} @endif>Summary</option>
-                                <option value="Detailed" @if ($posts['access_type'] == "Detailed") {{'selected="selected"'}} @endif>Detailed</option>
+                                <option value="ADMIN" @if ($posts['user_type'] == "ADMIN") {{'selected="selected"'}} @endif>Admin</option>
+                                <option value="SUMMARY" @if ($posts['user_type'] == "SUMMARY") {{'selected="selected"'}} @endif>Summary</option>
+                                <option value="DETAILED" @if ($posts['user_type'] == "DETAILED") {{'selected="selected"'}} @endif>Detailed</option>
+                                <option value="INVESTOR" @if ($posts['user_type'] == "INVESTOR") {{'selected="selected"'}} @endif>Investor</option>
                             </select>
                         </div>
 

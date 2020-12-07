@@ -5,20 +5,41 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = "investorconnect";
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$lines = file("../.env");
+
+foreach($lines as $line)
+{
+  // explode the line into an array
+  $values = explode('=',$line);
+  // trim the whitspace from the value
+  if(trim($values[0]) == "DB_HOST")
+  {
+      $DB_HOST = trim($values[1]);
+  } else if(trim($values[0]) == "DB_DATABASE") {
+      $DB_DATABASE = trim($values[1]);
+  } else if(trim($values[0]) == "DB_USERNAME") {
+      $DB_USERNAME = trim($values[1]);
+  } else if(trim($values[0]) == "DB_PASSWORD") {
+      $DB_PASSWORD = trim($values[1]);
+  } else if(trim($values[0]) == "APP_URL") {
+      $APP_URL = trim($values[1]);
+  } else {
+    continue;
+  }
+} 
+
+//echo $DB_HOST . " <<==== " . $DB_USERNAME . " <<==== " . $DB_PASSWORD . " <<==== " . $DB_DATABASE;
+
+$conn = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 if (!$conn) {
-    die('Could not Connect MySql Server:' . mysql_error());
+    die('Could not Connect MySql Server:' . mysqli_error());
 }
 
 if(isset($_GET['uid'])) {
 
     $uid = $_GET['uid'];
 
-    $query = "SELECT email FROM users where id = '$uid'";
+    $query = "SELECT email FROM users where id=".$uid ;
     $result = mysqli_query($conn, $query);
     while ($users = mysqli_fetch_assoc($result)) {
 ?>
@@ -211,7 +232,7 @@ if(isset($_GET['uid'])) {
 
         //// Email sending to Successful Inverstor Signup
 
-        $InvMsg = "Hello <b>". $_POST['emailid'] ."</b> <br/> Welcome to Investors Connect App !!!. <br/><br/> Click the below link to login page !!! <br/><br/> <a href='http://localhost/investor-connect' target='_blank'>Investors Connect </a>. </br/></br/>  Thanks and Regards Simrema Team";
+        $InvMsg = "Hello <b>". $_POST['emailid'] ."</b> <br/> Welcome to Investors Connect App !!!. <br/><br/> Click the below link to login page !!! <br/><br/> <a href='".$APP_URL."' target='_blank'>Investors Connect </a>. </br/></br/>  Thanks and Regards Simrema Team";
 
         try {
             $mail->isMail();

@@ -107,19 +107,19 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="javascript:;" class="nav-link">
+                        <a href="{{env('APP_URL')}}/user/{{ Auth::user()->id }}/edit" class="nav-link">
                           <i data-feather="edit"></i>
                           <span>Edit Profile</span>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{App::environment()}}/user/{{ Auth::user()->id }}/changepwd" class="nav-link">
+                        <a href="{{env('APP_URL')}}/user/{{ Auth::user()->id }}/changepwd" class="nav-link">
                           <i data-feather="repeat"></i>
                           <span>Change Password</span>
-                        </a>
+                        </a>  
                       </li>
                       <li class="nav-item">
-                        <a href="{{env('APP_URL')}} /logout" class="nav-link">
+                        <a href="{{env('APP_URL')}}/logout" class="nav-link">
                           <i data-feather="log-out"></i>
                           <span>Log Out</span>
                         </a>
