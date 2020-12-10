@@ -17,9 +17,10 @@ class CreateUsersTable extends Migration
             $table->string('Organization')->nullable();
             $table->string('about_orgn')->nullable();
             $table->string('email')->unique();
+            $table->string('user_type')->default('');
             $table->string('phone')->unique();
             $table->string('token')->unique();
-            $table->string('user_type')->default('INVESTOR');
+            $table->string('access_type')->default('INVESTOR');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('created_by');

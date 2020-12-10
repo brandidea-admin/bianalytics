@@ -20,11 +20,11 @@
                 <form class="forms-sample" action="{{url('/user/register')}}" method="POST">
                   @csrf
                   <div class="form-group">
-                    <label for="username">Username / Email ID</label>
+                    <label for="username">Username / Email ID</label> <span class="text-danger">*</span>
                     <input type="email" class="form-control" id="username" name="username" placeholder="User Name">
                   </div>
-                  <!-- <div class="form-group">
-                    <label for="firstname">First Name</label>
+                  <div class="form-group">
+                    <label for="firstname">First Name</label>  <span class="text-danger">*</span>
                     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
                   </div>
                   <div class="form-group">
@@ -32,41 +32,28 @@
                     <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
                   </div>
                   <div class="form-group">
+                    <label for="user_type">Select User Type
+                        <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Select User Type"></i></span>
+                    </label>
+                    <select id="user_type" name="user_type" class="js-example-basic-single">
+                        <option value="">Select User Type</option>
+                        <option value="Angel">Angel</option>
+                        <option value="FamilyOffice">Family Office</option>
+                        <option value="VentureCapitalFirm">Venture Capital Firm</option>
+                    </select>
+                </div>
+                  <div class="form-group">
+                    <label for="organization">Organization</label>  <span class="text-danger">*</span>
+                    <input type="text" class="form-control" id="organization" name="organization" placeholder="Organization">
+                  </div>
+                  <div class="form-group">
                     <label for="designation">Designation</label>
                     <input type="text" class="form-control" id="designation" name="designation" placeholder="Designation">
-                  </div> -->
-                  <div class="form-group">
-                    <label for="phone">Mobile Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone">
-                  </div>
-                  <!-- <div class="form-group">
-                    <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country" name="country" placeholder="Country">
-                  </div>
-                   <div class="form-group">
-                    <label for="organization">Organization</label>
-                    <input type="text" class="form-control" id="Organization" name="Organization" placeholder="Organization">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="about_orgn">About Organization</label>
-                    <textarea rows="3" class="form-control" id="about_orgn" name="about_orgn" placeholder="About Organization ....."></textarea>
-                  </div>
-                 
-                  <div class="form-group">
-                      <label for="password">Enter Password
-                          <span class="text-danger">*</span>
-                          <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Password Rule : Should be 8 characters combination of atleast 1 alphabet, 1 numeral and 1 special characters from @!#$%"></i></span>
-                      </label>
-                      <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter Password">
                   </div>
                   <div class="form-group">
-                      <label for="password">Re-Enter Password
-                          <span class="text-danger">*</span>
-                          <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter Password"></i></span>
-                      </label>
-                      <input type="password" id="password2" name="password2" class="form-control" placeholder="Enter Password">
-                  </div>  -->
+                    <label for="phone">Mobile/Phone</label>  <span class="text-danger">*</span>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile / Phone (ISD and STD Code)">
+                  </div>
 
                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                       <button class="btn btn-primary submit" type="submit">Signup</button>
@@ -97,8 +84,8 @@
 
         $('.submit').click(function() {
 
-            if($('#phone').val()=="" || $('#username').val()=="") {
-                alert("User Name or Email ID, Phone fields should not be blank !!!");
+            if($('#phone').val()=="" || $('#username').val()=="" || $('#firstname').val()=="" || $('#organization').val()=="") {
+                alert("User Name/Email ID, First Name, Organization, Phone fields should not be blank !!!");
                  return false;
             }
 

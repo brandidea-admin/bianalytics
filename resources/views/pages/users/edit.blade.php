@@ -87,15 +87,27 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="country_id">Select Access Type
+                            <label for="user_type">Select User Type
                                 <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Select Access Type"></i></span>
                             </label>
                             <select id="user_type" name="user_type" class="js-example-basic-single">
+                                <option value="">User Type</option>
+                                <option value="Angel" @if ($posts['user_type'] == "Angel") {{'selected="selected"'}} @endif>Angel</option>
+                                <option value="FamilyOffice" @if ($posts['user_type'] == "FamilyOffice") {{'selected="selected"'}} @endif>Family Office</option>
+                                <option value="VentureCapitalFirm" @if ($posts['user_type'] == "VentureCapitalFirm") {{'selected="selected"'}} @endif>Venture Capital Firm</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="country_id">Select Access Type
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Select Access Type"></i></span>
+                            </label>
+                            <select id="access_type" name="access_type" class="js-example-basic-single">
                                 <option value="">Access Type</option>
-                                <option value="ADMIN" @if ($posts['user_type'] == "ADMIN") {{'selected="selected"'}} @endif>Admin</option>
-                                <option value="SUMMARY" @if ($posts['user_type'] == "SUMMARY") {{'selected="selected"'}} @endif>Summary</option>
-                                <option value="DETAILED" @if ($posts['user_type'] == "DETAILED") {{'selected="selected"'}} @endif>Detailed</option>
-                                <option value="INVESTOR" @if ($posts['user_type'] == "INVESTOR") {{'selected="selected"'}} @endif>Investor</option>
+                                <option value="ADMIN" @if ($posts['access_type'] == "ADMIN") {{'selected="selected"'}} @endif>Admin</option>
+                                <option value="SUMMARY" @if ($posts['access_type'] == "SUMMARY") {{'selected="selected"'}} @endif>Summary</option>
+                                <option value="DETAILED" @if ($posts['access_type'] == "DETAILED") {{'selected="selected"'}} @endif>Detailed</option>
+                                <option value="INVESTOR" @if ($posts['access_type'] == "INVESTOR") {{'selected="selected"'}} @endif>Investor</option>
                             </select>
                         </div>
 

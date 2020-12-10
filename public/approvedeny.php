@@ -1,9 +1,16 @@
 <?php
 error_reporting(1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+//Import PHPMailer classes into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+
+require_once 'vendor/autoload.php';
+
+//Create a new PHPMailer instance
+$mail = new PHPMailer();
 
 $lines = file("../.env");
 
@@ -28,20 +35,24 @@ foreach($lines as $line)
   }
 } 
 
-//echo $DB_HOST . " <<==== " . $DB_USERNAME . " <<==== " . $DB_PASSWORD . " <<==== " . $DB_DATABASE;
+// echo $DB_HOST . " <<==== " . $DB_USERNAME . " <<==== " . $DB_PASSWORD . " <<==== " . $DB_DATABASE;
+// exit;
 
 $conn = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 if (!$conn) {
     die('Could not Connect MySql Server:' . mysqli_error());
 }
 
+
 if(isset($_GET['uid'])) {
 
-    $uid = $_GET['uid'];
+    $uid2 = $_GET['uid'];
 
-    $query = "SELECT email FROM users where id=".$uid ;
+    $query = "SELECT * FROM users where id=".$uid2 ;
     $result = mysqli_query($conn, $query);
+
     while ($users = mysqli_fetch_assoc($result)) {
+
 ?>
 
 <!doctype html>
@@ -90,80 +101,39 @@ if(isset($_GET['uid'])) {
   </header>
 
 <main role="main" class="inner cover">
-    <h1 class="cover-heading">Registered Investor Info:
+    <h1 class="cover-heading">Registered Investor Info:</h1>
     </br></br>
 </main>
 
-   
+
+<form action="<?php echo htmlentities($_SERVER['PHP_SELF']);?>" method="post">
+
 <table class="table text-left">
     <tbody>
       <tr>
         <th scope="row">User Name or Email ID</th>
         <td><?php echo $users['email']; ?></td>
       </tr>
-      <!-- <tr>
-        <th scope="row">First Name</th>
-        <td><?php echo $uid['firstname']; ?></td>
-      </tr>
-      <tr>
-        <th scope="row">Last Name</th>
-        <td><?php echo $uid['lastname']; ?></td>
-      </tr>
-      
-      <tr>
-        <th scope="row">designation</th>
-        <td><?php echo $uid['designation']; ?></td>
-      </tr>
-
-       <tr>
-        <th scope="row">phone</th>
-        <td><?php echo $uid['phone']; ?></td>
-      </tr>
-
-      <tr>
-        <th scope="row">country</th>
-        <td><?php echo $uid['country']; ?></td>
-      </tr>
-      <tr>
-        <th scope="row">Organization</th>
-        <td><?php echo $uid['Organization']; ?></td>
-      </tr>
-      <tr>
-        <th scope="row">About Organization</th>
-        <td><?php echo $uid['about_orgn']; ?></td>
-      </tr> -->
-
-<form action="<?php echo htmlentities($_SERVER['PHP_SELF']);?>" method="post">
 
       <tr>
         <th scope="row">Select Access Type</th>
         <td>
-            <select id="access_type" name="user_type" class="js-example-basic-single">
+            <select id="access_type" name="access_type" class="js-example-basic-single">
                 <option value="">Access Type</option>
-                <option value="Investor" @if ($uid['user_type'] == "INVESTOR") {{'selected="selected"'}} @endif>Investor</option>
-                <option value="Admin" @if ($uid['user_type'] == "Admin") {{'selected="selected"'}} @endif>Admin</option>
-                <option value="Summary" @if ($uid['user_type'] == "Summary") {{'selected="selected"'}} @endif>Summary</option>
-                <option value="Detailed" @if ($uid['user_type'] == "Detailed") {{'selected="selected"'}} @endif>Detailed</option>
+                <option value="INVESTOR">Investor</option>
+                <option value="ADMIN">Admin</option>
+                <option value="SUMMARY">Summary</option>
+                <option value="DETAILED">Detailed</option>
             </select>
         </td>
       </tr>
-
-      <!-- <tr>
-        <th scope="row">Select Status</th>
-        <td>
-            <select id="status" name="status" class="js-example-basic-single">
-                <option value="InActive" @if ($uid['status'] == "InActive") {{'selected="selected"'}} @endif>InActive</option>
-                <option value="Active" @if ($uid['status'] == "Active") {{'selected="selected"'}} @endif>Active</option>
-            </select>
-        </td>
-      </tr> -->
 
       <tr>
         <th scope="row">Select Approve or Deny</th>
         <td>
             <select id="status" name="appdeny" class="js-example-basic-single">
-                <option value="Deny" @if ($uid['appdeny'] == "Deny") {{'selected="selected"'}} @endif>Deny</option>
-                <option value="Approve" @if ($uid['appdeny'] == "Active") {{'selected="selected"'}} @endif>Approve</option>
+                <option value="Deny">Deny</option>
+                <option value="Approve">Approve</option>
             </select>
         </td>
       </tr>
@@ -171,11 +141,10 @@ if(isset($_GET['uid'])) {
     </tbody>
   </table>
 
-<input type="hidden" value="<?php echo $uid; ?>" name="uid" />
+<input type="hidden" value="<?php echo $uid2; ?>" name="uid" />
 <input type="hidden" value="<?php echo $users['email']; ?>" name="emailid" />
 
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<br/>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button type="submit" id="submit_btn" class="btn btn-primary">Proceed</button>
 
 </form>
@@ -192,122 +161,85 @@ if(isset($_GET['uid'])) {
 </html>
 
 <?php
+
     }
 
-} elseif(isset($_POST)) {
+} 
+
+elseif(isset($_POST)) {
 
     // print_r($_POST);
     // exit;
+
     if($_POST['appdeny'] == 'Approve') {
-         $query = "UPDATE users SET user_type='" . $_POST['user_type'] . "', status='Active'" . "  WHERE id = '" . $_POST['uid'] . "'";
-     } else {
+         $query = "UPDATE users SET access_type='" . $_POST['access_type'] . "', status='Active'" . "  WHERE id = '" . $_POST['uid'] . "'";
+    } else {
          $query = "UPDATE users SET user_type='', status='InActive'  WHERE id = '" . $_POST['uid'] . "'";
     }
    
     $result = mysqli_query($conn, $query);
 
-
-    function callbackAction($result, $to, $cc, $bcc, $subject, $body)
-        {
-            echo "Message subject: \"$subject\"\n";
-            foreach ($to as $address) {
-                echo "Message to {$address[1]} <{$address[0]}>\n";
-            }
-            foreach ($cc as $address) {
-                echo "Message CC to {$address[1]} <{$address[0]}>\n";
-            }
-            foreach ($bcc as $toaddress) {
-                echo "Message BCC to {$toaddress[1]} <{$toaddress[0]}>\n";
-            }
-            if ($result) {
-                echo "Message sent successfully\n";
-            } else {
-                echo "Message send failed\n";
-            }
-        }
-
-        require_once 'vendor/autoload.php';
-
-        $mail = new PHPMailer(true);
-
-        //// Email sending to Successful Inverstor Signup
-
-        $InvMsg = "Hello <b>". $_POST['emailid'] ."</b> <br/> Welcome to Investors Connect App !!!. <br/><br/> Click the below link to login page !!! <br/><br/> <a href='".$APP_URL."' target='_blank'>Investors Connect </a>. <br/><br/>  Thanks and Regards Simrema Team";
-
-        try {
-            $mail->isMail();
-            $mail->setFrom('shobamohandurai@gmail.com', 'Mohan Durai');
-            $mail->addAddress($_POST['emailid'], 'Welcome to Investor Connect');
-            //$mail->addCC('john@example.com', 'John Doe');
-            $mail->Subject = 'Investors App Access Status Message from Investors Connect';
-            $mail->msgHTML($InvMsg);
-            // optional - msgHTML will create an alternate automatically
-            $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-            //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
-            $mail->action_function = 'callbackAction';
-            //$mail->send();
-        } catch (Exception $e) {
-            echo $e->errorMessage();
-        }
-
-        //Alternative approach using a closure
-        try {
-            $mail->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
-                if ($result) {
-                    echo "Message sent successfully";
-                } else {
-                    echo "Message send failed\n";
-                }
-            };
-            $mail->send();
-        } catch (Exception $e) {
-            echo $e->errorMessage();
-        }
+    $InvMsg = "Hello <b>". $_POST['emailid'] ."</b> <br/> Welcome to Investors Connect App !!!. <br/><br/> Click the below link to login page !!! <br/><br/> <a href='".$APP_URL."' target='_blank'>Investors Connect </a>. </br/></br/>  Thanks and Regards Simrema Team";
 
 
+    //Tell PHPMailer to use SMTP
+    $mail->isSMTP();
 
+    //Enable SMTP debugging
+    // SMTP::DEBUG_OFF = off (for production use)
+    // SMTP::DEBUG_CLIENT = client messages
+    // SMTP::DEBUG_SERVER = client and server messages
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
+    //Set the hostname of the mail server
+    $mail->Host = 'smtp.gmail.com';
+    // use
+    // $mail->Host = gethostbyname('smtp.gmail.com');
+    // if your network does not support SMTP over IPv6
 
-        //// Email sending to admin
+    //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+    $mail->Port = 587;
 
-        // $mail2 = new PHPMailer(true);
+    //Set the encryption mechanism to use - STARTTLS or SMTPS
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-        // $AdminMsg = 'Approve or Deny New User from Investor Connect Registration for the user <b>' . $_POST['emailid'] . "</b> - Investors Connect </a> !!!. </br></br>  Thanks and Regards Simrema Team";
+    //Whether to use SMTP authentication
+    $mail->SMTPAuth = true;
 
-        // try {
-        //     $mail2->isMail();
-        //     $mail2->setFrom('shobamohandurai@gmail.com', 'Mohan Durai');
-        //     $mail2->addAddress('mohan.durai@simreka.com', 'Registration Confirm New Investors Connect App');
-        //     //$mail->addCC('john@example.com', 'John Doe');
-        //     $mail2->Subject = 'Registration Confirm from New Investors Connect App';
-        //     $mail2->msgHTML($AdminMsg);
-        //     // optional - msgHTML will create an alternate automatically
-        //     // /$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-        //     //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
-        //     $mail2->action_function = 'callbackAction';
-        //     //$mail->send();
-        // } catch (Exception $e) {
-        //     echo $e->errorMessage();
-        // }
+    //Username to use for SMTP authentication - use full email address for gmail
+    $mail->Username = 'shobamohandurai@gmail.com';
 
-        // //Alternative approach using a closure
-        // try {
-        //     $mail2->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
-        //         if ($result) {
-        //             echo "Message sent successfully\n";
-        //         } else {
-        //             echo "Message send failed\n";
-        //         }
-        //     };
-        //     $mail2->send();
-        // } catch (Exception $e) {
-        //     echo $e->errorMessage();
-        // }
+    //Password to use for SMTP authentication
+    $mail->Password = 'Pass@12345!';
 
-        // require_once("config.php");
-        echo " to new Investor Connect Registration Confirmation for user : " . $_POST['emailid'] . "<br/>";
-        //echo "Sent Email Successfully to Admin for Registration Confirm for user : " . $_POST['emailid'] . "<br/>";
-        // exit;
+    //Set who the message is to be sent from
+    $mail->setFrom('mohan.durai@simreka.com', 'Investors-Connect Admin');
+
+    //Set an alternative reply-to address
+    $mail->addReplyTo('mohan.durai@simreka.com', 'Investors-Connect Admin');
+
+    //Set who the message is to be sent to
+    $mail->addAddress($_POST['emailid'], 'Welcome New Investor');
+
+    //Replace the plain text body with one created manually
+    $mail->isHTML(true);                                  // Set email format to HTML
+        
+    $mail->Subject = 'New Registration from Inverstors Connect';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->msgHTML($InvMsg);
+
+    //send the message, check for errors
+    if (!$mail->send()) {
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        echo 'Message sent!';
+    }
+
+    echo " to new Investor Connect Registration Confirmation for user : " . $_POST['emailid'] . "<br/>";
+
+    exit;
 
 }
 
+?>

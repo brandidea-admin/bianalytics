@@ -20,8 +20,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        // echo "yes Users Controller";
-        // exit;
         $userlist = User::all();
         return view('pages.users.index', compact('userlist'));
     }
@@ -54,51 +52,57 @@ class UserController extends Controller
 
         ///// Sending Email to Admin
 
-             $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Email ID : <b>' . $request->emailid . "</b>  -  Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
+             $data6 = User::find($id6);
 
-             $mail2 = new PHPMailer(true);
+             // print_r($data6->email);
+             // exit;
 
-            try {
+             $AdminMsg = "New Registration from Investors Connect  <br/> <br/>Email ID : <b>" . $data6->email . "</b> <br/><br/> First Name : <b>" . $data6->firstname . "</b> <br/><br/> Organization : <b>" . $data6->Organization . "</b> <br/><br/> User Type : <b>" . $data6->user_type . "</b>  <br/><br/> Phone / Mobile : <b>" . $data6->phone . "</b> <br/><br/><br/><br/>- Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
+
+              require 'vendor/autoload.php';
+
+            $mail = new PHPMailer();
+            $mail->isSMTP(); 
+
+            //$mail->isMail();
+
 
                 //Server settings
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-                // $mail->isSMTP();                                            // Send using SMTP
-                // $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';      // Set the SMTP server to send through
-                // $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                // $mail->Username   = 'simreka-app';                          // SMTP username
-                // $mail->Password   = 'Chamundi@299';                         // SMTP password
-                // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                // $mail->Port       = 465;                                    
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                                                           // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';      // Set the SMTP server to send through
+                
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587;   
 
-                $mail2->isMail();
-                $mail2->setFrom('shobamohandurai@gmail.com', 'Admin-Simreka');
-                $mail2->addAddress('mohan.durai@simreka.com', 'Investors Connect');
-                //$mail2->addCC('', 'New Registration from Inverstors Connect Signup');
-                $mail2->Subject = 'New Registration from Inverstors Connect';
-                $mail2->msgHTML($AdminMsg);
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication      
+
+                $mail->Username   = 'shobamohandurai@gmail.com';                          // SMTP username
+                $mail->Password   = 'Pass@12345!';                         // SMTP password                           
+
+                
+                //$mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
+                $mail->setFrom('mohan.durai@simreka.com', 'Admin-Simreka');
+                $mail->addReplyTo('mohan_durai@yahoo.com', 'First Last');
+                $mail->addAddress('mohan.durai@simreka.com', 'Investors Connect Admin');
+
+                $mail->isHTML(true);
+               
+                $mail->Subject = 'New Registration from Inverstors Connect';
+                $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                $mail->msgHTML($AdminMsg);
                 // optional - msgHTML will create an alternate automatically
-                // $mail->AltBody = 'Welcome Admin ! - New Signup from Investors Connect Info <br/> Name : ' . $request->firstname . " " . $request->lastname . "<br/><br/>" . " Approve or Deny using the link : <a target='_blank' href='http://localhost/investor-connect/approvedeny.php'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards Simrema Team";
-                //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
-                $mail2->action_function = 'callbackAction';
-                //$mail->send();
-            } catch (Exception $e) {
-                echo $e->errorMessage();
-            }
-
-            //Alternative approach using a closure
-            try {
-                $mail2->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
-                    if ($result) {
-                        echo "Message sent successfully\n";
-                    } else {
-                        echo "Message send failed\n";
-                    }
-                };
-                $mail2->send();
-            } catch (Exception $e) {
-                echo $e->errorMessage();
-            }
-
+                // $mail->AltBody = 'Hello Welcome Dear ' . $request->firstname . " " . $request->lastname . " - Please wait for login authentication after apprval from our Admin Team !!!.   The Approval Confirmation will be notified in your Email ID Shortly !!!.   Thanks and Regards Simrema Team";
+                //send the message, check for errors
+                if (!$mail->send()) {
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                    exit;
+                } else {
+                    echo 'Message sent!';
+                    //exit;
+                    
+                }
 
        ///    Ends Email sending procoess
 
@@ -108,7 +112,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        // print_r($request->all());    
+        // print_r($request->all());
         // exit;
         $validations = [
             'username' => ['required'],
@@ -123,15 +127,16 @@ class UserController extends Controller
             $str6 = "Simreka@123" . date("Y-m-d H:i:s");
             $mytoken = md5($str6);
             $user->token = $mytoken;
-            $user->firstname = "";
-            $user->lastname = "";
-            $user->designation = "";
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->designation = $request->designation;
             $user->phone = $request->phone;
             $user->country = "";
-            $user->Organization = "";
+            $user->Organization = $request->organization;
             $user->about_orgn = "";
             $user->email = $request->username;
-            $user->user_type = "INVESTOR";
+            $user->user_type = $request->user_type;
+            $user->access_type = "";
             $user->status = "InActive";
             $user->password = "";
             //$user->password = Hash::make($request->password1);
@@ -139,79 +144,64 @@ class UserController extends Controller
             $user->created_by = 1;
             $user->updated_by = 1;
 
-            $this->status = true;
+            $this->status = true; 
             $this->modal = true;
  
             $user->save();
            
             //// Start Email sending module
 
-            function callbackAction($result, $to, $cc, $bcc, $subject, $body)
-            {
-                echo "Message subject: \"$subject\"\n";
-                foreach ($to as $address) {
-                    echo "Message to {$address[1]} <{$address[0]}>\n";
-                }
-                foreach ($cc as $address) {
-                    echo "Message CC to {$address[1]} <{$address[0]}>\n";
-                }
-                foreach ($bcc as $toaddress) {
-                    echo "Message BCC to {$toaddress[1]} <{$toaddress[0]}>\n";
-                }
-                if ($result) {
-                    echo "Message sent successfully\n";
-                } else {
-                    echo "Message send failed\n";
-                }
-            }
+            $InvMsg = "Please click the following link to verify your email id <br/><br/> <a href='". env('APP_URL') ."/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - Simreka Admin Team";
 
-            $InvMsg = "Please click the following link to verify your email id <br/><br/> <a href='". env('APP_URL') ."/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - Simrema Team";
+            require 'vendor/autoload.php';
 
-            require_once 'vendor/autoload.php';
+            $mail = new PHPMailer();
+            $mail->isSMTP(); 
 
-            $mail = new PHPMailer(true);
+            //$mail->isMail();
 
-            try {
 
                 //Server settings
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-                // $mail->isSMTP();                                            // Send using SMTP
-                // $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';      // Set the SMTP server to send through
-                // $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                // $mail->Username   = 'simreka-app';                          // SMTP username
-                // $mail->Password   = 'Chamundi@299';                         // SMTP password
-                // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                // $mail->Port       = 465;                                    
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;  
+                                                          
+                $mail->Host       = 'smtp.gmail.com';     
+                //$mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';     
+                
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;   
+                $mail->Port       = 587;   
+                //$mail->Port       = 465;   
 
-                $mail->isMail();
+                $mail->SMTPAuth   = true;                      
+
+                $mail->Username   = 'shobamohandurai@gmail.com';
+                $mail->Password   = 'Pass@12345!';
+
+                //$mail->Username   = 'app@simreka.com';    
+                //$mail->Password   = 'Chamundi@299';                       
+
+                
                 //$mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
-                $mail->setFrom('shobamohandurai@gmail.com', 'Admin-Simreka');
+                $mail->setFrom('shobamohandurai@gmail.com', 'New User from Investor Connect');
+                //$mail->addReplyTo('mohan_durai@yahoo.com', 'First Last');
                 $mail->addAddress($request->username, 'Investors Connect Admin');
+
+                $mail->isHTML(true);
                
                 $mail->Subject = 'New Registration from Inverstors Connect';
+                $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                 $mail->msgHTML($InvMsg);
                 // optional - msgHTML will create an alternate automatically
                 // $mail->AltBody = 'Hello Welcome Dear ' . $request->firstname . " " . $request->lastname . " - Please wait for login authentication after apprval from our Admin Team !!!.   The Approval Confirmation will be notified in your Email ID Shortly !!!.   Thanks and Regards Simrema Team";
-                //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
-                $mail->action_function = 'callbackAction';
-                //$mail->send();
-            } catch (Exception $e) {
-                echo $e->errorMessage();
-            }
-
-            //Alternative approach using a closure
-            try {
-                $mail->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
-                    if ($result) {
-                        echo "Message sent successfully\n";
-                    } else {
-                        echo "Message send failed\n";
-                    }
-                };
-                $mail->send();
-            } catch (Exception $e) {
-                echo $e->errorMessage();
-            }
+                //send the message, check for errors
+                if (!$mail->send()) {
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                    exit;
+                } else {
+                    echo 'Message sent!';
+                    //exit;
+                    
+                }
 
         }
 
@@ -232,78 +222,18 @@ class UserController extends Controller
         $user->about_orgn = $request->about_orgn;
         $user->email = $request->username;
         $user->user_type = $request->user_type;
+        $user->access_type = $request->access_type;
         $user->status = $request->status;
         $this->status   = true;
         $this->modal = true;
         $user->save();
 
-
-        // function callbackAction($result, $to, $cc, $bcc, $subject, $body)
-        // {
-        //     echo "Message subject: \"$subject\"\n";
-        //     foreach ($to as $address) {
-        //         echo "Message to {$address[1]} <{$address[0]}>\n";
-        //     }
-        //     foreach ($cc as $address) {
-        //         echo "Message CC to {$address[1]} <{$address[0]}>\n";
-        //     }
-        //     foreach ($bcc as $toaddress) {
-        //         echo "Message BCC to {$toaddress[1]} <{$toaddress[0]}>\n";
-        //     }
-        //     if ($result) {
-        //         echo "Message sent successfully\n";
-        //     } else {
-        //         echo "Message send failed\n";
-        //     }
-        // }
-
-        // require_once 'vendor/autoload.php';
-
-        // $mail = new PHPMailer(true);
-
-        // try {
-
-        //     //Server settings
-        //     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-        //     $mail->isSMTP();                                            // Send using SMTP
-        //     $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';                    // Set the SMTP server to send through
-        //     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        //     $mail->Username   = 'simreka-app';                     // SMTP username
-        //     $mail->Password   = 'Chamundi@299';                               // SMTP password
-        //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        //     $mail->Port       = 465;                                    
-
-        //     $mail->isMail();
-        //     $mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
-        //     $mail->addAddress('mohan_durai@yahoo.com', 'Test Mail from Invester Connect');
-        //     $mail->addCC('mohandurai@gmail.com', 'New Registration from Inverstors Connect');
-        //     $mail->addCC('mohan.durai@simreka.com', 'New Registration from Inverstors Connect');
-        //     $mail->Subject = 'New Registration from Inverstors Connect';
-        //     $mail->msgHTML('This is the HTML message body <b>in bold!</b>');
-        //     // optional - msgHTML will create an alternate automatically
-        //     $mail->AltBody = 'AAAAAAAA This is the body in plain text for non-HTML mail clients';
-        //     //$mail->addAttachment('images/phpmailer_mini.png'); // attachment
-        //     $mail->action_function = 'callbackAction';
-        //     //$mail->send();
-        // } catch (Exception $e) {
-        //     echo $e->errorMessage();
-        // }
-
-        // //Alternative approach using a closure
-        // try {
-        //     $mail->action_function = static function ($result, $to, $cc, $bcc, $subject, $body) {
-        //         if ($result) {
-        //             echo "Message sent successfully\n";
-        //         } else {
-        //             echo "Message send failed\n";
-        //         }
-        //     };
-        //     $mail->send();
-        // } catch (Exception $e) {
-        //     echo $e->errorMessage();
-        // }
-
-        return Redirect::to('/user')->with('success', 'User updated successfully');
+        if($user->access_type=='ADMIN') {
+            return Redirect::to('/user')->with('success', 'User updated successfully');
+        } else {
+            return Redirect::to('/dashboard')->with('success', 'User updated successfully');
+        }
+        
     }
 
     public function changepwd($id)
