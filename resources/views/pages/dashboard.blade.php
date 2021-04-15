@@ -696,7 +696,7 @@ var backbut3 = L.easyButton({
                   searchControl4.remove();
                   geojson3.addTo(map);
                   map.addControl(searchControl3);
-                  map.fitBounds(geojson3.getBounds());
+                //   map.fitBounds(geojson3.getBounds());
                   backbut3.remove();
                   map.addControl(backbut2);
                   
@@ -751,7 +751,7 @@ map.addControl(backbut3);
                                     map.removeControl(searchControl4); 
                                     $('.cokLabel').hide();
 
-///// Starts India ==> Karnataka (17)
+///// Starts India ==> States Karnataka (17)
                                     window.maplevel = 2;
 
                                     var distid2 = parseInt(window.contid);
@@ -837,8 +837,8 @@ backbut3.remove();
                     searchControl5.remove();
                     geojson4.addTo(map);
                     map.addControl(searchControl4);
-                    map.fitBounds(geojson4.getBounds());
-
+                    //map.fitBounds(geojson4.getBounds());
+                    map.setView([24.910353,79.719117], 4);
                     backbut4.remove();
                     $('.cokLabel').hide();
                     map.addControl(backbut3);
