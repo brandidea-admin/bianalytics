@@ -54,7 +54,7 @@ class UserController extends Controller
 
         ///// Sending Email to Admin
 
-             $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Email ID : <b>' . $request->emailid . "</b>  -  Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
+             $AdminMsg = 'New Registration from Investors Connect  <br/> <br/>Email ID : <b>' . $request->emailid . "</b>  -  Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> BrandIdea Admin Team";
 
              $mail2 = new PHPMailer(true);
 
@@ -65,14 +65,14 @@ class UserController extends Controller
                 // $mail->isSMTP();                                            // Send using SMTP
                 // $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';      // Set the SMTP server to send through
                 // $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                // $mail->Username   = 'simreka-app';                          // SMTP username
+                // $mail->Username   = 'BrandIdea-app';                          // SMTP username
                 // $mail->Password   = 'Chamundi@299';                         // SMTP password
                 // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 // $mail->Port       = 465;                                    
 
                 $mail2->isMail();
-                $mail2->setFrom('shobamohandurai@gmail.com', 'Admin-Simreka');
-                $mail2->addAddress('mohan.durai@simreka.com', 'Investors Connect');
+                $mail2->setFrom('shobamohandurai@gmail.com', 'Admin-BrandIdea');
+                $mail2->addAddress('mohan.durai@BrandIdea.com', 'Investors Connect');
                 //$mail2->addCC('', 'New Registration from Inverstors Connect Signup');
                 $mail2->Subject = 'New Registration from Inverstors Connect';
                 $mail2->msgHTML($AdminMsg);
@@ -103,7 +103,7 @@ class UserController extends Controller
        ///    Ends Email sending procoess
 
 
-        return Redirect::to('/auth/login')->with('message',"Password Updated Successfully !!! Please login after approval from Admin Team from Simreka., You will be notified in your registered email id for login confirmattion !!! Thank You");
+        return Redirect::to('/auth/login')->with('message',"Password Updated Successfully !!! Please login after approval from Admin Team from BrandIdea., You will be notified in your registered email id for login confirmattion !!! Thank You");
     }
 
     public function register(Request $request)
@@ -120,7 +120,7 @@ class UserController extends Controller
         } else {
             $user = new User();
 
-            $str6 = "Simreka@123" . date("Y-m-d H:i:s");
+            $str6 = "BrandIdea@123" . date("Y-m-d H:i:s");
             $mytoken = md5($str6);
             $user->token = $mytoken;
             $user->firstname = "";
@@ -181,14 +181,14 @@ class UserController extends Controller
                 // $mail->isSMTP();                                            // Send using SMTP
                 // $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';      // Set the SMTP server to send through
                 // $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                // $mail->Username   = 'simreka-app';                          // SMTP username
+                // $mail->Username   = 'BrandIdea-app';                          // SMTP username
                 // $mail->Password   = 'Chamundi@299';                         // SMTP password
                 // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 // $mail->Port       = 465;                                    
 
                 $mail->isMail();
-                //$mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
-                $mail->setFrom('shobamohandurai@gmail.com', 'Admin-Simreka');
+                //$mail->setFrom('BrandIdea-app@BrandIdea.com', 'Admin-BrandIdea');
+                $mail->setFrom('shobamohandurai@gmail.com', 'Admin-BrandIdea');
                 $mail->addAddress($request->username, 'Investors Connect Admin');
                
                 $mail->Subject = 'New Registration from Inverstors Connect';
@@ -218,7 +218,7 @@ class UserController extends Controller
 
         }
 
-        return Redirect::to('/auth/login')->with('message',"User Registered Successfully !!! Email verification sent on your registered Email ID, click on the url and set Password. Simreka Admin Team !!!");
+        return Redirect::to('/auth/login')->with('message',"User Registered Successfully !!! Email verification sent on your registered Email ID, click on the url and set Password. BrandIdea Admin Team !!!");
     }
 
 
@@ -271,16 +271,16 @@ class UserController extends Controller
         //     $mail->isSMTP();                                            // Send using SMTP
         //     $mail->Host       = 'smtp.mail.eu-west-1.awsapps.com';                    // Set the SMTP server to send through
         //     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        //     $mail->Username   = 'simreka-app';                     // SMTP username
+        //     $mail->Username   = 'BrandIdea-app';                     // SMTP username
         //     $mail->Password   = 'Chamundi@299';                               // SMTP password
         //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         //     $mail->Port       = 465;                                    
 
         //     $mail->isMail();
-        //     $mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
+        //     $mail->setFrom('BrandIdea-app@BrandIdea.com', 'Admin-BrandIdea');
         //     $mail->addAddress('mohan_durai@yahoo.com', 'Test Mail from Invester Connect');
         //     $mail->addCC('mohandurai@gmail.com', 'New Registration from Inverstors Connect');
-        //     $mail->addCC('mohan.durai@simreka.com', 'New Registration from Inverstors Connect');
+        //     $mail->addCC('mohan.durai@BrandIdea.com', 'New Registration from Inverstors Connect');
         //     $mail->Subject = 'New Registration from Inverstors Connect';
         //     $mail->msgHTML('This is the HTML message body <b>in bold!</b>');
         //     // optional - msgHTML will create an alternate automatically

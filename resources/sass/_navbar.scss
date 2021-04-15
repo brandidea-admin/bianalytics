@@ -22,7 +22,7 @@
   }
 
   .sidebar-toggler {
-    height: 100%;
+    height: 50%;
     border-right: 1px solid $border-color;
     @include display-flex();
     @include align-items(center);

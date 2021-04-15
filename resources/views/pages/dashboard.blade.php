@@ -2,497 +2,2123 @@
 
 @push('plugin-styles')
 <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+<link rel="stylesheet" href="{{ asset('assets/dist/css/leaflet-search.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 @endpush
 
-@if(Auth::user()->status != 'Active')
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Attention</h5>
-        <button type="button" id="bbb1" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Dear {{Auth::user()->email}} welcome to Investor's Connect <br/> Get approval from Admin to enable successful login with application !!!
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="bbb2" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div>
-    <button type="button" id="aaa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"></button>
-</div>
-
-
-@else
-
 @section('content')
-<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
-    <div>
-        <h4 class="mb-3 mb-md-0">Welcome to Investors Connect Dashboard</h4>
-    </div>
-    <div class="d-flex align-items-center flex-wrap text-nowrap">
-        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
-            <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
-            <input type="text" class="form-control">
+
+<div class="dashboard-section">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+        <div>
+            <h4 class="mb-3 mb-md-0">Welcome to BrandIdea Dashboard</h4>
         </div>
-        <button type="button" class="btn btn-outline-info btn-icon-text mr-2 d-none d-md-block">
-            <i class="btn-icon-prepend" data-feather="download"></i>
-            Import
-        </button>
-        <button type="button" class="btn btn-outline-primary btn-icon-text mr-2 mb-2 mb-md-0">
-            <i class="btn-icon-prepend" data-feather="printer"></i>
-            Print
-        </button>
-        <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
-            <i class="btn-icon-prepend" data-feather="download-cloud"></i>
-            Download Report
-        </button>
+        <div class="d-flex align-items-center flex-wrap text-nowrap">
+
+            <button type="button" class="btn btn-outline-info btn-icon-text mr-2 d-none d-md-block">
+                <i class="btn-icon-prepend" data-feather="download"></i>
+                Import
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-icon-text mr-2 mb-2 mb-md-0">
+                <i class="btn-icon-prepend" data-feather="printer"></i>
+                Print
+            </button>
+            <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
+                <i class="btn-icon-prepend" data-feather="download-cloud"></i>
+                Download Report
+            </button>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-12 col-xl-12 stretch-card">
+            <div class="row flex-grow">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">New Customers</h6>
+                                <div class="dropdown mb-2">
+                                    <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-5">
+                                    <h3 class="mb-2">3,897</h3>
+                                    <div class="d-flex align-items-baseline">
+                                        <p class="text-success">
+                                            <span>+3.3%</span>
+                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12 col-xl-7">
+                                    <div id="" class="mt-md-3 mt-xl-0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">New Orders</h6>
+                                <div class="dropdown mb-2">
+                                    <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-5">
+                                    <h3 class="mb-2">35,084</h3>
+                                    <div class="d-flex align-items-baseline">
+                                        <p class="text-danger">
+                                            <span>-2.8%</span>
+                                            <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12 col-xl-7">
+                                    <div id="" class="mt-md-3 mt-xl-0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">Growth</h6>
+                                <div class="dropdown mb-2">
+                                    <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-5">
+                                    <h3 class="mb-2">89.87%</h3>
+                                    <div class="d-flex align-items-baseline">
+                                        <p class="text-success">
+                                            <span>+2.8%</span>
+                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-12 col-xl-7">
+                                    <div id="" class="mt-md-3 mt-xl-0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- row -->
+
+    <div class="row">
+        <div class="col-12 col-xl-12 grid-margin stretch-card">
+            <div class="card overflow-hidden">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
+                        <h6 class="card-title mb-0">Summary</h6>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
+                                <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
+                                <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
+                                <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
+                                <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline mb-2">
+                        <h6 class="card-title mb-0">Details</h6>
+                        <div class="dropdown mb-2">
+                            <button class="btn p-0" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline mb-2">
+                        <h6 class="card-title mb-0">Other Info.</h6>
+                        <div class="dropdown mb-2">
+                            <button class="btn p-0" type="button" id="dropdownMenuButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<div class="row">
-    <div class="col-12 col-xl-12 stretch-card">
-        <div class="row flex-grow">
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <h6 class="card-title mb-0">New Customers</h6>
-                            <div class="dropdown mb-2">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-12 col-xl-5">
-                                <h3 class="mb-2">3,897</h3>
-                                <div class="d-flex align-items-baseline">
-                                    <p class="text-success">
-                                        <span>+3.3%</span>
-                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-12 col-xl-7">
-                                <div id="apexChart1" class="mt-md-3 mt-xl-0"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <h6 class="card-title mb-0">New Orders</h6>
-                            <div class="dropdown mb-2">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-12 col-xl-5">
-                                <h3 class="mb-2">35,084</h3>
-                                <div class="d-flex align-items-baseline">
-                                    <p class="text-danger">
-                                        <span>-2.8%</span>
-                                        <i data-feather="arrow-down" class="icon-sm mb-1"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-12 col-xl-7">
-                                <div id="apexChart2" class="mt-md-3 mt-xl-0"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <h6 class="card-title mb-0">Growth</h6>
-                            <div class="dropdown mb-2">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-12 col-xl-5">
-                                <h3 class="mb-2">89.87%</h3>
-                                <div class="d-flex align-items-baseline">
-                                    <p class="text-success">
-                                        <span>+2.8%</span>
-                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-12 col-xl-7">
-                                <div id="apexChart3" class="mt-md-3 mt-xl-0"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> <!-- row -->
 
-<div class="row">
-    <div class="col-12 col-xl-12 grid-margin stretch-card">
-        <div class="card overflow-hidden">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
-                    <h6 class="card-title mb-0">Summary</h6>
-                    <div class="dropdown">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="row align-items-start mb-2">
-                    <div class="col-md-7">
-                        <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
-                    </div>
-                    <div class="col-md-5 d-flex justify-content-md-end">
-                        <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-primary">Today</button>
-                            <button type="button" class="btn btn-outline-primary d-none d-md-block">Week</button>
-                            <button type="button" class="btn btn-primary">Month</button>
-                            <button type="button" class="btn btn-outline-primary">Year</button>
-                        </div>
-                    </div>
-                </div> -->
-               <!--  <div class="flot-wrapper">
-                    <div id="flotChart1" class="flot-chart"></div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-</div> <!-- row -->
+<div class="row ">
 
-<div class="row">
-    <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Details</h6>
-                    <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                    </div>
-                </div>
-               <!--  <p class="text-muted mb-4">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
-                <div class="monthly-sales-chart-wrapper">
-                    <canvas id="monthly-sales-chart"></canvas>
-                </div> -->
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Other Info.</h6>
-                    <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div> -->
-                    </div>
-                </div>
-                <!-- <div id="progressbar1" class="mx-auto"></div>
-                <div class="row mt-4 mb-3">
-                    <div class="col-6 d-flex justify-content-end">
-                        <div>
-                            <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Total storage <span class="p-1 ml-1 rounded-circle bg-primary-muted"></span></label>
-                            <h5 class="font-weight-bold mb-0 text-right">8TB</h5>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div>
-                            <label class="d-flex align-items-center tx-10 text-uppercase font-weight-medium"><span class="p-1 mr-1 rounded-circle bg-primary"></span> Used storage</label>
-                            <h5 class="font-weight-bold mb-0">6TB</h5>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-block">Upgrade storage</button>
-            </div> -->
-        </div>
-    </div>
-</div> <!-- row -->
+    <div class="col-lg-7 col-xl-6 map-section" style="width: 60ch; height: 53ch; border-style: ridge;" id="map">
 
-<!-- <div class="row">
-    <div class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Inbox</h6>
-                    <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex flex-column">
-                    <a href="#" class="d-flex align-items-center border-bottom pb-3">
-                        <div class="mr-3">
-                            <img src="{{ url('https://via.placeholder.com/35x35') }}" class="rounded-circle wd-35" alt="user">
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="text-body mb-2">Leonardo Payne</h6>
-                                <p class="text-muted tx-12">12.30 PM</p>
-                            </div>
-                            <p class="text-muted tx-13">Hey! there I'm available...</p>
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex align-items-center border-bottom py-3">
-                        <div class="mr-3">
-                            <img src="{{ url('https://via.placeholder.com/35x35') }}" class="rounded-circle wd-35" alt="user">
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="text-body mb-2">Carl Henson</h6>
-                                <p class="text-muted tx-12">02.14 AM</p>
-                            </div>
-                            <p class="text-muted tx-13">I've finished it! See you so..</p>
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex align-items-center border-bottom py-3">
-                        <div class="mr-3">
-                            <img src="{{ url('https://via.placeholder.com/35x35') }}" class="rounded-circle wd-35" alt="user">
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="text-body mb-2">Jensen Combs</h6>
-                                <p class="text-muted tx-12">08.22 PM</p>
-                            </div>
-                            <p class="text-muted tx-13">This template is awesome!</p>
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex align-items-center border-bottom py-3">
-                        <div class="mr-3">
-                            <img src="{{ url('https://via.placeholder.com/35x35') }}" class="rounded-circle wd-35" alt="user">
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="text-body mb-2">Amiah Burton</h6>
-                                <p class="text-muted tx-12">05.49 AM</p>
-                            </div>
-                            <p class="text-muted tx-13">Nice to meet you</p>
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex align-items-center border-bottom py-3">
-                        <div class="mr-3">
-                            <img src="{{ url('https://via.placeholder.com/35x35') }}" class="rounded-circle wd-35" alt="user">
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="text-body mb-2">Yaretzi Mayo</h6>
-                                <p class="text-muted tx-12">01.19 AM</p>
-                            </div>
-                            <p class="text-muted tx-13">Hey! there I'm available...</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-7 col-xl-8 stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Projects</h6>
-                    <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th class="pt-0">#</th>
-                                <th class="pt-0">Project Name</th>
-                                <th class="pt-0">Start Date</th>
-                                <th class="pt-0">Due Date</th>
-                                <th class="pt-0">Status</th>
-                                <th class="pt-0">Assign</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>NobleUI jQuery</td>
-                                <td>01/01/2020</td>
-                                <td>26/04/2020</td>
-                                <td><span class="badge badge-danger">Released</span></td>
-                                <td>Leonardo Payne</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>NobleUI Angular</td>
-                                <td>01/01/2020</td>
-                                <td>26/04/2020</td>
-                                <td><span class="badge badge-success">Review</span></td>
-                                <td>Carl Henson</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>NobleUI ReactJs</td>
-                                <td>01/05/2020</td>
-                                <td>10/09/2020</td>
-                                <td><span class="badge badge-info-muted">Pending</span></td>
-                                <td>Jensen Combs</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>NobleUI VueJs</td>
-                                <td>01/01/2020</td>
-                                <td>31/11/2020</td>
-                                <td><span class="badge badge-warning">Work in Progress</span>
-                                </td>
-                                <td>Amiah Burton</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>NobleUI Laravel</td>
-                                <td>01/01/2020</td>
-                                <td>31/12/2020</td>
-                                <td><span class="badge badge-danger-muted text-white">Coming soon</span></td>
-                                <td>Yaretzi Mayo</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>NobleUI NodeJs</td>
-                                <td>01/01/2020</td>
-                                <td>31/12/2020</td>
-                                <td><span class="badge badge-primary">Coming soon</span></td>
-                                <td>Carl Henson</td>
-                            </tr>
-                            <tr>
-                                <td class="border-bottom">3</td>
-                                <td class="border-bottom">NobleUI EmberJs</td>
-                                <td class="border-bottom">01/05/2020</td>
-                                <td class="border-bottom">10/11/2020</td>
-                                <td class="border-bottom"><span class="badge badge-info-muted">Pending</span></td>
-                                <td class="border-bottom">Jensen Combs</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --> <!-- row -->
+        <script type="text/javascript" src="./maps/KML/world-countries.js"></script>
+        <script type="text/javascript" src="./maps/KML/world-outline.js"></script>
 
+        <script type="text/javascript">
+            var map = L.map('map').setView([41.771312,8.684994], 1);
+
+            map.doubleClickZoom.disable();
+
+            var maplevel = 0;
+            var contid = 0;
+            var distid2 = 0;
+            var distid3 = 0;
+            var distid4 = 0;
+            var distid5 = 0;
+            var distid6 = 0;
+            window.fitcenter = "";
+
+            // control that shows state info on hover
+            var info = L.control();
+
+            info.onAdd = function(map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+
+            info.update = function(props) {
+                this._div.innerHTML = '' + (props ?
+                    '<span style="color:blue; font-weight: bold;">' + props.Name + ' (' + props.DB_ID + ')</span>' :
+                    '');
+                if (props === undefined) {
+                    //console.log(maplevel+" <<=== "+'null');	
+                } else {
+                    //console.log(maplevel+" <<=== "+props.OBJECTID);	
+                    window.contid = props.DB_ID;
+                }
+
+            };
+
+            info.addTo(map);
+
+            console.log(window.contid+" <<<<=== "+window.maplevel);
+            
+            // get color depending on population density value
+            function getColor(d) {
+                return d > 1000 ? '#800026' :
+                    d > 500 ? '#BD0026' :
+                    d > 200 ? '#E31A1C' :
+                    d > 100 ? '#FC4E2A' :
+                    d > 50 ? '#FD8D3C' :
+                    d > 20 ? '#FEB24C' :
+                    d > 10 ? '#FED976' :
+                    '#FFEDA0';
+            }
+
+            function style(feature) {
+                return {
+                    fillColor: 'white',
+                    fillOpacity: 0.8,
+                    weight: 0.5,
+                    opacity: 1,
+                    stroke: 0.7,
+                    dashArray: '0'
+                };
+            }
+
+            function highlightFeature(e) {
+                var layer = e.target;
+
+                layer.setStyle({
+                    fillColor: 'red',
+                    fillOpacity: 0.5,
+                    color: "blue",
+                    weight: 0.7,
+                    opacity: 0.5,
+                    stroke: 0.1,
+                    dashArray: '0'
+                });
+
+
+                if (!L.Browser.ie && !L.Browser.opera) {
+                    layer.bringToFront();
+                }
+
+                info.update(layer.feature.properties);
+            }
+
+            function resetHighlight(e) {
+                geojson.resetStyle(e.target);
+                info.update();
+            }
+
+            function zoomToFeature(e) {
+                map.removeLayer(geojson);
+
+               var geojson2;
+
+              
+            var geojson2 = new L.GeoJSON(countriesData, {
+                    style: function(feature) {
+                        return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                    },
+                    // onEachFeature: function(feature, marker) {
+                    //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                    // }
+                    onEachFeature: onEachFeature2
+                });
+
+            map.addLayer(geojson2);
+
+            L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                    maxZoom: 4,
+                    minZoom: 1,
+                    attribution: '',
+                    id: 'mapbox.light'
+                }).addTo(map);
+
+                // map.fitBounds(geojson2.getBounds());
+                map.setView([41.771312,8.684994], 1);
+
+            var searchControl2 = new L.Control.Search({
+                layer: geojson2,
+                propertyName: 'Name',
+                marker: false,
+                moveToLocation: function(latlng, title, map) {
+                    //map.fitBounds( latlng.layer.getBounds() );
+                    var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                    map.setView(latlng, zoom); // access the zoom
+                }
+            });
+
+            searchControl2.on('search:locationfound', function(e) {
+                e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                if(e.layer._popup)
+                    e.layer.openPopup();
+            }).on('search:collapsed', function(e) {
+                // geojson2.eachLayer(function(layer) {   //restore feature color
+                //     geojson2.resetStyle(layer);
+                // }); 
+            });
+
+            //console.log(map.hasLayer(geojson2)+" <<<====");
+            map.addControl(searchControl2);  //inizialize search control
+
+            
+
+
+
+///// Starts Back button1
+
+var backbut1 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+            stateName: 'globe-layer',
+            icon: 'fa-arrow-left',
+            title: 'globe',
+            onClick: function(control) {
+                //console.log(control);
+                map.removeLayer(geojson2);
+                searchControl2.remove();
+                geojson.addTo(map);
+                map.setView([41.771312,8.684994], 1);
+                backbut1.remove();
+
+            }	
+        }
+    ]
+});
+
+map.addControl(backbut1);
+
+///// Ends Back button1
+
+                function onEachFeature2(feature2, layer2) {
+                    layer2.on({
+                        mouseover: highlightFeature2,
+                        mouseout: resetHighlight2,
+                        dblclick: zoomToFeature2
+                    });
+                }
+
+                function highlightFeature2(e) {
+                    var layer2 = e.target;
+
+                    layer2.setStyle({
+                        fillColor: 'red',
+                        fillOpacity: 0.5,
+                        color: "blue",
+                        weight: 0.7,
+                        opacity: 0.5,
+                        stroke: 0.1,
+                        dashArray: '0'
+                    });
+
+
+                    if (!L.Browser.ie && !L.Browser.opera) {
+                        layer2.bringToFront();
+                    }
+
+                    info.update(layer2.feature.properties);
+                }
+
+                function resetHighlight2(e) {
+                    geojson2.resetStyle(e.target);
+                    info.update();
+                }
+
+                function zoomToFeature2(e) {
+
+                    console.log(window.contid+" <<<<=== "+window.maplevel);
+
+                    //e.target.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+
+////////// Starts India Level Code 1
+
+                    if (window.contid == 1 && window.maplevel == 0) {
+
+                            map.removeLayer(geojson2);
+                            map.removeControl(searchControl2); 
+
+                            load('./maps/KML/1/O_1.js');
+
+                            maplevel = 1; 
+
+                            var geojson3;
+
+                            var geojson3 = new L.GeoJSON(O_1, {
+                                style: function(feature) {
+                                    return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                },
+                                onEachFeature: onEachFeature3
+                            });
+
+                            map.addLayer(geojson3);
+
+
+                            L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                maxZoom: 6,
+                                minZoom: 1,
+                                attribution: '',
+                                id: 'mapbox.light'
+                            }).addTo(map);
+
+                            // map.fitBounds(geojson3.getBounds());
+                            map.setView([24.910353,79.719117], 4);
+
+                            var bounds3 = geojson3.getBounds();
+                            var latLng3 = bounds3.getCenter();
+
+                            //map.fitBounds(bounds3);
+                            window.fitcenter = latLng3;
+
+                            var element = document.getElementById("myDIV");
+                            if (element != null) {
+                                element.classList.add("mystyle");
+                            }
+                            else {
+                                element = null;
+                            }
+                            
+
+                            // var piecht1 = L.piechartMarker(
+                            // //L.latLng(latLng),
+                            // L.latLng([21.861499,78.695625]),
+                            //     {
+                            //     radius: 50,
+                            //         data: [
+                            //             { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
+                            //             { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
+                            //             { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
+                            //             { name: 'Pineapples', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
+                            //             { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
+                            //             //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
+                            //         ]
+                            //     }
+                            // );
+                            // piecht1.addTo(map);
+
+                            var searchControl3 = new L.Control.Search({
+                                layer: geojson3,
+                                propertyName: 'Name',
+                                marker: false,
+                                moveToLocation: function(latlng, title, map) {
+                                    //map.fitBounds( latlng.layer.getBounds() );
+                                    var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                    map.setView(latlng, zoom); // access the zoom
+                                }
+                            });
+
+                            searchControl3.on('search:locationfound', function(e) {
+                                e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                if(e.layer._popup)
+                                    e.layer.openPopup();
+                            }).on('search:collapsed', function(e) {
+
+                                geojson3.eachLayer(function(layer) {   //restore feature color
+                                    geojson3.resetStyle(layer);
+                                }); 
+                            });
+                            
+                            map.addControl(searchControl3);  //inizialize search control
+                            
+
+///// Starts Back button2
+
+backbut1.remove();
+
+var backbut2 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+            stateName: 'countries-layer',
+            icon: 'fa-arrow-left',
+            title: 'countries',
+            id: 'countriesLayer',
+            onClick: function(control) {
+                //console.log(control);
+                map.removeLayer(geojson3);
+                searchControl3.remove();
+                geojson2.addTo(map);
+                map.addControl(searchControl2);
+                window.maplevel = 0;
+                map.setView([41.771312,8.684994], 1);
+                backbut2.remove();
+                // piecht1.remove();
+                $('.cokLabel').hide();
+                map.addControl(backbut1);
+                
+            }	
+        }
+    ]
+});
+
+map.addControl(backbut2);
+
+///// Ends Back button2
+
+// var bounds = geojson3.getBounds();
+// var latLng = bounds.getCenter();
+
+
+    //   var legend = L.control({position: 'bottomleft'});
+
+    //         legend.onAdd = function (map) {
+
+    //         	var div = L.DomUtil.create('div', 'info legend'),
+    //         		grades = [100, 200, 500, 1000],
+    //         		labels = ['Apples', 'Oranges', 'AAAA', 'BBBBB'],
+    //         		from, to;
+
+    //         	for (var i = 0; i < grades.length; i++) {
+    //         		from = grades[i];
+    //         		to = grades[i + 1];
+
+    //         		labels.push(
+    //         			'<i style="background: red"></i> ' +
+    //         			from + (to ? '&ndash;' + to : '+'));
+    //         	}
+
+    //         	div.innerHTML = labels.join('<br>');
+    //         	return div;
+    //         };
+
+    //         legend.addTo(map);
+
+                            function onEachFeature3(feature3, layer3) {
+                                layer3.on({
+                                    mouseover: highlightFeature3,
+                                    mouseout: resetHighlight3,
+                                    dblclick: zoomToFeature3
+                                });
+
+                                var label = L.marker([36.102376,74.166826], {
+                                        icon: L.divIcon({
+                                            className: 'cokLabel',
+                                            html: "<span style='color:grey;'>POK</span>",
+                                            iconSize: [0, 0]
+                                        })
+                                }).addTo(map);
+
+                                var label = L.marker([35.398006,78.487318], {
+                                        icon: L.divIcon({
+                                            className: 'cokLabel',
+                                            html: "<span style='color:grey;'>COK</span>",
+                                            iconSize: [0, 0]
+                                        })
+                                }).addTo(map);
+                            }
+
+                            function highlightFeature3(e) {
+                                var layer3 = e.target;
+
+                                layer3.setStyle({
+                                    fillColor: 'red',
+                                    fillOpacity: 0.5,
+                                    color: "blue",
+                                    weight: 0.7,
+                                    opacity: 0.5,
+                                    stroke: 0.1,
+                                    dashArray: '0'
+                                });
+
+
+                                if (!L.Browser.ie && !L.Browser.opera) {
+                                    layer3.bringToFront();
+                                }
+
+                                info.update(layer3.feature.properties);
+                            }
+
+                            function resetHighlight3(e) {
+                                geojson3.resetStyle(e.target);
+                                info.update();
+                            }
+
+
+
+                            function zoomToFeature3(e) {
+
+                                map.removeLayer(geojson3);
+                                map.removeControl(searchControl3); 
+
+                                load('./maps/KML/1/S_1.js');
+
+                                var geojson4;
+
+                                var geojson4 = new L.GeoJSON(S_1, {
+                                        style: function(feature) {
+                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                        },
+                                        // onEachFeature: function(feature, marker) {
+                                        //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                        // }
+                                        onEachFeature: onEachFeature4
+                                    });
+                                
+                                L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                    maxZoom: 5,
+                                    minZoom: 2,
+                                    attribution: '',
+                                    id: 'mapbox.light'
+                                }).addTo(map);
+
+                                // map.fitBounds(geojson4.getBounds());
+
+                                var searchControl4 = new L.Control.Search({
+                                    layer: geojson4,
+                                    propertyName: 'Name',
+                                    marker: false,
+                                    moveToLocation: function(latlng, title, map) {
+                                        //map.fitBounds( latlng.layer.getBounds() );
+                                        var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                        map.setView(latlng, zoom); // access the zoom
+                                    }
+                                });
+
+                                searchControl4.on('search:locationfound', function(e) {
+                                    e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                    if(e.layer._popup)
+                                        e.layer.openPopup();
+                                }).on('search:collapsed', function(e) {
+
+                                    geojson4.eachLayer(function(layer) {   //restore feature color
+                                        geojson4.resetStyle(layer);
+                                    }); 
+                                });
+                                
+                                map.addControl(searchControl4);  //inizialize search control
+
+
+///// Starts Back button3
+backbut2.remove();
+
+var backbut3 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+          stateName: 'states-layer',
+          icon: 'fa-arrow-left',
+          title: 'states',
+          id: 'statesLayer',
+              onClick: function(control) {
+                //   console.log(control);
+                  map.removeLayer(geojson4);
+                  searchControl4.remove();
+                  geojson3.addTo(map);
+                  map.addControl(searchControl3);
+                  map.fitBounds(geojson3.getBounds());
+                  backbut3.remove();
+                  map.addControl(backbut2);
+                  
+              }	
+        }
+    ]
+});
+
+map.addControl(backbut3);
+///// Ends Back button3
+
+
+                                function onEachFeature4(feature4, layer4) {
+                                    layer4.on({
+                                        mouseover: highlightFeature4,
+                                        mouseout: resetHighlight4,
+                                        dblclick: zoomToFeature4
+                                    });
+                                }
+
+                                function highlightFeature4(e) {
+                                    var layer4 = e.target;
+
+                                    layer4.setStyle({
+                                        fillColor: 'red',
+                                        fillOpacity: 0.5,
+                                        color: "blue",
+                                        weight: 0.7,
+                                        opacity: 0.5,
+                                        stroke: 0.1,
+                                        dashArray: '0'
+                                    });
+
+
+                                    if (!L.Browser.ie && !L.Browser.opera) {
+                                        layer4.bringToFront();
+                                    }
+
+                                    info.update(layer4.feature.properties);
+                                }
+
+                                function resetHighlight4(e) {
+                                    geojson4.resetStyle(e.target);
+                                    info.update();
+                                }
+
+
+
+                                function zoomToFeature4(e) {
+
+                                    map.removeLayer(geojson4);
+                                    map.removeControl(searchControl4); 
+                                    $('.cokLabel').hide();
+
+///// Starts India ==> Karnataka (17)
+                                    window.maplevel = 2;
+
+                                    var distid2 = parseInt(window.contid);
+
+                                    file_info4 = './maps/KML/1/'+distid2+'/O_'+distid2+'.js';
+                                    //file_info2 = './maps/KML/1/21/O_21.js';
+                                    load(file_info4);
+
+                                    var myVariable4 = 'O_'+distid2;
+                                    console.log(file_info4+" <<<=== "+myVariable4);
+
+                                    var geojson5;
+
+                                    var geojson5 = new L.GeoJSON(eval(myVariable4), {
+                                        style: function(feature) {
+                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                        },
+                                        // onEachFeature: function(feature, marker) {
+                                        //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                        // }
+                                        onEachFeature: onEachFeature5
+                                    });
+
+                                    L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                        maxZoom: 7,
+                                        minZoom: 3,
+                                        attribution: '',
+                                        id: 'mapbox.light'
+                                    }).addTo(map);
+
+                                    var bounds5 = geojson5.getBounds();
+                                    var latLng5 = bounds5.getCenter();
+
+                                    map.fitBounds(bounds5);
+                                    window.fitcenter = latLng5;
+
+                                    var element = document.getElementById("myDIV");
+                                    if (element != null) {
+                                        element.classList.add("mystyle");
+                                    }
+                                    else {
+                                        element = null;
+                                    }
+
+                                    var searchControl5 = new L.Control.Search({
+                                        layer: geojson5,
+                                        propertyName: 'Name',
+                                        marker: false,
+                                        moveToLocation: function(latlng, title, map) {
+                                            //map.fitBounds( latlng.layer.getBounds() );
+                                            var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                            map.setView(latlng, zoom); // access the zoom
+                                        }
+                                    });
+
+                                    searchControl5.on('search:locationfound', function(e) {
+                                        e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                        if(e.layer._popup)
+                                            e.layer.openPopup();
+                                    }).on('search:collapsed', function(e) {
+                                        geojson5.eachLayer(function(layer) {   //restore feature color
+                                            geojson5.resetStyle(layer);
+                                        }); 
+                                    });
+                                    
+                                    map.addControl(searchControl5);  //inizialize search control
+
+
+
+backbut3.remove();
+
+    var backbut4 = L.easyButton({
+        position: 'topright',
+        states:[
+            {
+                stateName: 'states-layer',
+                icon: 'fa-arrow-left',
+                title: 'states',
+                id: 'statesLayer',
+                onClick: function(control) {
+                    //console.log(control);
+                    map.removeLayer(geojson5);
+                    searchControl5.remove();
+                    geojson4.addTo(map);
+                    map.addControl(searchControl4);
+                    map.fitBounds(geojson4.getBounds());
+
+                    backbut4.remove();
+                    $('.cokLabel').hide();
+                    map.addControl(backbut3);
+                    
+                }	
+            }
+        ]
+    });
+
+map.addControl(backbut4);
+
+
+
+
+
+                                            function onEachFeature5(feature5, layer5) {
+                                                layer5.on({
+                                                    mouseover: highlightFeature5,
+                                                    mouseout: resetHighlight5,
+                                                    dblclick: zoomToFeature5
+                                                });
+                                            }
+
+                                            function highlightFeature5(e) {
+                                                var layer5 = e.target;
+
+                                                layer5.setStyle({
+                                                    fillColor: 'red',
+                                                    fillOpacity: 0.5,
+                                                    color: "blue",
+                                                    weight: 0.7,
+                                                    opacity: 0.5,
+                                                    stroke: 0.1,
+                                                    dashArray: '0'
+                                                });
+
+
+                                                if (!L.Browser.ie && !L.Browser.opera) {
+                                                    layer5.bringToFront();
+                                                }
+
+                                                info.update(layer5.feature.properties);
+                                            }
+
+                                            function resetHighlight5(e) {
+                                                geojson5.resetStyle(e.target);
+                                                info.update();
+                                            }
+
+                                            function zoomToFeature5(e) {
+                                                map.removeLayer(geojson5);
+                                                map.removeControl(searchControl5); 
+
+                                                file_info5 = './maps/KML/1/'+distid2+'/D_'+distid2+'.js';
+                                                
+                                                load(file_info5);
+                                                var myVariable5 = 'D_'+distid2;
+                                                console.log(file_info5+ "  "+myVariable5);
+
+                                                var geojson6;
+                                                var geojson6 = new L.GeoJSON(eval(myVariable5), {
+                                                    style: function(feature) {
+                                                        return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                    },
+                                                    // onEachFeature: function(feature, marker) {
+                                                    //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                                    // }
+                                                    onEachFeature: onEachFeature6
+                                                });
+
+                                                L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                                    maxZoom: 9,
+                                                    minZoom: 1,
+                                                    attribution: '',
+                                                    id: 'mapbox.light'
+                                                }).addTo(map);
+
+                                                // map.fitBounds(geojson6.getBounds());
+
+                                                var searchControl6 = new L.Control.Search({
+                                                    layer: geojson6,
+                                                    propertyName: 'Name',
+                                                    marker: false,
+                                                    moveToLocation: function(latlng, title, map) {
+                                                        //map.fitBounds( latlng.layer.getBounds() );
+                                                        var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                                        map.setView(latlng, zoom); // access the zoom
+                                                    }
+                                                });
+
+                                                searchControl6.on('search:locationfound', function(e) {
+                                                    e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                                    if(e.layer._popup)
+                                                        e.layer.openPopup();
+                                                }).on('search:collapsed', function(e) {
+                                                    geojson6.eachLayer(function(layer) {   //restore feature color
+                                                        geojson6.resetStyle(layer);
+                                                    }); 
+                                                });
+                                                
+                                                map.addControl(searchControl6);  //inizialize search control
+
+
+
+backbut4.remove();
+
+var backbut5 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+            stateName: 'states-layer',
+            icon: 'fa-arrow-left',
+            title: 'states',
+            id: 'statesLayer',
+            onClick: function(control) {
+                 //console.log(control);
+                map.removeLayer(geojson6);
+                searchControl6.remove();
+                geojson5.addTo(map);
+                map.addControl(searchControl5);
+                map.fitBounds(geojson5.getBounds());
+                backbut5.remove();
+                map.addControl(backbut4);
+                
+            }	
+        }
+    ]
+});
+
+													map.addControl(backbut5);
+
+
+
+
+                                                function onEachFeature6(feature6, layer6) {
+                                                    layer6.on({
+                                                        mouseover: highlightFeature6,
+                                                        mouseout: resetHighlight6,
+                                                        dblclick: zoomToFeature6
+                                                    });
+                                                }
+
+                                                function highlightFeature6(e) {
+                                                    var layer6 = e.target;
+
+                                                    layer6.setStyle({
+                                                        fillColor: 'red',
+                                                        fillOpacity: 0.5,
+                                                        color: "blue",
+                                                        weight: 0.7,
+                                                        opacity: 0.5,
+                                                        stroke: 0.1,
+                                                        dashArray: '0'
+                                                    });
+
+
+                                                    if (!L.Browser.ie && !L.Browser.opera) {
+                                                        layer6.bringToFront();
+                                                    }
+
+                                                    info.update(layer6.feature.properties);
+                                                }
+
+                                                function resetHighlight6(e) {
+                                                    geojson6.resetStyle(e.target);
+                                                    info.update();
+                                                }
+
+                                                function zoomToFeature6(e) {
+
+                                                    map.removeLayer(geojson6);
+                                                    map.removeControl(searchControl6); 
+
+                                                    var distid3 = parseInt(window.contid);
+
+                                                    window.maplevel = 3; ///// District level
+                                                            
+                                                    file_info6 = './maps/KML/1/'+distid2+'/'+distid3+'/O_'+distid3+'.js';
+                                                    load(file_info6);
+                                                    var myVariable6 = 'O_'+distid3;
+                                                    console.log(file_info6+" <<=== "+myVariable6);
+
+                                                    var geojson7;
+                                                    var geojson7 = new L.GeoJSON(eval(myVariable6), {
+                                                        style: function(feature) {
+                                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                        },
+                                                        // onEachFeature: function(feature, marker) {
+                                                        //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                                        // }
+                                                        onEachFeature: onEachFeature7
+                                                    });
+
+                                                    L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                                        maxZoom: 11,
+                                                        minZoom: 1,
+                                                        attribution: '',
+                                                        id: 'mapbox.light'
+                                                    }).addTo(map);
+
+                                                    map.fitBounds(geojson7.getBounds());
+
+                                                    var searchControl7 = new L.Control.Search({
+                                                        layer: geojson7,
+                                                        propertyName: 'Name',
+                                                        marker: false,
+                                                        moveToLocation: function(latlng, title, map) {
+                                                            //map.fitBounds( latlng.layer.getBounds() );
+                                                            var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                                            map.setView(latlng, zoom); // access the zoom
+                                                        }
+                                                    });
+
+                                                    searchControl7.on('search:locationfound', function(e) {
+                                                        e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                                        if(e.layer._popup)
+                                                            e.layer.openPopup();
+                                                    }).on('search:collapsed', function(e) {
+                                                        geojson7.eachLayer(function(layer) {   //restore feature color
+                                                            geojson7.resetStyle(layer);
+                                                        }); 
+                                                    });
+                                                    
+                                                    map.addControl(searchControl7);  //inizialize search control
+
+
+backbut5.remove();
+
+    var backbut6 = L.easyButton({
+        position: 'topright',
+        states:[
+            {
+                stateName: 'states-layer',
+                icon: 'fa-arrow-left',
+                title: 'states',
+                id: 'statesLayer',
+                onClick: function(control) {
+                    //console.log(control);
+                    map.removeLayer(geojson7);
+                    searchControl7.remove();
+                    geojson6.addTo(map);
+                    map.addControl(searchControl6);
+                    map.fitBounds(geojson6.getBounds());
+                    backbut6.remove();
+                    map.addControl(backbut5);
+                    
+                }	
+            }
+        ]
+    });
+
+map.addControl(backbut6);
+
+
+                                                            function onEachFeature7(feature7, layer7) {
+                                                                layer7.on({
+                                                                    mouseover: highlightFeature7,
+                                                                    mouseout: resetHighlight7,
+                                                                    dblclick: zoomToFeature7
+                                                                });
+                                                            }
+
+                                                            function highlightFeature7(e) {
+                                                                var layer7 = e.target;
+
+                                                                layer7.setStyle({
+                                                                    fillColor: 'red',
+                                                                    fillOpacity: 0.5,
+                                                                    color: "blue",
+                                                                    weight: 0.7,
+                                                                    opacity: 0.5,
+                                                                    stroke: 0.1,
+                                                                    dashArray: '0'
+                                                                });
+
+
+                                                                if (!L.Browser.ie && !L.Browser.opera) {
+                                                                    layer7.bringToFront();
+                                                                }
+
+                                                                info.update(layer7.feature.properties);
+                                                            }
+
+                                                            function resetHighlight7(e) {
+                                                                geojson7.resetStyle(e.target);
+                                                                info.update();
+                                                            }
+
+
+                                                            function zoomToFeature7(e) {
+
+                                                                map.removeLayer(geojson7);
+                                                                map.removeControl(searchControl7); 
+
+            //// Checking City (73 Bangalore, 676 Mumbai) for Wards and Taluk Separation
+            ///// If City and District are same for Places like Blore,Mumbai,Chennai etc.. next level wards and ends
+            ///// For district level places next level Taluk (SubDist) ===> Village last level and ends
+                                
+                                if(distid3 == 73 || distid3 == 676 ) {
+                                    var str2 = "W_"
+                                } else {
+                                    var str2 = "T_"
+                                }
+
+                                                                file_info7 = './maps/KML/1/'+distid2+'/'+distid3+'/'+str2+distid3+'.js';
+
+                                                                load(file_info7);
+                                                                var myVariable7 = str2+distid3;
+                                                                console.log(file_info7+" <<<=== "+myVariable7);
+
+
+                                                                var geojson8;
+                                                                var geojson8 = new L.GeoJSON(eval(myVariable7), {
+                                                                    style: function(feature) {
+                                                                        return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                                    },
+                                                                    // onEachFeature: function(feature, marker) {
+                                                                    //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                                                    // }
+                                                                    onEachFeature: onEachFeature8
+                                                                });
+
+                                                                L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                                                    maxZoom: 13,
+                                                                    minZoom: 1,
+                                                                    attribution: '',
+                                                                    id: 'mapbox.light'
+                                                                }).addTo(map);
+
+                                                                map.fitBounds(geojson8.getBounds());
+
+                                                                var searchControl8 = new L.Control.Search({
+                                                                    layer: geojson8,
+                                                                    propertyName: 'Name',
+                                                                    marker: false,
+                                                                    moveToLocation: function(latlng, title, map) {
+                                                                        //map.fitBounds( latlng.layer.getBounds() );
+                                                                        var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                                                        map.setView(latlng, zoom); // access the zoom
+                                                                    }
+                                                                });
+
+                                                                searchControl8.on('search:locationfound', function(e) {
+                                                                    e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                                                    if(e.layer._popup)
+                                                                        e.layer.openPopup();
+                                                                }).on('search:collapsed', function(e) {
+                                                                    geojson8.eachLayer(function(layer) {   //restore feature color
+                                                                        geojson8.resetStyle(layer);
+                                                                    }); 
+                                                                });
+                                                                
+                                                                map.addControl(searchControl8);
+
+                                                             
+
+backbut6.remove();
+
+    var backbut7 = L.easyButton({
+        position: 'topright',
+        states:[
+            {
+                stateName: 'states-layer',
+                icon: 'fa-arrow-left',
+                title: 'states',
+                id: 'statesLayer',
+                onClick: function(control) {
+                    //console.log(control);
+                    map.removeLayer(geojson8);
+                    searchControl8.remove();
+                    geojson7.addTo(map);
+                    map.addControl(searchControl7);
+                    map.fitBounds(geojson7.getBounds());
+                    backbut7.remove();
+                    map.addControl(backbut6);
+                    
+                }	
+            }
+        ]
+    });
+
+map.addControl(backbut7);
+
+
+                                                                function onEachFeature8(feature8, layer8) {
+                                                                    layer8.on({
+                                                                        mouseover: highlightFeature8,
+                                                                        mouseout: resetHighlight8,
+                                                                        dblclick: zoomToFeature8
+                                                                    });
+                                                                }
+
+
+                                                                function highlightFeature8(e) {
+                                                                    var layer8 = e.target;
+
+                                                                    layer8.setStyle({
+                                                                        fillColor: 'red',
+                                                                        fillOpacity: 0.5,
+                                                                        color: "blue",
+                                                                        weight: 0.7,
+                                                                        opacity: 0.5,
+                                                                        stroke: 0.1,
+                                                                        dashArray: '0'
+                                                                    });
+
+
+                                                                    if (!L.Browser.ie && !L.Browser.opera) {
+                                                                        layer8.bringToFront();
+                                                                    }
+
+                                                                    info.update(layer8.feature.properties);
+                                                                }
+
+                                                                function resetHighlight8(e) {
+                                                                    geojson8.resetStyle(e.target);
+                                                                    info.update();
+                                                                }
+
+                                                                function zoomToFeature8(e) {
+                                                                    map.removeLayer(geojson8);
+                                                                    map.removeControl(searchControl8); 
+
+                    //// India ==> Karnataka ==> Bangalore ==> Ward Gandhi Nagar
+                                                                    var distid4 = parseInt(window.contid);
+
+                                                                    window.maplevel = 4; ///// Ward or Taluk level
+
+                                if(distid3 == 73) {
+                                    var str3 = "W"
+                                } else {
+                                    var str3 = "T"
+                                }
+                                                                            
+                                                                    file_info8 = './maps/KML/1/'+distid2+'/'+distid3+'/'+str3+'/O_'+distid4+'.js';
+                                                                    load(file_info8);
+                                                                    var myVariable8 = 'O_'+distid4;
+                                                                    console.log(file_info8+"<<<===="+myVariable8);
+
+                                                                    var geojson9;
+                                                                    var geojson9 = new L.GeoJSON(eval(myVariable8), {
+                                                                        style: function(feature) {
+                                                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                                        },
+                                                                        // onEachFeature: function(feature, marker) {
+                                                                        //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                                                        // }
+                                                                        onEachFeature: onEachFeature9
+                                                                    });
+
+                                                                    L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                                                        maxZoom: 15,
+                                                                        minZoom: 1,
+                                                                        attribution: '',
+                                                                        id: 'mapbox.light'
+                                                                    }).addTo(map);
+
+                                                                    map.fitBounds(geojson9.getBounds());
+
+                                                                    var searchControl9 = new L.Control.Search({
+                                                                        layer: geojson9,
+                                                                        propertyName: 'Name',
+                                                                        marker: false,
+                                                                        moveToLocation: function(latlng, title, map) {
+                                                                            //map.fitBounds( latlng.layer.getBounds() );
+                                                                            var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                                                            map.setView(latlng, zoom); // access the zoom
+                                                                        }
+                                                                    });
+
+                                                                    searchControl9.on('search:locationfound', function(e) {
+                                                                        e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                                                        if(e.layer._popup)
+                                                                            e.layer.openPopup();
+                                                                    }).on('search:collapsed', function(e) {
+                                                                        geojson9.eachLayer(function(layer) {   //restore feature color
+                                                                            geojson9.resetStyle(layer);
+                                                                        }); 
+                                                                    });
+                                                                    
+                                                                    map.addControl(searchControl9);
+
+                                                                    // if(distid3 == 73) {
+                                                                    //     var geojson9;
+                                                                    //     geojson9 = L.geoJson(eval(myVariable8), {
+                                                                    //         style: style
+                                                                    //     }).addTo(map);
+                                                                    //     map.fitBounds(geojson9.getBounds());
+                                                                    // } else {
+                                                                    //     var geojson9;
+                                                                    //     geojson9 = L.geoJson(eval(myVariable8), {
+                                                                    //         style: style,
+                                                                    //         onEachFeature: onEachFeature9
+                                                                    //     }).addTo(map);
+                                                                    //     map.fitBounds(geojson9.getBounds());
+                                                                    // }
+
+backbut7.remove();
+
+    var backbut8 = L.easyButton({
+        position: 'topright',
+        states:[
+            {
+                stateName: 'states-layer',
+                icon: 'fa-arrow-left',
+                title: 'states',
+                id: 'statesLayer',
+                onClick: function(control) {
+                    //console.log(control);
+                    // map.removeLayer(geojson9);
+                    // geojson8.addTo(map);
+                    // map.fitBounds(geojson8.getBounds());
+                    // backbut8.remove();
+                    // map.addControl(backbut7);
+
+                    map.removeLayer(geojson9);
+                    searchControl9.remove();
+                    geojson8.addTo(map);
+                    map.addControl(searchControl8);
+                    map.fitBounds(geojson8.getBounds());
+                    backbut8.remove();
+                    map.addControl(backbut7);
+                    
+                }	
+            }
+        ]
+    });
+
+map.addControl(backbut8);
+
+                                                                            function onEachFeature9(feature9, layer9) {
+                                                                                layer9.on({
+                                                                                    mouseover: highlightFeature9,
+                                                                                    mouseout: resetHighlight9,
+                                                                                    dblclick: zoomToFeature9
+                                                                                });
+                                                                            }
+
+                                                                            function highlightFeature9(e) {
+                                                                                var layer9 = e.target;
+
+                                                                                layer9.setStyle({
+                                                                                    fillColor: 'red',
+                                                                                    fillOpacity: 0.5,
+                                                                                    color: "blue",
+                                                                                    weight: 0.7,
+                                                                                    opacity: 0.5,
+                                                                                    stroke: 0.1,
+                                                                                    dashArray: '0'
+                                                                                });
+
+
+                                                                                if (!L.Browser.ie && !L.Browser.opera) {
+                                                                                    layer9.bringToFront();
+                                                                                }
+
+                                                                                info.update(layer9.feature.properties);
+                                                                            }
+
+
+                                                                            function resetHighlight9(e) {
+                                                                                geojson9.resetStyle(e.target);
+                                                                                info.update();
+                                                                            }
+
+
+                                                                            function zoomToFeature9(e) {
+
+                                                                                map.removeLayer(geojson9);
+                                                                                map.removeControl(searchControl9); 
+
+                                                                                var distid5 = parseInt(window.contid);
+
+                                                                                window.maplevel = 5; ///// Village level
+
+                                                                                file_info9 = './maps/KML/1/'+distid2+'/'+distid3+'/'+str3+'/V_'+distid5+'.js';
+                                                                                load(file_info9);
+                                                                                var myVariable9 = 'V_'+distid5;
+                                                                                console.log(file_info9+"<<<==="+myVariable9);
+
+                                                                                var geojson10;
+                                                                                var geojson10 = new L.GeoJSON(eval(myVariable9), {
+                                                                                    style: function(feature) {
+                                                                                        return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                                                    },
+                                                                                    // onEachFeature: function(feature, marker) {
+                                                                                    //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                                                                    // }
+                                                                                    onEachFeature: onEachFeature10
+                                                                                });
+
+                                                                                L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+                                                                                    maxZoom: 17,
+                                                                                    minZoom: 1,
+                                                                                    attribution: '',
+                                                                                    id: 'mapbox.light'
+                                                                                }).addTo(map);
+
+                                                                                map.fitBounds(geojson10.getBounds());
+
+                                                                                var searchControl10 = new L.Control.Search({
+                                                                                    layer: geojson10,
+                                                                                    propertyName: 'Name',
+                                                                                    marker: false,
+                                                                                    moveToLocation: function(latlng, title, map) {
+                                                                                        //map.fitBounds( latlng.layer.getBounds() );
+                                                                                        var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                                                                                        map.setView(latlng, zoom); // access the zoom
+                                                                                    }
+                                                                                });
+
+                                                                                searchControl10.on('search:locationfound', function(e) {
+                                                                                    e.layer.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
+                                                                                    if(e.layer._popup)
+                                                                                        e.layer.openPopup();
+                                                                                }).on('search:collapsed', function(e) {
+                                                                                    geojson10.eachLayer(function(layer) {   //restore feature color
+                                                                                        geojson10.resetStyle(layer);
+                                                                                    }); 
+                                                                                });
+                                                                                
+                                                                                map.addControl(searchControl10);
+
+
+                                                                                        // var geojson10;
+                                                                                        // geojson10 = L.geoJson(eval(myVariable6), {
+                                                                                        //     style: style,
+                                                                                        //     onEachFeature: onEachFeature10
+                                                                                        // }).addTo(map);
+
+                                                                                        // map.fitBounds(geojson10.getBounds());
+
+backbut8.remove();
+
+    var backbut9 = L.easyButton({
+        position: 'topright',
+        states:[
+            {
+                stateName: 'states-layer',
+                icon: 'fa-arrow-left',
+                title: 'states',
+                id: 'statesLayer',
+                onClick: function(control) {
+                    //console.log(control);
+                    map.removeLayer(geojson10);
+                    searchControl10.remove();
+                    geojson9.addTo(map);
+                    map.addControl(searchControl9);
+                    map.fitBounds(geojson9.getBounds());
+                    backbut9.remove();
+                    map.addControl(backbut8);
+                    
+                }	
+            }
+        ]
+    });
+
+map.addControl(backbut9);
+
+                                                                                    function onEachFeature10(feature10, layer10) {
+                                                                                        layer10.on({
+                                                                                            mouseover: highlightFeature10,
+                                                                                            mouseout: resetHighlight10,
+                                                                                            dblclick: zoomToFeature10
+                                                                                        });
+                                                                                    }
+
+                                                                                    function highlightFeature10(e) {
+                                                                                        var layer10 = e.target;
+
+                                                                                        layer10.setStyle({
+                                                                                            fillColor: 'red',
+                                                                                            fillOpacity: 0.5,
+                                                                                            color: "blue",
+                                                                                            weight: 0.7,
+                                                                                            opacity: 0.5,
+                                                                                            stroke: 0.1,
+                                                                                            dashArray: '0'
+                                                                                        });
+
+
+                                                                                        if (!L.Browser.ie && !L.Browser.opera) {
+                                                                                            layer10.bringToFront();
+                                                                                        }
+
+                                                                                        info.update(layer10.feature.properties);
+                                                                                    }
+
+
+                                                                                    function resetHighlight10(e) {
+                                                                                        geojson10.resetStyle(e.target);
+                                                                                        info.update();
+                                                                                    }
+
+
+                                                                                    function zoomToFeature10(e) {
+
+                                                                                        var distid6 = parseInt(window.contid);
+
+                                                                                        window.maplevel = 6; ///// Village level
+
+                                                                                        file_info6 = './maps/KML/1/'+distid2+'/'+distid3+'/'+str3+'/V/O_'+distid6+'.js';
+                                                                                        
+                                                                                        load(file_info6);
+                                                                                        console.log(file_info6);
+
+                                                                                        var myVariable7 = 'O_'+distid6;
+
+                                                                                        map.removeLayer(geojson10);
+
+                                                                                        var geojson11;
+                                                                                        geojson11 = L.geoJson(eval(myVariable7), {
+                                                                                            style: style
+                                                                                        }).addTo(map);
+
+                                                                                        map.fitBounds(geojson11.getBounds());
+
+
+backbut9.remove();
+
+var backbut10 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+            stateName: 'states-layer',
+            icon: 'fa-arrow-left',
+            title: 'states',
+            id: 'statesLayer',
+            onClick: function(control) {
+                //console.log(control);
+                map.removeLayer(geojson11);
+                geojson10.addTo(map);
+                map.fitBounds(geojson10.getBounds());
+                backbut10.remove();
+                map.addControl(backbut9);
+                
+            }	
+        }
+    ]
+});
+
+map.addControl(backbut10);
+                                                                                        
+
+
+
+                                                                                    }
+
+
+                                                                            }
+
+
+
+
+                                                                }
+
+
+
+                                                            }
+
+
+
+
+                                                }
+
+
+                                            }
+
+
+                                }
+
+                            }       
+
+                    }
+
+///////// Ends India Level Code
+
+
+///////// Starts USA Country Level Code Code 233
+//console.log(window.contid + "<<<==== " + window.maplevel);
+
+                    else if (window.contid == 207  && window.maplevel == 0) { 
+
+                            map.removeLayer(geojson2);
+
+                            load('./maps/KML/207/O-207.js');
+
+                                maplevel = 1; ///// Country level
+
+                                var geojson3;
+
+                                geojson3 = L.geoJson(USOutline, {
+                                    style: style,
+                                    onEachFeature: onEachFeature3
+                                }).addTo(map);
+
+                                map.fitBounds(geojson3.getBounds());
+
+
+///// Starts Back button2
+
+backbut1.remove();
+
+var backbut2 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+            stateName: 'countries-layer',
+            icon: 'fa-arrow-left',
+            title: 'countries',
+            id: 'countriesLayer',
+            onClick: function(control) {
+                //console.log(control);
+                map.removeLayer(geojson3);
+                geojson2.addTo(map);
+                window.maplevel = 0;
+                map.fitBounds(geojson2.getBounds());
+                backbut2.remove();
+                map.addControl(backbut1);
+                
+            }	
+        }
+    ]
+});
+
+map.addControl(backbut2);
+
+///// Ends Back button2
+
+
+
+                                function onEachFeature3(feature3, layer3) {
+								    layer3.on({
+                                        mouseover: highlightFeature3,
+                                        mouseout: resetHighlight3,
+                                        dblclick: zoomToFeature3
+                                    });
+
+                                    function highlightFeature3(e) {
+                                        var layer3 = e.target;
+
+                                        layer3.setStyle({
+                                            fillColor: 'red', 
+                                            fillOpacity: 0.5,  
+                                            color: "blue",
+                                            weight: 0.7,
+                                            opacity: 0.5,
+                                            stroke: 0.1,
+                                            dashArray: '0'
+                                        });
+
+
+                                        if (!L.Browser.ie && !L.Browser.opera) {
+                                            layer3.bringToFront();
+                                        }
+
+                                        info.update(layer3.feature.properties);
+                                    }
+
+                                    function resetHighlight3(e) {
+                                        geojson3.resetStyle(e.target);
+                                        info.update();
+                                    }
+
+                                    function zoomToFeature3(e) {
+                                        map.removeLayer(geojson3);
+
+                                        load('./maps/KML/207/S-207.js');
+
+                                        var geojson4;
+
+                                        geojson4 = L.geoJson(USStates, {
+                                            style: style,
+                                            onEachFeature: onEachFeature4
+                                        }).addTo(map);
+
+                                        map.fitBounds(geojson4.getBounds());
+
+///// Starts Back button3
+backbut2.remove();
+
+var backbut3 = L.easyButton({
+    position: 'topright',
+    states:[
+        {
+          stateName: 'states-layer',
+          icon: 'fa-arrow-left',
+          title: 'states',
+          id: 'statesLayer',
+              onClick: function(control) {
+                  //console.log(control);
+                  map.removeLayer(geojson4);
+                  geojson3.addTo(map);
+                  map.fitBounds(geojson3.getBounds());
+                  backbut3.remove();
+                  map.addControl(backbut2);
+                  
+              }	
+        }
+    ]
+});
+
+map.addControl(backbut3);
+///// Ends Back button3
+
+
+
+
+                                        function onEachFeature4(feature4, layer4) {
+                                            layer4.on({
+                                                mouseover: highlightFeature4,
+                                                mouseout: resetHighlight4,
+                                                dblclick: zoomToFeature4
+                                            });
+                                        }
+
+                                        function highlightFeature4(e) {
+                                            var layer4 = e.target;
+
+                                            layer4.setStyle({
+                                                fillColor: 'red', 
+                                                fillOpacity: 0.5,  
+                                                color: "blue",
+                                                weight: 0.7,
+                                                opacity: 0.5,
+                                                stroke: 0.1,
+                                                dashArray: '0'
+                                            });
+
+
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer4.bringToFront();
+                                            }
+
+                                            info.update(layer4.feature.properties);
+                                        }
+
+                                        function resetHighlight4(e) {
+                                            geojson4.resetStyle(e.target);
+                                            info.update();
+                                        }
+
+                                        function zoomToFeature4(e) {
+										    alert(window.contid);
+                                        }
+                                    }
+							    
+                                }
+
+                    }
+
+                    else {
+                        // alert("No Country Selected !!!");
+                    }
+
+///// Ends USA Country Level Code
+
+                }
+
+                ///// Ends Country Level Code
+
+
+            }
+
+            var geojson;
+
+            geojson = L.geoJson(worldOutline, {
+                style: style,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+
+            // L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
+            //     maxZoom: 3,
+            //     minZoom: 1,
+            //     attribution: '',
+            //     id: 'mapbox.light'
+            // }).addTo(map);
+
+            var grayscale   = L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {maxZoom: 3, minZoom: 1, attribution: '', id: 'mapbox.light'}),
+                streets  = L.esri.basemapLayer('Imagery');
+
+            var baseLayers = {
+                "Map": grayscale,
+                "Earth": streets
+            };
+
+            var cities = L.layerGroup();
+
+            L.marker([12.994923,77.605359]).bindPopup('Bangalore').addTo(cities),
+            L.marker([13.060215,80.283344]).bindPopup('Chennai').addTo(cities),
+            L.marker([19.061079,72.870019]).bindPopup('Mumbai').addTo(cities),
+            L.marker([28.611048,77.205509]).bindPopup('New Delhi').addTo(cities);
+            L.marker([22.564308,88.373426]).bindPopup('Kolkatta').addTo(cities);
+
+            var overlays = {
+                "Cities": cities
+            };
+
+            L.control.layers(baseLayers, overlays).addTo(map);
+
+            function onEachFeature(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                    dblclick: zoomToFeature
+                });
+            }
+
+            //map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+            map.attributionControl.addAttribution('');
+
+
+
+
+            // L.control.custom({
+            //         position: 'topleft',
+            //         content: '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-warning">' +
+            //             '    <i class="fa fa-crosshairs"></i>' +
+            //             '</button>' +
+            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-info">' +
+            //             '    <i class="fa fa-compass"></i>' +
+            //             '</button>' +
+            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-primary">' +
+            //             '    <i class="fa fa-spinner fa-pulse fa-fw"></i>' +
+            //             '</button>' +
+            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-danger">' +
+            //             '    <i class="fa fa-times"></i>' +
+            //             '</button>' +
+            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-success">' +
+            //             '    <i class="fa fa-check"></i>' +
+            //             '</button>' +
+            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-warning">' +
+            //             '    <i class="fa fa-exclamation-triangle"></i>' +
+            //             '</button>',
+            //         classes: 'btn-group-vertical btn-group-sm',
+            //         style: {
+            //             margin: '15px',
+            //             float: 'center',
+            //             padding: '0px 0 0 0',
+            //             cursor: 'pointer'
+            //         },
+            //         datas: {
+            //             'foo': 'bar',
+            //         },
+            //         events: {
+            //             click: function(data) {
+            //                 alert("yessssss");
+            //                 console.log('wrapper div element clicked');
+            //                 console.log(data);
+            //             },
+            //             dblclick: function(data) {
+            //                 alert("Nooooooooooo");
+            //                 console.log('wrapper div element dblclicked');
+            //                 console.log(data);
+            //             },
+            //             contextmenu: function(data) {
+            //                 alert("ZZZZZZZZZZZZZZ");
+            //                 console.log('wrapper div element contextmenu');
+            //                 console.log(data);
+            //             },
+            //         }
+            //     })
+            //     .addTo(map);
+
+            // L.control.custom({
+            //         position: 'topleft',
+            //         content: '<div class="input-group">' +
+            //             '    <input type="text" id="selcity" class="form-control input-sm" placeholder="Search">' +
+            //             '    <span class="input-group-btn">' +
+            //             '        <button id="gocity" class="form-control" style="width:80%; padding-left:0.5rem;" type="button">Go</button>' +
+            //             '    </span>' +
+            //             '</div>',
+            //         classes: '',
+            //         style: {
+            //             position: 'absolute',
+            //             left: '50px',
+            //             top: '0px',
+            //             width: '200px',
+            //         },
+            //     })
+            //     .addTo(map);
+
+            // L.control.custom({
+            //         position: 'bottomleft',
+            //         content: '<div class="panel-body">' +
+            //             '    <div class="progress" style="margin-bottom:0px;">' +
+            //             '        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="41" ' +
+            //             '             aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 91%">' +
+            //             '            91% Completed' +
+            //             '        </div>' +
+            //             '    </div>' +
+            //             '</div>',
+            //         classes: 'panel panel-default',
+            //         style: {
+            //             width: '200px',
+            //             margin: '20px',
+            //             padding: '0px',
+            //         },
+            //     })
+            //     .addTo(map);
+
+            // L.control.custom({
+            //     position: 'bottomright',
+            //     content : '<img src="http://lorempixel.com/105/105/" class="img-thumbnail" id="demoImage">',
+            //     classes : '',
+            //     style   :
+            //     {
+            //         margin: '0px 20px 20px 0',
+            //         padding: '0px',
+            //     },
+            // })
+            // .addTo(map);
+
+            // L.control.custom({
+            //     position: 'bottomright',
+            //     content : '<button class="btn btn-default btn-sm" id="changeImg">'+
+            //                 '    <i class="fa fa-refresh"></i> Change Image'+
+            //                 '</button>',
+            //     classes : '',
+            //     style   :
+            //     {
+            //         margin: '5px 20px',
+            //         padding: '0px',
+            //     },
+            // })
+            // .addTo(map);
+        </script>
+
+    </div>
+
+    <div class="col-lg-7 col-xl-6 chart-section" style="width: 60ch; height: 45ch; border-style: ridge;">
+    </div>
+
+    <br />
+
+    <div class="col-12 col-xl-12 grid-section">
+    </div>
+
+</div>
 @endsection
-
-@endif
-
-
 
 
 @push('plugin-scripts')
-<script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
-<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/progressbar-js/progressbar.min.js') }}"></script>
 @endpush
 
+
 @push('custom-scripts')
+
 <script>
+
     $(function() {
 
-        $("#aaa").click();
+        // $( "#target" ).dblclick(function() {
+        //     alert( "Handler for .dblclick() called." );
+        // });
 
-        $('#bbb1').click(function() {
+        // $(".mapPieChart").hover(function(){
+        //     alert("AAAAAAAAAA yellow");
+        // });
+
+        // var cv = document.getElementByClass("mapPieChart"); 
+        // ct = cv.getContext("2d");
+        // var mText = "hi";
+        // var x = cv.width / 2;
+        // var y = cv.height / 2;
+        // ct.textAligh = "center";
+        // ct.fillText(mText, x, y);
+
+        $('.cokLabel').attr('style','font-size: 0.5px;'); 
+
+        $('.leaflet-marker-icon').hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.map-section').hide();
+        $('.chart-section').hide();
+        $('.grid-section').hide();
+
+        $('#domain-id1').click(function() {
+
+            $(this).removeClass('btn-success').addClass('btn-danger');
+            $('#domain-id2').removeClass('btn-danger').addClass('btn-success');
+            $('#domain-id3').removeClass('btn-danger').addClass('btn-success');
+
+            $('.dashboard-section').hide();
+            $('.leaflet-piechart-icon').hide();
+            $('.menu-sec-sales').hide();
+            $('.menu-mktg-pot').hide();
+            $('.menu-brand-ideator').show();
+
+            $('.map-section').show();
+            $('.chart-section').hide();
+            $('.grid-section').hide();
+            return false;
+        });
+
+        $('#domain-id2').click(function() {
             //alert("bbb1");
-            window.location = "{{ url('/logout') }}";
+
+            $(this).removeClass('btn-success').addClass('btn-danger');
+            $('#domain-id1').removeClass('btn-danger').addClass('btn-success');
+            $('#domain-id3').removeClass('btn-danger').addClass('btn-success');
+
+            $('.dashboard-section').hide();
+            $('.leaflet-piechart-icon').hide();
+            $('.menu-sec-sales').hide();
+            $('.menu-mktg-pot').show();
+            $('.menu-brand-ideator').hide();
+
+            $('.map-section').show();
+            $('.chart-section').hide();
+            $('.grid-section').hide();
+
             return false;
         });
-        $('#bbb2').click(function() {
-            //alert("bbb2");
-            window.location = "{{ url('/logout') }}";
+
+
+        $('#domain-id3').click(function() {
+            //alert("bbb1");
+
+            $(this).removeClass('btn-success').addClass('btn-danger');
+            $('#domain-id1').removeClass('btn-danger').addClass('btn-success');
+            $('#domain-id2').removeClass('btn-danger').addClass('btn-success');
+
+            $('.dashboard-section').hide();
+            $('.leaflet-piechart-icon').hide();
+            $('.menu-sec-sales').show();
+            $('.menu-mktg-pot').hide();
+            $('.menu-brand-ideator').hide();
+            $('.map-section').show();
+            $('.chart-section').hide();
+            $('.grid-section').hide();
+
             return false;
         });
+
+        // $('#gocity').click(function() {
+        //     //alert($('#selcity').val());
+        //     var area = $('#selcity').val();
+        //     if(area == "India") {
+        //         map.removeLayer(geojson);
+        //         load('./maps/KML/1/O_1.js');
+
+        //         var geojson17;
+
+        //         geojson17 = L.geoJson(O_1, {
+        //             style: style,
+        //         }).addTo(map);
+
+        //         map.fitBounds(geojson17.getBounds());
+        //     } else if (area == "Bangalore") {
+        //         map.removeLayer(geojson);
+        //         load('./maps/KML/1/17/73/O_73.js');
+
+        //         var geojson17;
+
+        //         geojson17 = L.geoJson(O_73, {
+        //             style: style,
+        //         }).addTo(map);
+
+        //         map.fitBounds(geojson17.getBounds());
+        //     } else {}
+            
+
+        // });
+        
 
     });
-
 </script>
 
-
+<script src="http://sashakavun.github.io/leaflet-canvasicon/leaflet-canvasicon.js"></script>
+<!-- Load Esri Leaflet from CDN -->
+<script type="text/javascript" src="{{ asset('assets/js/leaflet-piechart.js') }}"></script>
+<script src="{{ asset('assets/js/leaflet-search.js') }}"></script>
 <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+
 @endpush

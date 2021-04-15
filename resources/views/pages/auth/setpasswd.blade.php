@@ -14,7 +14,8 @@
           </div>
           <div class="col-md-8 pl-md-0">
             <div class="auth-form-wrapper px-4 py-5">
-              <a href="#" class="noble-ui-logo d-block mb-2">INVESTORS <span>CONNECT</span></a>
+            <a target="_blank" href="http://www.brandidea.ai" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a></span>
+            </a>
               <h5 class="text-muted font-weight-normal mb-4">Set Password</h5>
 
                 <form class="forms-sample" action="{{url('/user/setpasswd')}}" method="POST">

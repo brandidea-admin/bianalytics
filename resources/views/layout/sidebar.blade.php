@@ -1,7 +1,8 @@
-<nav class="sidebar">
+
+<nav class="sidebar"> 
     <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-            INV.<span>CONNECT</span>
+            <a target="_blank" href="http://www.brandidea.ai" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a></span>
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
@@ -9,98 +10,221 @@
             <span></span>
         </div>
     </div>
+
+
     <div class="sidebar-body">
         <ul class="nav">
-            <li class="nav-item nav-category">Main</li>
-            <li class="nav-item {{ active_class(['/']) }}">
-                <a href="{{ url('/dashboard') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item nav-category">Investors</li>
+            <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
+                <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
+                <input type="text" class="form-control">
+            </div>
+        <hr>
 
-            @if(Auth::user()->access_type == 'ADMIN')
-                    <li class="nav-item {{ active_class(['user']) }}">
-                        <a href="{{ url('/user') }}" class="nav-link">
-                            <i class="link-icon" data-feather="search"></i>
-                            <span class="link-title">Users</span>
+        <div class="sidebar-body menu-brand-ideator" style="display:none;">
+
+            <li class="nav-item nav-category">Discovery</li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="link-icon" data-feather="eye"></i>
+                            <span class="link-title">Menu 1</span>
                         </a>
                     </li>
-            @endif
 
-            
-            
-            <!-- <li class="nav-item {{ active_class(['search_list/*']) }}">
-                <a class="nav-link" data-toggle="collapse" href="#search_list" role="button" aria-expanded="{{ is_active_route(['search_list/*']) }}" aria-controls="search_list">
-                    <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Search-List</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['search_list/*']) }}" id="search_list">
-                    <ul class="nav sub-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="link-icon" data-feather="eye"></i>
+                            <span class="link-title">Menu 2</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="link-icon" data-feather="eye"></i>
+                            <span class="link-title">Menu 3</span>
+                        </a>
+                    </li>
+
+                    <div style="text-align:right;">
+                         <button alt="1" class="btn btn-success gen-report" value=""> Show Result </button>
+                    </div>
+            </div>
+        
+        
+            <div class="sidebar-body menu-mktg-pot" style="display:none;">
+
+                <li class="nav-item nav-category">Marketing Potential</li>
+
                         <li class="nav-item">
-                            <a href="{{ url('/search_list') }}" class="nav-link {{ active_class(['search_list']) }}">Google Search</a>
+                            <a href="#" class="nav-link">
+                                <i class="link-icon" data-feather="eye"></i>
+                                <span class="link-title">Menu 11</span>
+                            </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="{{ url('/email_permut') }}" class="nav-link {{ active_class(['email_permut']) }}">E-Mail Permutation</a>
+                            <a href="#" class="nav-link">
+                                <i class="link-icon" data-feather="eye"></i>
+                                <span class="link-title">Menu 22</span>
+                            </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="{{ url('/news_read') }}" class="nav-link {{ active_class(['news_read']) }}">News Read</a>
+                            <a href="#" class="nav-link">
+                                <i class="link-icon" data-feather="eye"></i>
+                                <span class="link-title">Menu 33</span>
+                            </a>
                         </li>
-                    </ul>
+
+                        <div style="text-align:right;">
+                                <button alt="2" class="btn btn-success gen-report" value=""> Show Result </button>
+                            </div>
                 </div>
-            </li> -->
 
+                <div class="sidebar-body menu-sec-sales" style="display:none;">
 
-            <!-- <li class="nav-item {{ active_class(['lead']) }}">
-                <a href="{{ url('/lead') }}" class="nav-link">
-                    <i class="link-icon" data-feather="activity"></i>
-                    <span class="link-title">Leads</span>
-                </a>
-            </li>
-            <li class="nav-item {{ active_class(['companies']) }}">
-                <a href="{{ url('/companies') }}" class="nav-link">
-                    <i class="link-icon" data-feather="briefcase"></i>
-                    <span class="link-title">Companies</span>
-                </a>
-            </li>
-            <li class="nav-item {{ active_class(['events']) }}">
-                <a href="{{ url('/events') }}" class="nav-link myspin">
-                    <i class="link-icon" data-feather="calendar"></i>
-                    <span class="link-title">News</span>
-                </a>
-            </li> -->
+                    <li class="nav-item nav-category">Secondary Sales</li>
 
-            <!-- <li class="nav-item {{ active_class(['api']) }}">
-                <a href="{{ url('/api') }}" class="nav-link">
-                    <i class="link-icon" data-feather="cloud"></i>
-                    <span class="link-title">API</span>
-                </a>
-            </li> -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="link-icon" data-feather="eye"></i>
+                                    <span class="link-title">Menu 111</span>
+                                </a>
+                            </li>
 
-            <!-- <li class="nav-item {{ active_class(['settings/*']) }}">
-                <a class="nav-link" data-toggle="collapse" href="#master_keyword" role="button" aria-expanded="{{ is_active_route(['master_keyword/*']) }}" aria-controls="master_keyword">
-                    <i class="link-icon" data-feather="tool"></i>
-                    <span class="link-title">Settings</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['master_keyword/*']) }}" id="master_keyword">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ url('/master_keyword') }}" class="nav-link {{ active_class(['master_keyword']) }}">Master Keywords</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/country') }}" class="nav-link {{ active_class(['country']) }}">Countries</a>
-                        </li>
-                        @if(Auth::user()->type == 'Admin')
-                        <li class="nav-item">
-                            <a href="{{ url('/user') }}" class="nav-link {{ active_class(['user']) }}">Users</a>
-                        </li>
-                        @endif
-                    </ul>
-                </div>
-            </li> -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="link-icon" data-feather="eye"></i>
+                                    <span class="link-title">Menu 222</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="link-icon" data-feather="eye"></i>
+                                    <span class="link-title">Menu 333</span>
+                                </a>
+                            </li>
+
+                            <div style="text-align:right;">
+                                <button alt="3" class="btn btn-success gen-report"> Show Result </button>
+                            </div>
+
+                    </div>        
+        
         </ul>
     </div>
+
 </nav>
+
+@push('custom-scripts')
+<script>
+    $(function() {
+
+        $('.gen-report').click(function() {
+            console.log(window.contid+" <<==== "+window.maplevel+" <<==== ");
+            console.log(window.fitcenter);
+            //return false;
+            // $('.map-section').show();
+            // $.ajax({
+            //     type: 'get', 
+            //     url : "{{url('/map')}}", 
+            //     success : function (data) {
+            //         $(".map-section").html(data);
+            //     }
+            // });
+
+            $('.mystyle').show();
+
+            var piecht1 = L.piechartMarker(
+            L.latLng(window.fitcenter),
+            //L.latLng([21.861499,78.695625]),
+                {
+                radius: 50,
+                    data: [
+                        { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
+                        { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
+                        { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
+                        { name: 'Pineapples', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
+                        { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
+                        //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
+                    ],
+                }
+            );
+            piecht1.addTo(map);
+            
+
+            piecht1.on('mouseover', function(e) {
+            //open popup;
+            var popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+            .openOn(map);
+            });
+
+            // var markerOptions = {
+            //     title: "MyLocation",
+            //     clickable: true,
+            //     draggable: true
+            // }
+
+            
+
+
+            $(".leaflet-interactive").dblclick();
+            var curmod = $(this).attr("alt");
+            // alert(curmod);
+            // return false;
+            $('.chart-section').show();
+            // $.ajax({
+            //     type: 'get', 
+            //     url : "{{url('/chart')}}", 
+            //     success : function (data) {
+            //         $(".chart-section").html(data);
+            //     }
+            // });
+
+            if(curmod == 1) {
+                var ctype = "pie";
+            } else if(curmod == 2) {
+                var ctype = "bar";
+            }  else {
+                var ctype = "column";
+            }
+
+            $.ajax({
+                type: 'POST', 
+                url : "{{url('/chart')}}/" + curmod + "/viewchart", 
+                data: {
+                        "_token": "{{ csrf_token() }}",
+                        "chtype": ctype,
+                        "module" : curmod
+                    },
+                success : function (data) {
+                    $(".chart-section").html(data);
+                }
+            });
+
+            $('.grid-section').show();
+
+            $.ajax({
+                type: 'get', 
+                url : "{{url('/grid')}}", 
+                success : function (data) {
+                    $(".grid-section").html(data);
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+
+<style>
+    .datepicker {
+        background-color: #aaa ;
+        color: #333 ;
+    }
+    
+</style>
+@endpush

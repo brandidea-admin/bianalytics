@@ -4,9 +4,7 @@
 <div class="page-content d-flex align-items-center justify-content-center">
     <div class="row w-100 mx-0 auth-page">
         <div class="col-md-8 col-xl-6 mx-auto">
-             <div class="form-group">
-                <a class="small" href="#">Home</a>
-            </div>
+
             <div class="card">
                 <div class="row">
                     <div class="col-md-4 pr-md-0">
@@ -14,7 +12,7 @@
                     </div>
                     <div class="col-md-8 pl-md-0">
                         <div class="auth-form-wrapper px-4 py-5">
-                            <a href="#" class="noble-ui-logo d-block mb-2">INVESTORS <span>CONNECT</span></a>
+                            <a href="#" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a>
                             <h5 class="text-muted font-weight-normal mb-4">Welcome back! Log in to your account.</h5>
 
                            @if(session()->has('message'))

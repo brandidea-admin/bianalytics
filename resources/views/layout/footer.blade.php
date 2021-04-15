@@ -1,4 +1,3 @@
 <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
-    <p class="text-muted text-center text-md-left">Copyright © 2020 <a href="https://www.simreka.com" target="_blank">Simreka</a>. All Rights Reserved</p>
-    <p class="text-muted text-center text-md-left mb-0 d-none d-md-block">Handcrafted With <i class="mb-1 text-primary ml-1 icon-small" data-feather="heart"></i></p>
+    <p class="text-muted text-center text-md-left">Copyright © 2020 <a href="https://www.brandidea.ai" target="_blank">Powered by BrandIdea Analytics Platform</a></p>
 </footer>

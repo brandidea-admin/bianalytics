@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document id="root_doc">
+    <Schema name="village" id="village">
+      <SimpleField name="timestamp" type="string"/>
+      <SimpleField name="begin" type="string"/>
+      <SimpleField name="end" type="string"/>
+      <SimpleField name="altitudeMode" type="string"/>
+      <SimpleField name="tessellate" type="string"/>
+      <SimpleField name="extrude" type="string"/>
+      <SimpleField name="visibility" type="string"/>
+      <SimpleField name="drawOrder" type="string"/>
+      <SimpleField name="icon" type="string"/>
+      <SimpleField name="Name" type="string"/>
+      <SimpleField name="DB_ID" type="string"/>
+    </Schema>
+    <Folder>
+      <Placemark id="taluk_id_23.44" name="name">
+        <name>Hiroli</name>
+        <ExtendedData>
+          <SchemaData schemaUrl="#taluk_id_23.schema">
+            <SimpleData name="LOC_CODE">110020002000200110</SimpleData>
+            <SimpleData name="TALUK">Aland</SimpleData>
+            <SimpleData name="DISTRICT">Gulbarga</SimpleData>
+            <SimpleData name="AREA">22225884.54</SimpleData>
+            <SimpleData name="RES_HOUSE">624</SimpleData>
+            <SimpleData name="HOUSEHOLDS">624</SimpleData>
+            <SimpleData name="DIST_CODE9">11</SimpleData>
+            <SimpleData name="DIST_NAME">GULBARGA</SimpleData>
+            <SimpleData name="UNIQUE_TAL">110020</SimpleData>
+            <SimpleData name="TALUK_CODE">20</SimpleData>
+            <SimpleData name="TALUKA_NAM">ALAND</SimpleData>
+            <SimpleData name="VILL_CODE9">110</SimpleData>
+            <SimpleData name="MRGD_IN_TN">0</SimpleData>
+            <SimpleData name="Name">HIROLI</SimpleData>
+            <SimpleData name="DIST_CODE">04</SimpleData>
+            <SimpleData name="DISTRICT_N">GULBARGA  DISTRICT</SimpleData>
+            <SimpleData name="THSIL_CODE">0001</SimpleData>
+            <SimpleData name="BLOCK_CODE">0001</SimpleData>
+            <SimpleData name="V_CT_CODE">00265900</SimpleData>
+            <SimpleData name="UN_IRR">2568.1</SimpleData>
+            <SimpleData name="AREA_NA_CU">55.96</SimpleData>
+            <SimpleData name="taluk_id">23</SimpleData>
+          <SimpleData name="DB_ID">854083</SimpleData></SchemaData>
+        </ExtendedData>
+        <Polygon>
+          <extrude>0</extrude>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                76.394475683551,17.602691579195,0
+                76.3949470817356,17.6017269780046,0
+                76.3946204891773,17.597465635508,0
+                76.3936800475618,17.595717777055,0
+                76.3925548793543,17.5920574458979,0
+                76.3916752363545,17.5871639570716,0
+                76.392815313799,17.5821305858644,0
+                76.3810236333422,17.5808885109207,0
+                76.3793364971975,17.5757996674686,0
+                76.3773367351707,17.5686623082547,0
+                76.3783349973592,17.5634856902019,0
+                76.3805391229917,17.5594455713727,0
+                76.3808803071286,17.5568483352916,0
+                76.3812269397893,17.5536716101751,0
+                76.3807364537639,17.5495931738466,0
+                76.3774031286331,17.5492247741784,0
+                76.3772484378563,17.5522230043259,0
+                76.3716619284209,17.5556664588335,0
+                76.3713296279539,17.5579804737302,0
+                76.3682122189792,17.5605523619186,0
+                76.3657295832328,17.56080251021,0
+                76.363233650616,17.5616170086827,0
+                76.3610390750908,17.5624214870656,0
+                76.3575562272295,17.5660747089914,0
+                76.3533664115219,17.5636884816355,0
+                76.3475021663034,17.5621681951697,0
+                76.3432878441651,17.5628224117201,0
+                76.3375436910261,17.5626815778279,0
+                76.3368321557189,17.5646781695226,0
+                76.3355530402345,17.5749886140596,0
+                76.3344194971939,17.5959711845816,0
+                76.3391570200205,17.5971260281075,0
+                76.3514438809921,17.5964602914595,0
+                76.3622189985053,17.5973140820428,0
+                76.3757660482299,17.5989226975432,0
+                76.3848142336164,17.6017360530581,0
+                76.394475683551,17.602691579195,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

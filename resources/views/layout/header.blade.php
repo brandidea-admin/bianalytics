@@ -1,18 +1,50 @@
-<nav class="navbar">
+  <nav class="navbar navbar-inverse">
     <a href="#" class="sidebar-toggler">
         <i data-feather="menu"></i>
     </a>
+
     <div class="navbar-content">
-        <!-- <form class="search-form">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <i data-feather="search"></i>
+
+          <div class="input-group">
+              <a href="{{ url('/dashboard') }}" class="btn btn-success">
+                    <span class="link-title">Home</span>
+              </a>
+         </div>
+
+          <div class="input-group">
+            <a id="domain-id1" class="btn btn-success">
+                   <span class="link-title">Brand ideator</span>
+             </a>
+         </div>
+
+         <div class="input-group">
+            <a id="domain-id2" class="btn btn-success">
+                   <span class="link-title">Mkt. Potential</span>
+             </a>
+         </div>
+
+         <div class="input-group">
+              <a id="domain-id3" class="btn btn-success">
+                   <span class="link-title">Sec. Sales</span>
+             </a>
+         </div>
+
+         
+        <form class="search-form">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i data-feather="search"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
           </div>
-        </div>
-        <input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
-      </div>
-    </form> -->
+        </form>
+
+
+        
+
+
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="#" id="userName">
@@ -119,7 +151,7 @@
                         </a>  
                       </li>
                       <li class="nav-item">
-                        <a href="{{env('APP_URL')}}/logout" class="nav-link">
+                        <a href="{{url('/logout')}}" class="nav-link">
                           <i data-feather="log-out"></i>
                           <span>Log Out</span>
                         </a>
@@ -132,3 +164,4 @@
         </ul>
     </div>
 </nav>
+

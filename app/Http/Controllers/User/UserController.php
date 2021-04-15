@@ -54,10 +54,7 @@ class UserController extends Controller
 
              $data6 = User::find($id6);
 
-             // print_r($data6->email);
-             // exit;
-
-             $AdminMsg = "New Registration from Investors Connect  <br/> <br/>Email ID : <b>" . $data6->email . "</b> <br/><br/> First Name : <b>" . $data6->firstname . "</b> <br/><br/> Organization : <b>" . $data6->Organization . "</b> <br/><br/> User Type : <b>" . $data6->user_type . "</b>  <br/><br/> Phone / Mobile : <b>" . $data6->phone . "</b> <br/><br/><br/><br/>- Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> Simreka Admin Team";
+             $AdminMsg = "New Registration from Investors Connect  <br/> <br/>Email ID : <b>" . $data6->email . "</b> <br/><br/> First Name : <b>" . $data6->firstname . "</b> <br/><br/> Organization : <b>" . $data6->Organization . "</b> <br/><br/> User Type : <b>" . $data6->user_type . "</b>  <br/><br/> Phone / Mobile : <b>" . $data6->phone . "</b> <br/><br/><br/><br/>- Approve or Deny using the link : <a target='_blank' href='". env('APP_URL') ."/approvedeny.php?uid=".$id6."'>Approve or Deny</a> <br/><br/><br/>  Thanks and Regards <br/> BrandIdea Admin Team";
 
               require 'vendor/autoload.php';
 
@@ -77,18 +74,18 @@ class UserController extends Controller
 
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication      
 
-                $mail->Username   = 'shobamohandurai@gmail.com';                          // SMTP username
-                $mail->Password   = 'Pass@12345!';                         // SMTP password                           
+                $mail->Username   = 'brandideagranularanalytics2021@gmail.com';
+                $mail->Password   = 'Brandidea@123';                           
 
                 
-                //$mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
-                $mail->setFrom('mohan.durai@simreka.com', 'Admin-Simreka');
+                //$mail->setFrom('BrandIdea-app@BrandIdea.com', 'Admin-BrandIdea');
+                $mail->setFrom('brandideagranularanalytics2021@gmail.com', 'Admin-BrandIdea');
                 $mail->addReplyTo('mohan_durai@yahoo.com', 'First Last');
-                $mail->addAddress('mohan.durai@simreka.com', 'Investors Connect Admin');
+                $mail->addAddress('mohandurai.r@brandidea.com', 'BrandIdea Analytics Admin');
 
                 $mail->isHTML(true);
                
-                $mail->Subject = 'New Registration from Inverstors Connect';
+                $mail->Subject = 'New Registration from BrandIdea Analytics !!!';
                 $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                 $mail->msgHTML($AdminMsg);
@@ -107,7 +104,7 @@ class UserController extends Controller
        ///    Ends Email sending procoess
 
 
-        return Redirect::to('/auth/login')->with('message',"Password Updated Successfully !!! Please login after approval from Admin Team from Simreka., You will be notified in your registered email id for login confirmattion !!! Thank You");
+        return Redirect::to('/auth/login')->with('message',"Password Updated Successfully !!! Please login after approval from Admin Team from BrandIdea., You will be notified in your registered email id for login confirmattion !!! Thank You");
     }
 
     public function register(Request $request)
@@ -124,7 +121,7 @@ class UserController extends Controller
         } else {
             $user = new User();
 
-            $str6 = "Simreka@123" . date("Y-m-d H:i:s");
+            $str6 = "BrandIdea@123" . date("Y-m-d H:i:s");
             $mytoken = md5($str6);
             $user->token = $mytoken;
             $user->firstname = $request->firstname;
@@ -151,7 +148,7 @@ class UserController extends Controller
            
             //// Start Email sending module
 
-            $InvMsg = "Please click the following link to verify your email id <br/><br/> <a href='". env('APP_URL') ."/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - Simreka Admin Team";
+            $InvMsg = "Please click the following link to verify your email id <br/><br/> <a href='". env('APP_URL') ."/auth/setpasswd?mytoken=" . $mytoken . "&userid=" . $user->id . "&emailid=" . $request->username . "'> Verify Email </a> <br/><br/> Regards - BrandIdea Admin Team";
 
             require 'vendor/autoload.php';
 
@@ -173,21 +170,17 @@ class UserController extends Controller
 
                 $mail->SMTPAuth   = true;                      
 
-                $mail->Username   = 'shobamohandurai@gmail.com';
-                $mail->Password   = 'Pass@12345!';
+                $mail->Username   = 'brandideagranularanalytics2021@gmail.com';
+                $mail->Password   = 'Brandidea@123';
 
-                //$mail->Username   = 'app@simreka.com';    
-                //$mail->Password   = 'Chamundi@299';                       
-
-                
-                //$mail->setFrom('simreka-app@simreka.com', 'Admin-Simreka');
-                $mail->setFrom('shobamohandurai@gmail.com', 'New User from Investor Connect');
-                //$mail->addReplyTo('mohan_durai@yahoo.com', 'First Last');
-                $mail->addAddress($request->username, 'Investors Connect Admin');
+                //$mail->setFrom('BrandIdea-app@BrandIdea.com', 'Admin-BrandIdea');
+                $mail->setFrom('brandideagranularanalytics2021@gmail.com', 'New User from BrandIdea Analytics');
+                $mail->addReplyTo('brandideagranularanalytics2021@gmail.com', 'First Last');
+                $mail->addAddress($request->username, 'BrandIdea Analytics Admin');
 
                 $mail->isHTML(true);
                
-                $mail->Subject = 'New Registration from Inverstors Connect';
+                $mail->Subject = 'New Registration from BrandIdea Analytics';
                 $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                 $mail->msgHTML($InvMsg);
@@ -205,7 +198,7 @@ class UserController extends Controller
 
         }
 
-        return Redirect::to('/auth/login')->with('message',"User Registered Successfully !!! Email verification sent on your registered Email ID, click on the url and set Password. Simreka Admin Team !!!");
+        return Redirect::to('/auth/login')->with('message',"User Registered Successfully !!! Email verification sent on your registered Email ID, click on the url and set Password. BrandIdea Admin Team !!!");
     }
 
 

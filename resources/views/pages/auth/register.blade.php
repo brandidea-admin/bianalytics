@@ -14,8 +14,8 @@
           </div>
           <div class="col-md-8 pl-md-0">
             <div class="auth-form-wrapper px-4 py-5">
-              <a href="#" class="noble-ui-logo d-block mb-2">INVESTORS <span>CONNECT</span></a>
-              <h5 class="text-muted font-weight-normal mb-4">Registration Form for Create a free account.</h5>
+            <a href="#" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a>
+              <h5 class="text-muted font-weight-normal mb-4">New User Registration Form</h5>
 
                 <form class="forms-sample" action="{{url('/user/register')}}" method="POST">
                   @csrf
@@ -37,9 +37,10 @@
                     </label>
                     <select id="user_type" name="user_type" class="js-example-basic-single">
                         <option value="">Select User Type</option>
-                        <option value="Angel">Angel</option>
-                        <option value="FamilyOffice">Family Office</option>
-                        <option value="VentureCapitalFirm">Venture Capital Firm</option>
+                        <option value="admin">Admin</option>
+                        <option value="type-1">Type 1</option>
+                        <option value="type-2">Type 2</option>
+                        <option value="type-3">Type 3</option>
                     </select>
                 </div>
                   <div class="form-group">

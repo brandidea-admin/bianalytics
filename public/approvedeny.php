@@ -153,7 +153,7 @@ if(isset($_GET['uid'])) {
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
-      <p>Simreka</p>
+      <p>BrandIdea</p>
     </div>
   </footer>
 
@@ -213,10 +213,10 @@ elseif(isset($_POST)) {
     $mail->Password = 'Pass@12345!';
 
     //Set who the message is to be sent from
-    $mail->setFrom('mohan.durai@simreka.com', 'Investors-Connect Admin');
+    $mail->setFrom('mohan.durai@BrandIdea.com', 'Investors-Connect Admin');
 
     //Set an alternative reply-to address
-    $mail->addReplyTo('mohan.durai@simreka.com', 'Investors-Connect Admin');
+    $mail->addReplyTo('mohan.durai@BrandIdea.com', 'Investors-Connect Admin');
 
     //Set who the message is to be sent to
     $mail->addAddress($_POST['emailid'], 'Welcome New Investor');

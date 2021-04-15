@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'BIApp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', '/investor-connect/public'),
+    'url' => env('APP_URL', 'http://192.168.10.40:8080'),
 
 
     'asset_url' => env('ASSET_URL', null),
@@ -165,6 +165,8 @@ return [
 
         Ixudra\Curl\CurlServiceProvider::class,
 
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -230,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
     ],
 

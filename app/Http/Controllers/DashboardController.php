@@ -19,7 +19,7 @@ class DashboardController extends Controller
         if($stat == 'Active') {
         	return view('pages.dashboard');
         } else {
-        	return Redirect::to('/auth/login')->with('message',"Get approval from Admin Team from Simreka !!! Thank You");
+        	return Redirect::to('/auth/login')->with('message',"Get approval from Admin Team from BrandIdea !!! Thank You");
         }
         
     }

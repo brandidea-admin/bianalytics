@@ -10,11 +10,21 @@ use Illuminate\Support\Facades\Auth;
 //     return view('dashboard');
 // });
 
+// Route::get('/map', function () {
+//     return view('map');
+// })->name('map');
+
+// Route::get('/map', 'GoogleMapController@index');
+
+Route::get('chart', 'ChartController@index');
+Route::post('/chart/{id}/viewchart', 'ChartController@viewchart');
+
+Route::get('grid', 'GridController@index');
+Route::get('map', 'MapController@index');
 
 Route::get('/', function () {
     return view('pages.auth.login');
 });
-
 
 
 Route::post('logincheck', function() {
@@ -51,30 +61,9 @@ Route::get ('logout',function(){
     return Redirect::to('/auth/login');
 });
 
-
-
     Route::resource('dashboard', 'DashboardController')->middleware('auth3');
 
-    // Route::resource('search_list', 'Search_list\SearchListController')->middleware('auth3');
-    // Route::get('/search_list/{id}/genlinks', 'Search_list\SearchListController@genlinks');
-    // Route::get('/search_list/{id}/genlinks', 'Search_list\SearchListController@genlinks');
-    // Route::post('/search_list/{id}/addleadinfo', 'Search_list\SearchListController@addleadinfo');
-    // Route::get('/search_list/{id}/exportcsv', 'Search_list\SearchListController@exportcsv');
-
-    // Route::resource('master_keyword', 'MasterKeywordController')->middleware('auth3');
-    // Route::resource('country', 'Country\CountryController')->middleware('auth3');
-
-    // Route::resource('lead', 'Lead\LeadController')->middleware('auth3');
-    // Route::get('/lead/{id}/validemail', 'Lead\LeadController@validemail');
-    // Route::get('/lead/{id}/validemail2', 'Lead\LeadController@validemail2');
-    // Route::post('/lead/{id}/getnews', 'Lead\LeadController@getnews');
-    // Route::post('/lead/{id}/viewnews', 'Lead\LeadController@viewnews');
-
-    // Route::resource('companies', 'Company\CompanyController')->middleware('auth3');
-
-    // Route::resource('events', 'Event\EventController')->middleware('auth3');
-    // Route::post('/events/{id}/viewnews', 'Event\EventController@viewnews');
-
+    Route::resource('content', 'ContentController')->middleware('auth3');
 
     Route::resource('user', 'User\UserController');
     Route::post('/user/setpasswd', 'User\UserController@setpasswd');

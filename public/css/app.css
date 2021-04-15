@@ -1,4 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Overpass:300,400,600,700,800,900&display=swap);@-webkit-keyframes flash {
+/* @import url('https://fonts.googleapis.com/css?family=Nunito'); */
+/*@import url(https://fonts.googleapis.com/css?family=Overpass:300,400,600,700,800,900&display=swap);*/
+@-webkit-keyframes flash {
   0% {
     opacity: 1;
   }
@@ -23470,7 +23472,7 @@ address p {
 .navbar .navbar-content {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 50%;
   padding-left: 25px;
   padding-right: 25px;
 }
