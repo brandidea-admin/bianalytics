@@ -424,6 +424,8 @@ map.addControl(backbut1);
                 }
 
                 function zoomToFeature2(e) {
+
+                    window.regSelected = window.contid;
                     
                     window.mapType = "S"; ///// Outline or Division
                     console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
@@ -478,24 +480,7 @@ map.addControl(backbut1);
                             }
                             
 
-                            // var piecht1 = L.piechartMarker(
-                            // //L.latLng(latLng),
-                            // L.latLng([21.861499,78.695625]),
-                            //     {
-                            //     radius: 50,
-                            //         data: [
-                            //             { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
-                            //             { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
-                            //             { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
-                            //             { name: 'Pineapples', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
-                            //             { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
-                            //             //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
-                            //         ]
-                            //     }
-                            // );
-                            // piecht1.addTo(map);
-
-                            var searchControl3 = new L.Control.Search({
+                           var searchControl3 = new L.Control.Search({
                                 layer: geojson3,
                                 propertyName: 'Name',
                                 marker: false,
@@ -637,7 +622,9 @@ map.addControl(backbut2);
                             function zoomToFeature3(e) {
 
                                 map.removeLayer(geojson3);
-                                map.removeControl(searchControl3); 
+                                map.removeControl(searchControl3);
+
+                                window.regSelected = window.contid;
 
                                 load('./maps/KML/1/S_1.js');
                                 window.mapType = "D"; ///// Outline or Division

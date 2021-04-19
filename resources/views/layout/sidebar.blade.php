@@ -123,72 +123,131 @@
 
         $('.gen-report').click(function() {
 
-            console.log(window.contid+" <<==== "+window.maplevel+" <<==== "+window.mapType);
+            console.log(window.regSelected+" <<==== "+window.maplevel+" <<==== "+window.mapType);
 
             $('.mystyle').show();
 
-            if(window.mapType == "D")
+            if(window.mapType == "D" && window.regSelected == 1)
             {
                 //alert("Yesssssssssss");
                 var indstates = new Array(5);
-                const indstates = [{ id : 17, name : "Karnataka", latlng : "14.417656,75.727984"}, { id : 21, name : "Maharashtra", latlng : "19.394068,75.912796"}, { id: 2, name: "Andra Pradesh", latlng: "14.987239,78.947623"}, { id: 31:, name: "Tamil Nadu", latlng: "10.919617,78.463589"}, {id: 18, name: "Kerala", latlng: "10.055402,76.615459"}, { id : 69, name: "Telangana", latlng: "17.727758,79.079632"} ];
-                //console.log(indstates);
-                indstates.forEach(function(value, index) {
-                    console.log(value+" <<<=== "+index);
-                });
+                indstates[17] = {"name" : "Karnataka", "coords" : {lat: "14.417656", lng: "75.727984"}};
+                indstates[21] = {"name" : "Maharashtra", "coords" : {lat: "19.394068", lng: "75.912796"}};
+                indstates[18] = {"name" : "Kerala", "coords" : {lat: "9.851969", lng: "76.666816"}};
+                indstates[31] = {"name" : "Tamil Nadu", "coords" : {lat: "10.798774", lng: "78.302230"}};
+                indstates[2] = {"name" : "Andhra Pradesh", "coords" : {lat: "15.029686", lng: "78.900674"}};
+                indstates[69] = {"name" : "Telangana", "coords" : {lat: "17.861655", lng: "79.143047"}};
+                indstates[26] = {"name" : "Orissa", "coords" : {lat: "20.336386", lng: "84.471465"}};
+                console.log(indstates);
                 
-                return false;
-                var piecht1 = L.piechartMarker(
-                L.latLng(window.fitcenter),
-                //L.latLng([21.861499,78.695625]),
-                    {
-                    radius: 50,
-                        data: [
-                            { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
-                            { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
-                            { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
-                            { name: 'Pines', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
-                            { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
-                            //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
-                        ],
-                    }
-                );
-                piecht1.addTo(map);
-            }
-            else
-            {    
-                alert("QQQQQQQQQQQQQ");
-                var piecht1 = L.piechartMarker(
-                L.latLng(window.fitcenter),
-                //L.latLng([21.861499,78.695625]),
-                    {
-                    radius: 50,
-                        data: [
-                            { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
-                            { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
-                            { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
-                            { name: 'Pines', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
-                            { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
-                            //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
-                        ],
-                    }
-                );
-                piecht1.addTo(map);
+                indstates.forEach(function(value, index) {
+                    //console.log(value.name + " <<<=== " + value.coords + " <<<=== " + index);
+               
+                    var piecht1 = L.piechartMarker(
+                    L.latLng(value.coords),
+                    //L.latLng([21.861499,78.695625]),
+                        {
+                        radius: 20,
+                            data: [
+                                { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
+                                { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
+                                { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
+                                { name: 'Pines', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
+                                { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
+                                //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
+                            ],
+                        }
+                    );
+                    piecht1.addTo(map);
 
-                piecht1.on('mouseover', function(e) {
-                //open popup;
-                var popup1 = L.popup()
-                .setLatLng(e.latlng)
-                .setContent('<span style="color:blue;">Apples : 25<br/>Oranges : 35<br/>Bananas : 20<br/>Pines : 30<br/>Fig : 70<br/></span>')
-                .openOn(map);
+                    piecht1.on('mouseover', function(e) {
+                    //open popup;
+                    var popup1 = L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent('<b>'+value.name+'</b></br><span style="color:blue;">Apples : 25<br/>Oranges : 35<br/>Bananas : 20<br/>Pines : 30<br/>Fig : 70<br/></span>')
+                    .openOn(map);
 
-                    piecht1.on('mouseout', function(e) {
-                        //alert("Yesssssssss");
-                        popup1.remove();
-                        //piecht1.remove();
+                        piecht1.on('mouseout', function(e) {
+                            //alert("Yesssssssss");
+                            popup1.remove();
+                            //piecht1.remove();
+                        });
+                        
                     });
-                    
                 });
+            }
+            else if(window.mapType == "S" && window.regSelected == 1)
+            {    
+                //alert("QQQQQQQQQQQQQ");
+                var country = new Array(1);
+                country[1] = {"name" : "India", "coords" : {lat: "22.073424", lng: "79.092675"}};
+
+                country.forEach( function(value, index) {
+                    var piecht1 = L.piechartMarker(
+                        L.latLng(value.coords),
+                    //L.latLng([21.861499,78.695625]),
+                        {
+                        radius: 50,
+                            data: [
+                                { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
+                                { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
+                                { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
+                                { name: 'Pines', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
+                                { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
+                                //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
+                            ],
+                        }
+                    );
+                    piecht1.addTo(map);
+
+                    piecht1.on('mouseover', function(e) {
+                    //open popup;
+                    var popup1 = L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent('<b>'+value.name+'</b></br><span style="color:blue;">Apples : 25<br/>Oranges : 35<br/>Bananas : 20<br/>Pines : 30<br/>Fig : 70<br/></span>')
+                    .openOn(map);
+
+                        piecht1.on('mouseout', function(e) {
+                            //alert("Yesssssssss");
+                            popup1.remove();
+                            //piecht1.remove();
+                        });
+                        
+                    });
+                });
+
+                // console.log(window.fitcenter);
+                // var piecht1 = L.piechartMarker(
+                // L.latLng(window.fitcenter),
+                // //L.latLng([21.861499,78.695625]),
+                //     {
+                //     radius: 50,
+                //         data: [
+                //             { name: 'Apples', value: 25, style: { fillStyle: 'red', lineWidth: 1 } },
+                //             { name: 'Oranges', value: 35, style: { fillStyle: 'blue', lineWidth: 1 } },
+                //             { name: 'Bananas', value: 20, style: { fillStyle: 'black', lineWidth: 1 } },
+                //             { name: 'Pines', value: 30, style: { fillStyle: 'green', lineWidth: 1 } },
+                //             { name: 'Fig', value: 70, style: { fillStyle: 'violet', lineWidth: 1 } }
+                //             //{ name: 'Fig', value: 70, style: { fillStyle: 'rgba(0,127,0,.6)', strokeStyle: 'rgba(0,127,0,.95)', lineWidth: 10 } }
+                //         ],
+                //     }
+                // );
+                // piecht1.addTo(map);
+
+                // piecht1.on('mouseover', function(e) {
+                // //open popup;
+                // var popup1 = L.popup()
+                // .setLatLng(e.latlng)
+                // .setContent('<span style="color:blue;">Apples : 25<br/>Oranges : 35<br/>Bananas : 20<br/>Pines : 30<br/>Fig : 70<br/></span>')
+                // .openOn(map);
+
+                //     piecht1.on('mouseout', function(e) {
+                //         //alert("Yesssssssss");
+                //         popup1.remove();
+                //         //piecht1.remove();
+                //     });
+                    
+                // });
             }
 
             
