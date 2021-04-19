@@ -18,7 +18,8 @@
    <link rel="stylesheet" href="http://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="http://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
-    <script src="{{ asset('assets/L.KML.js') }}"></script>
+    <!-- <script src="{{ asset('assets/L.KML.js') }}"></script> -->
+    <script src="{{ asset('assets/js/leaflet.label.js') }}"></script>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>

@@ -228,6 +228,9 @@
             // control that shows state info on hover
             var info = L.control();
 
+            info.setPosition('bottomright');
+            // console.log(info.getPosition());
+
             info.onAdd = function(map) {
                 this._div = L.DomUtil.create('div', 'info');
                 this.update();
@@ -249,7 +252,8 @@
 
             info.addTo(map);
 
-            console.log(window.contid+" <<<<=== "+window.maplevel);
+            window.mapType = "S"; ///// Outline or Division
+            console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
             
             // get color depending on population density value
             function getColor(d) {
@@ -302,6 +306,9 @@
 
             function zoomToFeature(e) {
                 map.removeLayer(geojson);
+
+                window.mapType = "D"; ///// Outline or Division
+                console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                var geojson2;
 
@@ -417,14 +424,15 @@ map.addControl(backbut1);
                 }
 
                 function zoomToFeature2(e) {
-
-                    console.log(window.contid+" <<<<=== "+window.maplevel);
+                    
+                    window.mapType = "S"; ///// Outline or Division
+                    console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                     //e.target.setStyle({fillColor: 'blue', color: 'black', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8});
 
 ////////// Starts India Level Code 1
 
-                    if (window.contid == 1 && window.maplevel == 0) {
+                    if (window.contid == 1 && window.maplevel == 0 && window.mapType == "S") {
 
                             map.removeLayer(geojson2);
                             map.removeControl(searchControl2); 
@@ -534,7 +542,7 @@ var backbut2 = L.easyButton({
                 map.setView([41.771312,8.684994], 1);
                 backbut2.remove();
                 // piecht1.remove();
-                $('.cokLabel').hide();
+                //$('.cokLabel').hide();
                 map.addControl(backbut1);
                 
             }	
@@ -581,7 +589,7 @@ map.addControl(backbut2);
                                     dblclick: zoomToFeature3
                                 });
 
-                                var label = L.marker([36.102376,74.166826], {
+                                var pokLabel = L.marker([36.102376,74.166826], {
                                         icon: L.divIcon({
                                             className: 'cokLabel',
                                             html: "<span style='color:grey;'>POK</span>",
@@ -589,7 +597,7 @@ map.addControl(backbut2);
                                         })
                                 }).addTo(map);
 
-                                var label = L.marker([35.398006,78.487318], {
+                                var cokLabel = L.marker([35.398006,78.487318], {
                                         icon: L.divIcon({
                                             className: 'cokLabel',
                                             html: "<span style='color:grey;'>COK</span>",
@@ -632,6 +640,8 @@ map.addControl(backbut2);
                                 map.removeControl(searchControl3); 
 
                                 load('./maps/KML/1/S_1.js');
+                                window.mapType = "D"; ///// Outline or Division
+                                console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                                 var geojson4;
 
@@ -749,10 +759,12 @@ map.addControl(backbut3);
 
                                     map.removeLayer(geojson4);
                                     map.removeControl(searchControl4); 
-                                    $('.cokLabel').hide();
+                                    // $('.cokLabel').hide();
 
 ///// Starts India ==> States Karnataka (17)
                                     window.maplevel = 2;
+                                    window.mapType = "S"; ///// Outline or Division
+                                    console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                                     var distid2 = parseInt(window.contid);
 
@@ -840,7 +852,7 @@ backbut3.remove();
                     //map.fitBounds(geojson4.getBounds());
                     map.setView([24.910353,79.719117], 4);
                     backbut4.remove();
-                    $('.cokLabel').hide();
+                    //$('.cokLabel').hide();
                     map.addControl(backbut3);
                     
                 }	
@@ -891,6 +903,9 @@ map.addControl(backbut4);
                                             function zoomToFeature5(e) {
                                                 map.removeLayer(geojson5);
                                                 map.removeControl(searchControl5); 
+
+                                                window.mapType = "D"; ///// Outline or Division
+                                                console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                                                 file_info5 = './maps/KML/1/'+distid2+'/D_'+distid2+'.js';
                                                 
@@ -1015,6 +1030,8 @@ var backbut5 = L.easyButton({
                                                     var distid3 = parseInt(window.contid);
 
                                                     window.maplevel = 3; ///// District level
+                                                    window.mapType = "S"; ///// Outline or Division
+                                                    console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
                                                             
                                                     file_info6 = './maps/KML/1/'+distid2+'/'+distid3+'/O_'+distid3+'.js';
                                                     load(file_info6);
@@ -1132,6 +1149,9 @@ map.addControl(backbut6);
 
                                                                 map.removeLayer(geojson7);
                                                                 map.removeControl(searchControl7); 
+
+                                                                window.mapType = "D"; ///// Outline or Division
+                                                                console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
             //// Checking City (73 Bangalore, 676 Mumbai) for Wards and Taluk Separation
             ///// If City and District are same for Places like Blore,Mumbai,Chennai etc.. next level wards and ends
@@ -1266,8 +1286,10 @@ map.addControl(backbut7);
                                                                     var distid4 = parseInt(window.contid);
 
                                                                     window.maplevel = 4; ///// Ward or Taluk level
+                                                                    window.mapType = "S"; ///// Outline or Division
+                                                                    console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
-                                if(distid3 == 73) {
+                                if(distid3 == 73 || distid3 == 676) {
                                     var str3 = "W"
                                 } else {
                                     var str3 = "T"
@@ -1278,16 +1300,35 @@ map.addControl(backbut7);
                                                                     var myVariable8 = 'O_'+distid4;
                                                                     console.log(file_info8+"<<<===="+myVariable8);
 
-                                                                    var geojson9;
-                                                                    var geojson9 = new L.GeoJSON(eval(myVariable8), {
-                                                                        style: function(feature) {
-                                                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
-                                                                        },
-                                                                        // onEachFeature: function(feature, marker) {
-                                                                        //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
-                                                                        // }
-                                                                        onEachFeature: onEachFeature9
-                                                                    });
+                                                var geojson9;
+
+                                                if(distid3 == 73 || distid3 == 676) {
+                                                    var geojson9 = new L.GeoJSON(eval(myVariable8), {
+                                                        style: function(feature) {
+                                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                        }
+                                                    });
+                                                } else {
+                                                    var geojson9 = new L.GeoJSON(eval(myVariable8), {
+                                                        style: function(feature) {
+                                                            return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                        },
+                                                        onEachFeature: onEachFeature9
+                                                    });
+                                                }
+
+                                                // map.fitBounds(geojson9.getBounds());
+
+                                                                    // var geojson9;
+                                                                    // var geojson9 = new L.GeoJSON(eval(myVariable8), {
+                                                                    //     style: function(feature) {
+                                                                    //         return {fillColor: 'white', color: 'blue', weight: 0.5,  stroke: 0.7, fillOpacity: 0.8};
+                                                                    //     },
+                                                                    //     // onEachFeature: function(feature, marker) {
+                                                                    //     //     marker.bindPopup('Name : '+feature.properties.Name+' ('+ feature.properties.DB_ID+')');
+                                                                    //     // }
+                                                                    //     onEachFeature: onEachFeature9
+                                                                    // });
 
                                                                     L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=088HTkVkumk1ZGlBjdvX', {
                                                                         maxZoom: 15,
@@ -1321,20 +1362,9 @@ map.addControl(backbut7);
                                                                     
                                                                     map.addControl(searchControl9);
 
-                                                                    // if(distid3 == 73) {
-                                                                    //     var geojson9;
-                                                                    //     geojson9 = L.geoJson(eval(myVariable8), {
-                                                                    //         style: style
-                                                                    //     }).addTo(map);
-                                                                    //     map.fitBounds(geojson9.getBounds());
-                                                                    // } else {
-                                                                    //     var geojson9;
-                                                                    //     geojson9 = L.geoJson(eval(myVariable8), {
-                                                                    //         style: style,
-                                                                    //         onEachFeature: onEachFeature9
-                                                                    //     }).addTo(map);
-                                                                    //     map.fitBounds(geojson9.getBounds());
-                                                                    // }
+
+
+
 
 backbut7.remove();
 
@@ -1413,6 +1443,8 @@ map.addControl(backbut8);
                                                                                 var distid5 = parseInt(window.contid);
 
                                                                                 window.maplevel = 5; ///// Village level
+                                                                                window.mapType = "D"; ///// Outline or Division
+                                                                                console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                                                                                 file_info9 = './maps/KML/1/'+distid2+'/'+distid3+'/'+str3+'/V_'+distid5+'.js';
                                                                                 load(file_info9);
@@ -1539,6 +1571,8 @@ map.addControl(backbut9);
                                                                                         var distid6 = parseInt(window.contid);
 
                                                                                         window.maplevel = 6; ///// Village level
+                                                                                        window.mapType = "S"; ///// Outline or Division
+                                                                                        console.log(window.contid+" <<<<=== "+window.maplevel+" <<<<=== "+window.mapType);
 
                                                                                         file_info6 = './maps/KML/1/'+distid2+'/'+distid3+'/'+str3+'/V/O_'+distid6+'.js';
                                                                                         
@@ -1620,7 +1654,7 @@ map.addControl(backbut10);
 ///////// Starts USA Country Level Code Code 233
 //console.log(window.contid + "<<<==== " + window.maplevel);
 
-                    else if (window.contid == 207  && window.maplevel == 0) { 
+                    else if (window.contid == 207  && window.maplevel == 0  && window.mapType == "S") { 
 
                             map.removeLayer(geojson2);
 
@@ -1827,11 +1861,17 @@ map.addControl(backbut3);
 
             var cities = L.layerGroup();
 
-            L.marker([12.994923,77.605359]).bindPopup('Bangalore').addTo(cities),
-            L.marker([13.060215,80.283344]).bindPopup('Chennai').addTo(cities),
-            L.marker([19.061079,72.870019]).bindPopup('Mumbai').addTo(cities),
-            L.marker([28.611048,77.205509]).bindPopup('New Delhi').addTo(cities);
-            L.marker([22.564308,88.373426]).bindPopup('Kolkatta').addTo(cities);
+            L.marker([12.994923,77.605359]).bindPopup('Bengaluru').addTo(cities).on('mouseover', onClick1);
+            L.marker([13.060215,80.283344]).bindPopup('Chennai').addTo(cities).on('mouseover', onClick1);
+            L.marker([19.061079,72.870019]).bindPopup('Mumbai').addTo(cities).on('mouseover', onClick1);
+            L.marker([28.611048,77.205509]).bindPopup('New Delhi').addTo(cities).on('mouseover', onClick1);
+            L.marker([22.564308,88.373426]).bindPopup('Kolkatta').addTo(cities).on('mouseover', onClick1);
+            
+            function onClick1(ev) {
+                ev.target.openPopup();
+            }
+            
+            
 
             var overlays = {
                 "Cities": cities
