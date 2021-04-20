@@ -2,7 +2,7 @@
 <nav class="sidebar"> 
     <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-            <a target="_blank" href="http://www.brandidea.ai" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a></span>
+            <img src="{{ url('/assets/images/logo-2.png') }}"  alt="brandidea.ai" title="">
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
