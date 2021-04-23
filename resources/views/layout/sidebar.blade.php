@@ -172,7 +172,7 @@
 
             if(window.mapType == "D" && window.regSelected == 1)
             {
-                alert("Yesssssssssss");
+                //alert("Yesssssssssss");
                 var indstates = new Array(5);
                 indstates[17] = {"name" : "Karnataka", "coords" : {lat: "14.417656", lng: "75.727984"}};
                 indstates[21] = {"name" : "Maharashtra", "coords" : {lat: "19.394068", lng: "75.912796"}};
@@ -221,7 +221,7 @@
             }
             else if(window.mapType == "S" && window.regSelected == 1)
             {    
-                alert("QQQQQQQQQQQQQ");
+                //alert("QQQQQQQQQQQQQ");
                 var country = new Array(1);
                 country[1] = {"name" : "India", "coords" : {lat: "22.073424", lng: "79.092675"}};
 
