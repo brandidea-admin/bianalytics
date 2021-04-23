@@ -17,7 +17,7 @@
         <h4 class="mb-3 mb-md-0">Users</h4>
     </div>
     <div class="d-flex align-items-center flex-wrap text-nowrap">
-        <a href="/investorconnect/public/user/create" class="btn btn-sm btn-primary btn-icon-text mr-2 d-none d-md-block">
+        <a href="{{url('/user/create')}}" class="btn btn-sm btn-primary btn-icon-text mr-2 d-none d-md-block">
             <i class="btn-icon-prepend" data-feather="plus"></i>
             Add User
         </a>
@@ -105,6 +105,8 @@
     $(function() {
         $('#companyTable').DataTable();
     });
+
+
 
     function myFunction() {
       var x = confirm("Are You Sure to delete this");

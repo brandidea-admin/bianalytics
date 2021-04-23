@@ -263,27 +263,39 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        
+        // print_r($request->all());
+        // exit;
         $validations = [
-            'name' => ['required'],
+            'firstname' => ['required'],
             'email' => ['required'],
-            'type' => ['required']
+            'user_type' => ['required']
         ];
         $validator = Validator::make($request->all(), $validations, []);
         if ($validator->fails()) {
             $this->message = $validator->errors();
         } else {
             $user = new User();
-            $user->name = $request->name;
+            $mytoken = "BrandIdea@123" . date("Y-m-d H:i:s");
+            $user->token = $mytoken;
+            $user->firstname = $request->firstname;
             $user->email = $request->email;
-            $user->type = $request->type;
-            $user->password = Hash::make("Pass@123");
+            $user->user_type = $request->user_type;
+            $user->password = Hash::make($request->password1);
+            $user->lastname = $request->lastname;
+            $user->organization = $request->organization;
+            $user->about_orgn = $request->about_orgn;
+            $user->designation = $request->designation;
+            $user->phone = $request->phone;
+            //$user->access_type = $request->access_type;
+            $user->access_type = 'INVESTOR';
+            //$user->status = $request->status;
+            $user->status = "Active";
 
             $user->created_by = 1;
             $user->updated_by = 1;
             $user->save();
-            $this->status = true;
-            $this->modal = true;
+            //$this->status = true;
+            //$this->modal = true;
             $this->message = "New User Added Successfully!";
         }
 

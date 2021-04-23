@@ -526,8 +526,9 @@ var backbut2 = L.easyButton({
                 window.maplevel = 0;
                 map.setView([41.771312,8.684994], 1);
                 backbut2.remove();
-                // piecht1.remove();
-                //$('.cokLabel').hide();
+                $('.leaflet-marker-pane').hide();
+                $('.chart-section').hide();
+                $('.grid-section').hide();
                 map.addControl(backbut1);
                 
             }	
@@ -693,7 +694,9 @@ var backbut3 = L.easyButton({
                   searchControl4.remove();
                   geojson3.addTo(map);
                   map.addControl(searchControl3);
-                //   map.fitBounds(geojson3.getBounds());
+                  $('.leaflet-marker-pane').hide();
+                  $('.chart-section').hide();
+                  $('.grid-section').hide();
                   backbut3.remove();
                   map.addControl(backbut2);
                   
@@ -2019,21 +2022,10 @@ map.addControl(backbut3);
 
     $(function() {
 
-        // $( "#target" ).dblclick(function() {
-        //     alert( "Handler for .dblclick() called." );
-        // });
-
-        // $(".mapPieChart").hover(function(){
-        //     alert("AAAAAAAAAA yellow");
-        // });
-
-        // var cv = document.getElementByClass("mapPieChart"); 
-        // ct = cv.getContext("2d");
-        // var mText = "hi";
-        // var x = cv.width / 2;
-        // var y = cv.height / 2;
-        // ct.textAligh = "center";
-        // ct.fillText(mText, x, y);
+        $('.sidebar-toggler').click(function() {
+            // alert("ZZZZZZZZZZ");
+            $('.period-calendar').toggle();
+        });
 
         $('.cokLabel').attr('style','font-size: 0.5px;'); 
 

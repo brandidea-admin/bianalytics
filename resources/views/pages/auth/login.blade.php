@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-md-8 pl-md-0">
                         <div class="auth-form-wrapper px-4 py-5">
-                            <a href="#" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a>
+                            <a href="#" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo_new.png') }}" width="200" height="50" alt="" title=""></a>
                             <h5 class="text-muted font-weight-normal mb-4">Welcome back! Log in to your account.</h5>
 
                            @if(session()->has('message'))

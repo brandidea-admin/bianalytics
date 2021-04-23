@@ -24258,7 +24258,7 @@ address p {
 .sidebar .sidebar-body .nav {
   display: flex;
   flex-direction: column;
-  padding: 25px 25px 50px 25px;
+  padding: 0px 25px 50px 25px;
 }
 
 .sidebar .sidebar-body .nav .nav-item {

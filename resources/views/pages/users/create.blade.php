@@ -24,18 +24,25 @@
     <div class="col-md-12 stretch-card">
         <div class="card">
             <form action="{{url('/user')}}" method="POST" role="search">
+            {{ csrf_field() }}
                 <div class="card-header">
                     <h4 class="mb-3 mb-md-0">Add User</h4>
                 </div>
                 <div class="card-body">
-                    @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="name">Enter User Name
+                            <label for="firstname">Enter First Name
                                 <span class="text-danger">*</span>
-                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter User Name"></i></span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter First Name"></i></span>
                             </label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter User Name">
+                            <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Enter First Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Enter Last Name
+                                <span class="text-danger">*</span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter Last Name"></i></span>
+                            </label>
+                            <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Enter Last Name">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="keyword_1">Enter Eamil or Login ID
@@ -48,7 +55,7 @@
                             <label for="country_site">Select User Type
                                 <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Select User Type"></i></span>
                             </label>
-                            <select id="type" name="type" class="js-example-basic-single">
+                            <select id="type" name="user_type" class="js-example-basic-single">
                                 <option value="">Select User Type</option>
                                 <option value="Regular">Regular</option>
                                 <option value="Admin">Admin</option>
@@ -67,7 +74,35 @@
                                 <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter Password"></i></span>
                             </label>
                             <input type="password" id="password2" name="password2" class="form-control" placeholder="Enter Password">
-                        </div>                        
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="organization">Enter Organization Name
+                                <span class="text-danger">*</span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter Organization Name"></i></span>
+                            </label>
+                            <input type="text" id="organization" name="organization" class="form-control" placeholder="Enter Organization Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="about_orgn">Enter About Organization
+                                <span class="text-danger">*</span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter About Organization"></i></span>
+                            </label>
+                            <input type="text" id="about_orgn" name="about_orgn" class="form-control" placeholder="Enter About Organization">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="designation">Enter Designation
+                                <span class="text-danger">*</span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter Designation"></i></span>
+                            </label>
+                            <input type="text" id="designation" name="designation" class="form-control" placeholder="Enter Designation">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone">Enter Phone Contact info
+                                <span class="text-danger">*</span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Enter Phone Contact Info"></i></span>
+                            </label>
+                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Phone Contact Info">
+                        </div>
 
                     </div>
                     <div class="card-footer text-right">
@@ -89,6 +124,13 @@
 @push('custom-scripts')
 <script>
     $(function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         // Tags
         $('#tags').tagsInput({
             'height': 'auto',

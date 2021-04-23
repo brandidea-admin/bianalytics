@@ -1,8 +1,8 @@
 
 <nav class="sidebar"> 
     <div class="sidebar-header">
-        <a href="#" class="sidebar-brand">
-            <a target="_blank" href="http://www.brandidea.ai" class="noble-ui-logo d-block mb-2"><img src="{{ url('/storage/brandideaAnalytics_logo.png') }}" width="200" height="50" alt="" title=""></a></span>
+        <a href="http://www.brandidea.ai" target="_blank" class="sidebar-brand">
+            <img src="{{ url('/storage/brandideaAnalytics_logo_new.png') }}" width="150" height="50" alt="" title="">
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
@@ -10,15 +10,20 @@
             <span></span>
         </div>
     </div>
-
+    @if(strpos(Request::path(), 'user') !== false)
+    @else
+    <div class="period-calendar" style="padding-left: 15px; padding-top: 10px;">
+        <div class="input-group date datepicker dashboard-date" id="dashboardDate">
+            <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
+            <input type="text" class="form-control">
+        </div>
+    </div>
+    <hr>
+    @endif
 
     <div class="sidebar-body">
-        <ul class="nav">
-            <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
-                <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
-                <input type="text" class="form-control">
-            </div>
-        <hr>
+
+       <ul class="nav">
 
         <div class="sidebar-body menu-brand-ideator" style="display:none;">
 
@@ -45,8 +50,8 @@
                         </a>
                     </li>
 
-                    <div style="text-align:right;">
-                         <button alt="1" class="btn btn-success gen-report" value=""> Show Result </button>
+                    <div style="text-align:center;">
+                        <button alt="3" class="btn btn-success gen-report"> Show </button>
                     </div>
             </div>
         
@@ -76,8 +81,8 @@
                             </a>
                         </li>
 
-                        <div style="text-align:right;">
-                                <button alt="2" class="btn btn-success gen-report" value=""> Show Result </button>
+                         <div style="text-align:center;">
+                                <button alt="3" class="btn btn-success gen-report"> Show </button>
                             </div>
                 </div>
 
@@ -106,13 +111,44 @@
                                 </a>
                             </li>
 
-                            <div style="text-align:right;">
-                                <button alt="3" class="btn btn-success gen-report"> Show Result </button>
+                            <div style="text-align:center;">
+                                <button alt="3" class="btn btn-success gen-report"> Show </button>
                             </div>
 
-                    </div>        
+                    </div>
+
+    @if(Auth::user()->user_type == 'Admin')
+
+                <li class="nav-item {{ active_class(['settings/*']) }}">
+                    <a class="nav-link" data-toggle="collapse" href="#master_keyword" role="button" aria-expanded="{{ is_active_route(['master_keyword/*']) }}" aria-controls="master_keyword">
+                        <i class="link-icon" data-feather="tool"></i>
+                        <span class="link-title">Settings</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['master_keyword/*']) }}" id="master_keyword">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ url('/master_keyword') }}" class="nav-link {{ active_class(['master_keyword']) }}">Master Keywords</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/country') }}" class="nav-link {{ active_class(['country']) }}">Countries</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/user') }}" id="off-calendar" class="nav-link {{ active_class(['user']) }}">Users</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+    @endif
+                
+            </li>   
+
+        
         
         </ul>
+        
     </div>
 
 </nav>
@@ -121,15 +157,22 @@
 <script>
     $(function() {
 
+        $('#off-calendar').click(function() {
+            // alert("ZZZZZZZZZZ");
+            $('.period-calendar').hide();
+        });
+
         $('.gen-report').click(function() {
 
             console.log(window.regSelected+" <<==== "+window.maplevel+" <<==== "+window.mapType);
 
             $('.mystyle').show();
+            // $('.chart-section').show();
+            // $('.grid-section').show();
 
             if(window.mapType == "D" && window.regSelected == 1)
             {
-                //alert("Yesssssssssss");
+                alert("Yesssssssssss");
                 var indstates = new Array(5);
                 indstates[17] = {"name" : "Karnataka", "coords" : {lat: "14.417656", lng: "75.727984"}};
                 indstates[21] = {"name" : "Maharashtra", "coords" : {lat: "19.394068", lng: "75.912796"}};
@@ -178,7 +221,7 @@
             }
             else if(window.mapType == "S" && window.regSelected == 1)
             {    
-                //alert("QQQQQQQQQQQQQ");
+                alert("QQQQQQQQQQQQQ");
                 var country = new Array(1);
                 country[1] = {"name" : "India", "coords" : {lat: "22.073424", lng: "79.092675"}};
 
