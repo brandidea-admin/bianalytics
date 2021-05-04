@@ -6846,6 +6846,7 @@ input[type="button"].btn-block {
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
+  padding:3px;
 }
 
 .input-group > .form-control,
@@ -23433,10 +23434,11 @@ address p {
 .navbar .search-form .input-group .typeahead,
 .navbar .search-form .input-group .tt-query,
 .navbar .search-form .input-group .tt-hint {
-  border: 0;
+  border: 0.5;
   background: #fff;
-  padding: 0 .8rem;
+  padding: 0 .3rem;
   margin-top: 3px;
+  width: 150px;
 }
 
 .navbar .search-form .input-group .form-control::-webkit-input-placeholder, .navbar .search-form .input-group select::-webkit-input-placeholder, .navbar .search-form .input-group .email-compose-fields .select2-container--default .select2-selection--multiple::-webkit-input-placeholder, .email-compose-fields .select2-container--default .navbar .search-form .input-group .select2-selection--multiple::-webkit-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-selection--single::-webkit-input-placeholder, .select2-container--default .navbar .search-form .input-group .select2-selection--single::-webkit-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-selection--single .select2-search__field::-webkit-input-placeholder, .select2-container--default .select2-selection--single .navbar .search-form .input-group .select2-search__field::-webkit-input-placeholder, .navbar .search-form .input-group .typeahead::-webkit-input-placeholder, .navbar .search-form .input-group .tt-query::-webkit-input-placeholder, .navbar .search-form .input-group .tt-hint::-webkit-input-placeholder {
@@ -23472,7 +23474,7 @@ address p {
 .navbar .navbar-content {
   display: flex;
   width: 100%;
-  height: 50%;
+  height: 100%;
   padding-left: 25px;
   padding-right: 25px;
 }
@@ -24258,7 +24260,7 @@ address p {
 .sidebar .sidebar-body .nav {
   display: flex;
   flex-direction: column;
-  padding: 0px 25px 50px 25px;
+  padding: 0px 10px 30px 10px;
 }
 
 .sidebar .sidebar-body .nav .nav-item {

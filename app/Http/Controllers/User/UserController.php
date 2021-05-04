@@ -34,6 +34,11 @@ class UserController extends Controller
         
     }
 
+    public function menu($id)
+    {
+        return View::make('pages.users.menu', $id);
+    }
+
     public function edit($id)
     {
         $data['posts'] = User::find($id);

@@ -71,7 +71,9 @@ Route::get ('logout',function(){
     Route::get('/user/{id}/changepwd', 'User\UserController@changepwd')->middleware('auth3');
     Route::post('/user/resetpwd', 'User\UserController@resetpwd')->middleware('auth3');
     Route::post('/user/updatepwd', 'User\UserController@updatepwd')->middleware('auth3');
+    Route::get('/user/{id}/menu', 'User\UserController@menu')->middleware('auth3');
 
+    Route::resource('menumaster', 'MenuMasterController')->middleware('auth3');
 
 Route::group(['prefix' => 'auth'], function(){
     Route::get('login', function () { return view('pages.auth.login'); });

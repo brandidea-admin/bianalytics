@@ -7,27 +7,17 @@
 
           <div class="input-group">
               <a href="{{ url('/dashboard') }}" class="btn btn-success">
-                    <span class="link-title">Home</span>
+                    <span class="link-title">Home Dashboard</span>
               </a>
          </div>
 
-          <div class="input-group">
-            <a id="domain-id1" class="btn btn-success">
-                   <span class="link-title">Brand ideator</span>
-             </a>
-         </div>
-
-         <div class="input-group">
-            <a id="domain-id2" class="btn btn-success">
-                   <span class="link-title">Mkt. Potential</span>
-             </a>
-         </div>
-
-         <div class="input-group">
-              <a id="domain-id3" class="btn btn-success">
-                   <span class="link-title">Sec. Sales</span>
-             </a>
-         </div>
+         @foreach($usrmenus as $slist)
+          <div class="input-group menu2-{{$slist->partkey}}">
+              <a id="menu2-{{$slist->partkey}}" alt="{{$slist->partkey}}" class="btn btn-success domain-id">
+                    <span class="link-title">{{$slist->menu_name}}</span>
+              </a>
+          </div>
+         @endforeach
 
          
         <form class="search-form">

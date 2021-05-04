@@ -64,9 +64,13 @@
                                     <a href="{{url('/user/'.$slist->id.'/edit')}}" class="btn btn-sm btn-success btn-icon-text" data-toggle="tooltip" data-placement="bottom" title="Edit User Record">
                                         <i class="fas fa-edit text-white"></i>
                                     </a>
+                                    
+                                    <a href="{{url('/user/'.$slist->id.'/menu')}}" class="btn btn-sm btn-success btn-icon-text" data-toggle="tooltip" data-placement="bottom" title="Add Menu Access">
+                                        <i class="fas fa-sitemap text-white"></i>
+                                    </a>
 
-                                    <a href="{{ route('user.index') }}" class="btn btn-sm btn-warning btn-icon-text" onclick="return myReset();" data-toggle="tooltip" data-placement="bottom" title="Reset User Password"> 
-                                       <i class="fas fa-eye text-white"></i> 
+                                    <a href="{{ route('user.index') }}" class="btn btn-sm btn-success btn-icon-text" onclick="return myReset();" data-toggle="tooltip" data-placement="bottom" title="Reset User Password"> 
+                                       <i class="fas fa-lock text-white"></i> 
                                     </a>
 
                                     <a href="{{ route('user.index') }}" class="btn btn-sm btn-danger btn-icon-text" onclick="return myFunction();" title="Delete User Record" data-toggle="tooltip" data-placement="bottom"> 

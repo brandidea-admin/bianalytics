@@ -206,7 +206,7 @@
 
 <div class="row ">
 
-    <div class="col-lg-7 col-xl-6 map-section" style="width: 60ch; height: 53ch; border-style: ridge;" id="map">
+    <div class="col-lg-7 col-xl-6 map-section" style="width: 65ch; height: 53ch; border-style: ridge;" id="map">
 
         <script type="text/javascript" src="./maps/KML/world-countries.js"></script>
         <script type="text/javascript" src="./maps/KML/world-outline.js"></script>
@@ -1880,121 +1880,6 @@ map.addControl(backbut3);
             //map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
             map.attributionControl.addAttribution('');
 
-
-
-
-            // L.control.custom({
-            //         position: 'topleft',
-            //         content: '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-warning">' +
-            //             '    <i class="fa fa-crosshairs"></i>' +
-            //             '</button>' +
-            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-info">' +
-            //             '    <i class="fa fa-compass"></i>' +
-            //             '</button>' +
-            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-primary">' +
-            //             '    <i class="fa fa-spinner fa-pulse fa-fw"></i>' +
-            //             '</button>' +
-            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-danger">' +
-            //             '    <i class="fa fa-times"></i>' +
-            //             '</button>' +
-            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-success">' +
-            //             '    <i class="fa fa-check"></i>' +
-            //             '</button>' +
-            //             '<button type="button" style="width:80%; padding-left:0.3rem; padding-right:0.3rem;" class="btn btn-warning">' +
-            //             '    <i class="fa fa-exclamation-triangle"></i>' +
-            //             '</button>',
-            //         classes: 'btn-group-vertical btn-group-sm',
-            //         style: {
-            //             margin: '15px',
-            //             float: 'center',
-            //             padding: '0px 0 0 0',
-            //             cursor: 'pointer'
-            //         },
-            //         datas: {
-            //             'foo': 'bar',
-            //         },
-            //         events: {
-            //             click: function(data) {
-            //                 alert("yessssss");
-            //                 console.log('wrapper div element clicked');
-            //                 console.log(data);
-            //             },
-            //             dblclick: function(data) {
-            //                 alert("Nooooooooooo");
-            //                 console.log('wrapper div element dblclicked');
-            //                 console.log(data);
-            //             },
-            //             contextmenu: function(data) {
-            //                 alert("ZZZZZZZZZZZZZZ");
-            //                 console.log('wrapper div element contextmenu');
-            //                 console.log(data);
-            //             },
-            //         }
-            //     })
-            //     .addTo(map);
-
-            // L.control.custom({
-            //         position: 'topleft',
-            //         content: '<div class="input-group">' +
-            //             '    <input type="text" id="selcity" class="form-control input-sm" placeholder="Search">' +
-            //             '    <span class="input-group-btn">' +
-            //             '        <button id="gocity" class="form-control" style="width:80%; padding-left:0.5rem;" type="button">Go</button>' +
-            //             '    </span>' +
-            //             '</div>',
-            //         classes: '',
-            //         style: {
-            //             position: 'absolute',
-            //             left: '50px',
-            //             top: '0px',
-            //             width: '200px',
-            //         },
-            //     })
-            //     .addTo(map);
-
-            // L.control.custom({
-            //         position: 'bottomleft',
-            //         content: '<div class="panel-body">' +
-            //             '    <div class="progress" style="margin-bottom:0px;">' +
-            //             '        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="41" ' +
-            //             '             aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 91%">' +
-            //             '            91% Completed' +
-            //             '        </div>' +
-            //             '    </div>' +
-            //             '</div>',
-            //         classes: 'panel panel-default',
-            //         style: {
-            //             width: '200px',
-            //             margin: '20px',
-            //             padding: '0px',
-            //         },
-            //     })
-            //     .addTo(map);
-
-            // L.control.custom({
-            //     position: 'bottomright',
-            //     content : '<img src="http://lorempixel.com/105/105/" class="img-thumbnail" id="demoImage">',
-            //     classes : '',
-            //     style   :
-            //     {
-            //         margin: '0px 20px 20px 0',
-            //         padding: '0px',
-            //     },
-            // })
-            // .addTo(map);
-
-            // L.control.custom({
-            //     position: 'bottomright',
-            //     content : '<button class="btn btn-default btn-sm" id="changeImg">'+
-            //                 '    <i class="fa fa-refresh"></i> Change Image'+
-            //                 '</button>',
-            //     classes : '',
-            //     style   :
-            //     {
-            //         margin: '5px 20px',
-            //         padding: '0px',
-            //     },
-            // })
-            // .addTo(map);
         </script>
 
     </div>
@@ -2022,10 +1907,10 @@ map.addControl(backbut3);
 
     $(function() {
 
-        $('.sidebar-toggler').click(function() {
-            // alert("ZZZZZZZZZZ");
-            $('.period-calendar').toggle();
-        });
+        // $('.sidebar-toggler').click(function() {
+        //     // alert("ZZZZZZZZZZ");
+        //     $('.period-calendar').toggle();
+        // });
 
         $('.cokLabel').attr('style','font-size: 0.5px;'); 
 
@@ -2041,94 +1926,31 @@ map.addControl(backbut3);
         $('.chart-section').hide();
         $('.grid-section').hide();
 
-        $('#domain-id1').click(function() {
+        $('.domain-id').click(function() {
+            var mid = $(this).attr("alt");
+            //alert(mid);
+            // return false;
 
-            $(this).removeClass('btn-success').addClass('btn-danger');
-            $('#domain-id2').removeClass('btn-danger').addClass('btn-success');
-            $('#domain-id3').removeClass('btn-danger').addClass('btn-success');
-
-            $('.dashboard-section').hide();
-            $('.leaflet-piechart-icon').hide();
-            $('.menu-sec-sales').hide();
-            $('.menu-mktg-pot').hide();
-            $('.menu-brand-ideator').show();
-
-            $('.map-section').show();
-            $('.chart-section').hide();
-            $('.grid-section').hide();
-            return false;
-        });
-
-        $('#domain-id2').click(function() {
-            //alert("bbb1");
-
-            $(this).removeClass('btn-success').addClass('btn-danger');
-            $('#domain-id1').removeClass('btn-danger').addClass('btn-success');
-            $('#domain-id3').removeClass('btn-danger').addClass('btn-success');
-
-            $('.dashboard-section').hide();
-            $('.leaflet-piechart-icon').hide();
-            $('.menu-sec-sales').hide();
-            $('.menu-mktg-pot').show();
-            $('.menu-brand-ideator').hide();
-
-            $('.map-section').show();
-            $('.chart-section').hide();
-            $('.grid-section').hide();
-
-            return false;
-        });
-
-
-        $('#domain-id3').click(function() {
-            //alert("bbb1");
-
-            $(this).removeClass('btn-success').addClass('btn-danger');
-            $('#domain-id1').removeClass('btn-danger').addClass('btn-success');
-            $('#domain-id2').removeClass('btn-danger').addClass('btn-success');
-
-            $('.dashboard-section').hide();
-            $('.leaflet-piechart-icon').hide();
-            $('.menu-sec-sales').show();
-            $('.menu-mktg-pot').hide();
-            $('.menu-brand-ideator').hide();
-            $('.map-section').show();
-            $('.chart-section').hide();
-            $('.grid-section').hide();
-
-            return false;
-        });
-
-        // $('#gocity').click(function() {
-        //     //alert($('#selcity').val());
-        //     var area = $('#selcity').val();
-        //     if(area == "India") {
-        //         map.removeLayer(geojson);
-        //         load('./maps/KML/1/O_1.js');
-
-        //         var geojson17;
-
-        //         geojson17 = L.geoJson(O_1, {
-        //             style: style,
-        //         }).addTo(map);
-
-        //         map.fitBounds(geojson17.getBounds());
-        //     } else if (area == "Bangalore") {
-        //         map.removeLayer(geojson);
-        //         load('./maps/KML/1/17/73/O_73.js');
-
-        //         var geojson17;
-
-        //         geojson17 = L.geoJson(O_73, {
-        //             style: style,
-        //         }).addTo(map);
-
-        //         map.fitBounds(geojson17.getBounds());
-        //     } else {}
+            for(jj = 1; jj <= 10; jj++)
+            {
+                if(jj == mid) {
+                    $('#menu2-'+jj).removeClass('btn-success').addClass('btn-danger');
+                    $('.submenu-'+mid).show();
+                } else {
+                    $('#menu2-'+jj).removeClass('btn-danger').addClass('btn-success');
+                    $('.submenu-'+jj).hide();
+                }
+            }
             
+            $('.dashboard-section').hide();
+            $('.leaflet-piechart-icon').hide();
 
-        // });
-        
+            $('.map-section').show();
+            $('.chart-section').hide();
+            $('.grid-section').hide();
+            return false;
+        });
+      
 
     });
 </script>
