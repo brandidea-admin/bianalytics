@@ -104,6 +104,19 @@
                             <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Phone Contact Info">
                         </div>
 
+                        <div class="form-group col-md-6">
+                            <label for="phone">Select User Menu to Clone
+                                <span class="text-danger">*</span>
+                                <span><i class="icon-sm" data-feather="info" data-toggle="tooltip" data-placement="top" title="Select User to clone all his menu ..."></i></span>
+                            </label>
+                            <select id="user-menu" name="clone_uid" class="js-example-basic-single">
+                                <option value="0">Select User</option>
+                            @foreach($users as $slist)
+                                <option value="{{$slist->id}}">{{$slist->id }} - {{$slist->firstname}} {{$slist->lastname}}</option>
+                            @endforeach
+                            </select>
+                        </div>
+
                     </div>
                     <div class="card-footer text-right">
                         <button type="submit" data-request="ajax-submit" data-target='[role="energy"]' class="btn btn-sm btn-primary submit">Submit</button>

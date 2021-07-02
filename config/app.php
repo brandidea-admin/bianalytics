@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://192.168.10.40:8080'),
+    'url' => env('APP_URL', 'http://localhost/biapplara'),
 
 
     'asset_url' => env('ASSET_URL', null),
@@ -167,6 +167,9 @@ return [
 
         ConsoleTVs\Charts\ChartsServiceProvider::class,
 
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -233,6 +236,7 @@ return [
 
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

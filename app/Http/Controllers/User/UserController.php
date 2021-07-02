@@ -26,7 +26,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('pages.users.create');
+        $users = User::select('id', 'firstname', 'lastname')->where('status','=','Active')->orderBy('id','ASC')->get();
+        return view('pages.users.create')->with('users', $users);
     }
 
     public function show($id)
@@ -126,7 +127,7 @@ class UserController extends Controller
         } else {
             $user = new User();
 
-            $str6 = "BrandIdea@123" . date("Y-m-d H:i:s");
+            $str6 = uniqid();
             $mytoken = md5($str6);
             $user->token = $mytoken;
             $user->firstname = $request->firstname;
@@ -279,9 +280,14 @@ class UserController extends Controller
         if ($validator->fails()) {
             $this->message = $validator->errors();
         } else {
+            $clone_menus = User::select('menus')->where('id','=',$request->clone_uid)->where('status','=','Active')->get();
+            $arr3 = json_decode($clone_menus);
+            // echo $arr3[0]->menus;
+            // exit;
+
             $user = new User();
-            $mytoken = "BrandIdea@123" . date("Y-m-d H:i:s");
-            $user->token = $mytoken;
+            $mytoken = uniqid();
+            $user->token = MD5($mytoken);
             $user->firstname = $request->firstname;
             $user->email = $request->email;
             $user->user_type = $request->user_type;
@@ -289,10 +295,11 @@ class UserController extends Controller
             $user->lastname = $request->lastname;
             $user->organization = $request->organization;
             $user->about_orgn = $request->about_orgn;
+            $user->menus = $arr3[0]->menus;
             $user->designation = $request->designation;
             $user->phone = $request->phone;
             //$user->access_type = $request->access_type;
-            $user->access_type = 'INVESTOR';
+            $user->access_type = 'NORMAL';
             //$user->status = $request->status;
             $user->status = "Active";
 

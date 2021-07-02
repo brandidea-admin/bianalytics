@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use App\Menu;
 use DB;
 
 class DashboardController extends Controller
@@ -16,8 +17,9 @@ class DashboardController extends Controller
     public function index()
     {
         $stat = auth()->user()->status;
+        $rootmenu = Menu::select('refid')->where('parent_id','=',0)->where('stat','=','A')->orderBy('order_fld','ASC')->get();
         if($stat == 'Active') {
-        	return view('pages.dashboard');
+        	return view('pages.dashboard')->with('rootmenu',$rootmenu);
         } else {
         	return Redirect::to('/auth/login')->with('message',"Get approval from Admin Team from BrandIdea !!! Thank You");
         }

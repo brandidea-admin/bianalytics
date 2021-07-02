@@ -3,24 +3,9 @@
         <i data-feather="menu"></i>
     </a>
 
-    <div class="navbar-content">
+    <div class="navbar-content" id="sizer">
 
-          <div class="input-group">
-              <a href="{{ url('/dashboard') }}" class="btn btn-success">
-                    <span class="link-title">Home Dashboard</span>
-              </a>
-         </div>
-
-         @foreach($usrmenus as $slist)
-          <div class="input-group menu2-{{$slist->partkey}}">
-              <a id="menu2-{{$slist->partkey}}" alt="{{$slist->partkey}}" class="btn btn-success domain-id">
-                    <span class="link-title">{{$slist->menu_name}}</span>
-              </a>
-          </div>
-         @endforeach
-
-         
-        <form class="search-form">
+        <!-- <form class="search-form">
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
@@ -29,16 +14,52 @@
             </div>
             <input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
           </div>
-        </form>
+        </form> -->
+
+        <div class="input-group big-device" style="display:none;">
+              <a href="{{ url('/dashboard') }}" class="btn btn-success">
+              <span class="link-title">Home Dashboard</span>
+              </a>
+        </div>
+
+@php
+if(!isset($usrmenus)){
+    $usrmenus = array();
+}
+@endphp
+
+        @foreach($usrmenus as $slist)
+          <div class="input-group menu2-{{$slist->refid}} big-device" style="display:none;">
+              <a id="menu2-{{$slist->refid}}" alt="{{$slist->refid}}" class="btn btn-success domain-id">
+                    <span class="link-title">{{str_replace(" ","\n",$slist->menu_name)}}</span>
+              </a>
+          </div>
+         @endforeach
+
+      <ul class="navbar-nav">
+
+      <li class="nav-item dropdown small-device" style="display:none;">
+          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="btn-icon-prepend" data-feather="file"></i> <span class="font-weight-medium ml-1 mr-1">MODULES</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="languageDropdown">
+          <a href="{{ url('/dashboard') }}" class="btn btn-success">
+              <span class="link-title">Home Dashboard</span>
+          </a>
+          @foreach($usrmenus as $slist)
+            <a id="menu2-{{$slist->refid}}" alt="{{$slist->refid}}" class="dropdown-item py-2 domain-id">
+              <i class="btn-icon-prepend" data-feather="menu"></i> 
+              <span class="ml-1"> {{$slist->menu_name}} </span>
+            </a>
+          @endforeach
+          </div>
+      </li>
 
 
-        
 
-
-        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="#" id="userName">
-                    <span class="">Hi {{ strtoupper(Auth::user()->firstname) }}</span>
+                    <span class="">Hi {{ !empty(Auth::user()->firstname) ? strtoupper(Auth::user()->firstname) : '' }}</span>
                 </a>
             </li>
             <li class="nav-item dropdown nav-notifications">
@@ -116,8 +137,8 @@
                       <img src="{{ url('https://via.placeholder.com/80x80') }}" alt="">
                     </div>
                     <div class="info text-center">
-                      <p class="name font-weight-bold mb-0">{{ strtoupper(Auth::user()->name) }}</p>
-                      <p class="email text-muted mb-3">{{ Auth::user()->email }}</p>
+                      <p class="name font-weight-bold mb-0">{{  !empty(Auth::user()->firstname) ? strtoupper(Auth::user()->firstname) : '' }}</p>
+                      <p class="email text-muted mb-3">{{  !empty(Auth::user()->email) ? strtoupper(Auth::user()->email) : '' }}</p>
                     </div>
                   </div>
                   <div class="dropdown-body">
@@ -129,13 +150,13 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{env('APP_URL')}}/user/{{ Auth::user()->id }}/edit" class="nav-link">
+                        <a href="{{env('APP_URL')}}/user/{{ !empty(Auth::user()->id) ? strtoupper(Auth::user()->id) : '0' }}/edit" class="nav-link">
                           <i data-feather="edit"></i>
                           <span>Edit Profile</span>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{env('APP_URL')}}/user/{{ Auth::user()->id }}/changepwd" class="nav-link">
+                        <a href="{{env('APP_URL')}}/user/{{ !empty(Auth::user()->id) ? strtoupper(Auth::user()->id) : '0' }}/changepwd" class="nav-link">
                           <i data-feather="repeat"></i>
                           <span>Change Password</span>
                         </a>  
@@ -155,3 +176,28 @@
     </div>
 </nav>
 
+<script>
+    $(function() {
+      var divwidth = $("#app").width();
+      //alert(divwidth);
+      if (parseFloat(divwidth) > 500) {
+        $(".big-device").show();
+      } else {
+        $(".small-device").show();
+      }
+
+      $(window).resize(function(){
+        var divwidth = $("#app").width();
+         // alert(divwidth);
+          if (parseFloat(divwidth) > 500) {
+            $(".small-device").hide();
+            $(".big-device").show();
+          } else {
+            $(".big-device").hide();
+            $(".small-device").show();
+          }
+      });
+
+    });
+
+</script>

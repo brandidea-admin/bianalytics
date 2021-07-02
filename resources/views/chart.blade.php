@@ -21,9 +21,10 @@ Highcharts.chart('container', {
         plotBorderWidth: 0,
         plotShadow: false,
         type: 'pie',
-        width: 500,
-        height: 375,
-        spacingLeft: 5 // plotLeft
+        // width: 500,
+        //height: 300,
+        spacingRight: 1,
+        spacingLeft: 1 // plotLeft
     },
     credits: {
             enabled: false
@@ -36,8 +37,8 @@ Highcharts.chart('container', {
     },
     plotOptions: {
         pie: {
-            size: 210,
-            center: [270, 150],
+            size: 150,
+            center: [150, 150],
             allowPointSelect: true,
             cursor: 'pointer',
             dataLabels: {
@@ -83,7 +84,8 @@ Highcharts.chart('container', {
 var users =  <?php echo json_encode($users) ?>;
     Highcharts.chart('container', {
         chart: {
-          type: '{{$chtype}}'
+          type: '{{$chtype}}',
+          height: 320
         },
         credits: {
             enabled: false
@@ -120,13 +122,14 @@ var users =  <?php echo json_encode($users) ?>;
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 500
+                    maxWidth: 500,
+                    maxHeight: 300
                 },
                 chartOptions: {
                     legend: {
                         layout: 'horizontal',
                         align: 'center',
-                        verticalAlign: 'bottom'
+                        verticalAlign: 'top'
                     }
                 }
             }]

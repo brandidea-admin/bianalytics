@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Request;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\MenuController;
+
 // Route::get('/', function () {
 //     return view('dashboard');
 // });
@@ -73,7 +75,20 @@ Route::get ('logout',function(){
     Route::post('/user/updatepwd', 'User\UserController@updatepwd')->middleware('auth3');
     Route::get('/user/{id}/menu', 'User\UserController@menu')->middleware('auth3');
 
-    Route::resource('menumaster', 'MenuMasterController')->middleware('auth3');
+    Route::resource('countries','CountryController');
+    //Route::get('countries', 'CountryController@index');
+    
+    Route::get('menusetup', 'MenuSetupController@index');
+
+    Route::resource('menus', 'MenuController');
+    Route::get('/menu/{id}/delete', 'MenuController@destroy');
+    Route::get('menuss', [MenuController::class, 'index']);
+    // Route::get('menus/{id}/edit', [MenuController::class, 'edit']);
+    // Route::post('menus/update', [MenuController::class, 'update']);
+    // Route::post('menus/delete2', [MenuController::class, 'delete2']);
+    Route::get('menuss/list', [MenuController::class, 'getMenus'])->name('menuss.list');
+    Route::get('menuss/child', [MenuController::class, 'getChilds'])->name('menuss.child');
+    Route::get('menuss/syncjson', [MenuController::class, 'syncJson'])->name('menuss.syncjson');
 
 Route::group(['prefix' => 'auth'], function(){
     Route::get('login', function () { return view('pages.auth.login'); });

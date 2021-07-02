@@ -32,17 +32,22 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function($view)
         {
             if (Auth::check()) {
-                $menu1 = DB::table('menu_master')->select('refid','partkey','menu_name')->whereIn('partkey', explode(",", Auth::user()->menus))->where('parent_id', 0)->orderBy('order_fld','ASC')->get();
-                foreach($menu1 as $submenus){
+                if(Auth::user()->user_type == "Admin") {
+                    $menu1 = DB::table('menus')->select('refid','menu_name')->where('parent_id', 0)->where('stat', '=', 'A')->orderBy('order_fld','ASC')->get();
+                } else {
+                    $menu1 = DB::table('menus')->select('refid','menu_name')->whereIn('refid', explode(",", Auth::user()->menus))->where('parent_id', 0)->where('stat', '=', 'A')->orderBy('order_fld','ASC')->get();
+                }
+                foreach($menu1 as $submenus) {
                     //echo $submenus->refid . "</br></br>";
-                    $menu2 = DB::table('menu_master')->select('refid', 'menu_name', 'is_child', 'parent_id', 'partkey')->where('parent_id', $submenus->refid)->orderBy('order_fld','ASC')->get();
+                    $menu2 = DB::table('menus')->select('refid', 'menu_name', 'is_child', 'parent_id')->where('parent_id', $submenus->refid)->where('stat', '=', 'A')->orderBy('order_fld','ASC')->get();
                     foreach($menu2 as $menudiv){
-                        $menuarr2[$submenus->partkey][$menudiv->refid] = $menudiv->menu_name;
+                        $menuarr2[$submenus->refid][$menudiv->refid] = $menudiv->menu_name;
                     }
                 }
                 // echo "<pre>";
                 // print_r($menu1);
                 // exit;
+                if(empty($menu1)) { $menu1 = array(); $menuarr2 = array(); }
                 $view->with('usrmenus', $menu1)->with('menuarr2',$menuarr2);
             } else {
                 $view->with('currentUser', null);

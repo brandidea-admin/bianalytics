@@ -10,14 +10,19 @@
         </div>
     </div>
 
+@php
+if(!isset($menuarr2)){
+    $menuarr2 = array();
+}
+@endphp
+
     <div class="sidebar-body">
 
-    <div style="padding-left: 15px; padding-top: 10px;">
-        <div class="input-group date datepicker dashboard-date" id="dashboardDate">
+        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
             <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
-            <input type="text" class="form-control">
+            <!-- <input type="text" size="10" class="form-control"> -->
+            <input class="date-own form-control" id="set-date" style="width: 250px;" type="text">
         </div>
-    </div>
     
         <ul class="nav">
 
@@ -25,12 +30,13 @@
           @foreach($menuarr2 as $k6 => $slist)
 
             <div class="sidebar-body submenu-{{$k6}}" style="display:none;">
-                <table border="1" bgcolor="#FF3366" style="width:100%; text-align:center; padding-top: 5px; margin-bottom: 10px;"><tr>
-              @foreach($slist as $k7 => $menu2)
+                <table border="1" bgcolor="#FF3366" style="width:100%; text-align:center; padding-top: 5px; margin-bottom: 10px;">
+                <tr>
+                    @foreach($slist as $k7 => $menu2)
                     <td>
                         <a href="#" class="menu3" alt="{{$k7}}" style="color:#fff; font-size:x-small;">{{$menu2}}</a>
                     </td>
-              @endforeach
+                    @endforeach
                 </tr></table>
 
                <div class="apply-menus"></div>
@@ -49,21 +55,21 @@
 
         </div>
 
-            @if(Auth::user()->user_type == 'Admin')
+            @if(!empty(Auth::user()->user_type) && Auth::user()->user_type == 'Admin')
 
             <li class="nav-item {{ active_class(['settings/*']) }}">
-                <a class="nav-link" data-toggle="collapse" href="#master_keyword" role="button" aria-expanded="{{ is_active_route(['master_keyword/*']) }}" aria-controls="master_keyword">
+                <a class="nav-link" data-toggle="collapse" href="#mastermenu" role="button" aria-expanded="{{ is_active_route(['master_keyword/*']) }}" aria-controls="master_keyword">
                     <i class="link-icon" data-feather="tool"></i>
                     <span class="link-title">Settings</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['master_keyword/*']) }}" id="master_keyword">
+                <div class="collapse {{ show_class(['mastermenu/*']) }}" id="mastermenu">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ url('/menumaster') }}" class="nav-link {{ active_class(['menumaster']) }}">Menu Master</a>
+                            <a href="{{ url('/menus') }}" class="nav-link {{ active_class(['menus']) }}">Master Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/country') }}" class="nav-link {{ active_class(['country']) }}">Countries</a>
+                            <a href="{{ url('/countries') }}" class="nav-link {{ active_class(['country']) }}">Countries</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/user') }}" class="nav-link {{ active_class(['user']) }}">Users</a>
@@ -81,13 +87,18 @@
 
 </nav>
 
+@push('plugin-scripts')
+<script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+@endpush
+
+@push('custom-scripts')
+<script src="{{ asset('assets/js/dashboard.js') }}"></script>
+<script src="{{ asset('assets/js/datepicker.js') }}"></script>
+@endpush
+
 @push('custom-scripts')
 <script>
     $(function() {
-
-        // $('#off-calendar').click(function() {
-        //     // alert("ZZZZZZZZZZ");
-        // });
 
         $('.gen-report').click(function() {
 
@@ -373,13 +384,33 @@
 
             return false;
         });
+
+        $('.date-own').datepicker({
+            minViewMode: 2,
+            format: 'yyyy',
+            autoclose: true
+        }).on('changeDate', function(e) {
+            console.log(e.format());
+            var yr = e.format();
+            var minDate = new Date(e.date.valueOf());
+            var fyear = yr-1 + "-" + yr;
+            //alert(fyear);
+            $('#set-date').val("2020-2021");
+        });
+
+        var currentTime = new Date();
+        var year = currentTime.getFullYear();
+        var finyear = year-1 + "-" + year;
+        $('#set-date').val(finyear);
+        
     });
 </script>
 
 <style>
     .datepicker {
-        background-color: #aaa;
-        color: #333;
+        background-color: #d3f9d8;
+        color: blue;
+        margin-left: 10px;;
     }
 </style>
 @endpush

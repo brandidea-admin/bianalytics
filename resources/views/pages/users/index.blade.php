@@ -1,8 +1,13 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-<link href="{{ asset('/assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+<link href="{{ asset('/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="{{{ URL::asset('/assets/dist/css/bootstrap.min.css')}}}" />
+<link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet" />
 @endpush
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 
@@ -23,12 +28,13 @@
         </a>
     </div>
 </div>
+
 <div class="row">
     <div class="col-lg-12 col-xl-12 stretch-card">
         <div class="card shadow-lg">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="companyTable" class="table table-hover table-bordered mb-0">
+                    <table id="companyTable" class="table table-striped table-bordered mb-0">
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id=""></th>
@@ -64,8 +70,12 @@
                                     <a href="{{url('/user/'.$slist->id.'/edit')}}" class="btn btn-sm btn-success btn-icon-text" data-toggle="tooltip" data-placement="bottom" title="Edit User Record">
                                         <i class="fas fa-edit text-white"></i>
                                     </a>
-                                    
-                                    <a href="{{url('/user/'.$slist->id.'/menu')}}" class="btn btn-sm btn-success btn-icon-text" data-toggle="tooltip" data-placement="bottom" title="Add Menu Access">
+
+                                    <!-- <a href="{{url('/menusetup/')}}" class="btn btn-sm btn-success btn-icon-text" data-toggle="tooltip" data-placement="bottom" title="Add Menu Access">
+                                        <i class="fas fa-sitemap text-white"></i>
+                                    </a> -->
+
+                                    <a href="#" alt="{{$slist->id}}~~~{{$slist->firstname}}~~~{{$slist->lastname}}~~~{{$slist->user_type}}" class="btn btn-sm btn-success btn-icon-text menuset-id" data-toggle="tooltip" data-placement="bottom" title="Add Menu Access">
                                         <i class="fas fa-sitemap text-white"></i>
                                     </a>
 
@@ -101,13 +111,62 @@
 
 @push('plugin-scripts')
 <script src="{{ asset('/assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 <script src="{{ asset('/assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('/assets/js/dashboard.js') }}"></script>
+<script src="{{ asset('/assets/js/datepicker.js') }}"></script>
 @endpush
+
+@php
+$dbinfo = env('DB_HOST') . "~~~" . env('DB_DATABASE') . "~~~" . env('DB_USERNAME') . "~~~" . env('DB_PASSWORD');
+@endphp
 
 @push('custom-scripts')
 <script>
     $(function() {
-        $('#companyTable').DataTable();
+
+        $('#companyTable').DataTable( {
+            dom: 'Bfrtip'
+            // buttons: [
+            //     'copy', 'csv', 'excel', 'pdf', 'print'
+            // ]
+        });
+
+      $(".menuset-id").click(function() {
+        var uinfo = $(this).attr("alt");
+        // alert(uinfo);
+        // return false; 
+        sessionStorage.setItem("usrinfo", uinfo);
+        sessionStorage.setItem("dbinfo", "{{$dbinfo}}");
+        
+        let _token   = $('meta[name="csrf-token"]').attr('content');
+        //window.location.href="{{ url('/menusetup/') }}/"+uid+"/edit";
+        // return false;
+        $.ajax({
+                type: 'POST',
+                url: "{{ url('/menusetup/') }}",
+                data: { 
+                    uid: uinfo,
+                    _token: _token
+                },
+                complete: function() {
+                    $('#psdatasourcSpinner').hide();
+                },
+                success: function(data) {
+                    console.log(data);
+                    //return false;
+                    window.location.href="{{ url('/menusetup/') }}";
+                }
+          });
+
+      });
+
     });
 
 
